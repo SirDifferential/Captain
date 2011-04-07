@@ -1,5 +1,7 @@
 /*
 Captain
+
+Yet another game project
 */
 
 #ifdef WIN32
