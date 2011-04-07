@@ -37,6 +37,7 @@ Captain::Captain()
     SDL_WM_SetCaption("Captain", NULL);
     SDL_SetVideoMode(screenX, screenY, screenBPP, SDL_OPENGL |SDL_RESIZABLE);
     glewInit();
+	start();
 }
 
 Captain::~Captain()
