@@ -11,6 +11,7 @@ private:
 	int screenX;
 	int screenY;
 	int screenBPP;
+	bool useRandomBG;
 public:
 	ProgramManager();
 	~ProgramManager();
@@ -24,6 +25,7 @@ public:
 	int getScreenX() { return screenX; }
 	int getScreenY() { return screenY; }
 	void setRunning(bool r) { running = r; }
+	bool getUseRandomBG() { return useRandomBG; }
 };
 
 extern ProgramManager progmgr;

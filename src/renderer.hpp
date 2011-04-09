@@ -5,10 +5,15 @@ class Renderer
 {
 private:
 	void renderBase();
-	void render();
+	void renderBackground();
+	void renderObjects();
+	void renderForeground();
 public:
 	Renderer();
 	~Renderer();
+	void render();
 };
+
+extern Renderer renderer;
 
 #endif
