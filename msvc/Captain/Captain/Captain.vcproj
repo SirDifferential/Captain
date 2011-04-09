@@ -172,11 +172,39 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\inputManager.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\main.cpp"
 				>
 			</File>
 			<File
+				RelativePath=".\objectManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\programManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\renderer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ship.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\sprite.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\square.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\text.cpp"
 				>
 			</File>
 		</Filter>
@@ -186,11 +214,35 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\main.hpp"
+				RelativePath=".\inputManager.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\objectManager.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\programManager.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\renderer.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ship.hpp"
 				>
 			</File>
 			<File
 				RelativePath=".\sprite.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\square.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\text.hpp"
 				>
 			</File>
 			<File

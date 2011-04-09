@@ -8,8 +8,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "main.hpp"
 #include <iostream>
+#include "programManager.hpp"
 
 #define dist(a, b, c, d) sqrt(double((a - c) * (a - c) + (b - d) * (b - d)))
 
@@ -305,7 +305,7 @@ void Sprite::render()
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
 	glLoadIdentity();
-	glOrtho(0, captain.getScreenX(), 0, captain.getScreenY(), -1, 1);
+	glOrtho(0, progmgr.getScreenX(), 0, progmgr.getScreenY(), -1, 1);
 	
 	glMatrixMode(GL_MODELVIEW);
 	glTranslatef(x, y, 0);

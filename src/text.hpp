@@ -2,7 +2,6 @@
 #define __TEXT_HPP_
 
 #include "sprite.hpp"
-#include "main.hpp"
 
 class Text : public Sprite
 {
