@@ -23,8 +23,6 @@ public:
 	
 	virtual void render();
 	void renderScale(float scale);
-	void renderSine();
-	void renderSineScale(float scale);
 	void setPixels();
 	void setPixel ( SDL_Surface* pSurface , int x , int y , SDL_Color color );
 	SDL_Color getPixel ( SDL_Surface* pSurface , int x , int y );

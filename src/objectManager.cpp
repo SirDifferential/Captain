@@ -1,7 +1,7 @@
 #include "objectManager.hpp"
 #include "programManager.hpp"
 
-ObjectManager objectmanager;
+ObjectManager objectmgr;
 
 ObjectManager::ObjectManager()
 {

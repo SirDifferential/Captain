@@ -1,5 +1,7 @@
 #include "programManager.hpp"
 #include "inputManager.hpp"
+#include "renderer.hpp"
+#include "timedFunctions.hpp"
 #include <iostream>
 
 #ifdef WIN32
@@ -48,6 +50,8 @@ void ProgramManager::start()
 	screenX = 640;
 	screenY = 480;
 	screenBPP = 32;
+
+	useRandomBG = true;
 }
 
 void ProgramManager::stop()
@@ -69,6 +73,9 @@ void ProgramManager::work()
 			std::cout << "FPS: " << (1.0f/delta) << std::endl;
 			nextFPS += 1000;
 		}
+		
+		renderer.render();
+		triggers.poll();
 
 		inputmgr.handleInput();
 		SDL_GL_SwapBuffers();

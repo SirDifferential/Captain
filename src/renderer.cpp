@@ -2,7 +2,9 @@
 #include <GL/glew.h>
 #include "vector3.hpp"
 #include "programManager.hpp"
+#include "objectManager.hpp"
 #include "stars.hpp"
+#include "sprite.hpp"
 
 Renderer renderer;
 
@@ -14,13 +16,28 @@ namespace {
 
 Renderer::Renderer()
 {
-		eye.x = 0;
-		eye.y = 0;
-		eye.z = 10;
+	eye.x = 0;
+	eye.y = 0;
+	eye.z = 30;
+
+	currentBackground.x = progmgr.getScreenX()>>1;
+	currentBackground.y = progmgr.getScreenY()>>1;
+	currentBackground.opacity = 1.0f;
 }
 
 Renderer::~Renderer()
 {
+}
+
+void Renderer::changeBackground()
+{
+	currentBackground = arena.giveBackground();
+}
+
+void Renderer::changeBackground(std::string path)
+{
+	Sprite temp(path);
+	currentBackground = path;
 }
 
 void Renderer::renderBase()
@@ -31,7 +48,7 @@ void Renderer::renderBase()
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	gluPerspective(65, progmgr.getScreenX()/progmgr.getScreenY(), 0.1, 50);
+	gluPerspective(65, progmgr.getScreenX()/progmgr.getScreenY(), 0.1, 100);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -47,7 +64,7 @@ void Renderer::renderBackground()
 	{
 		stars.render();
 	} else {
-		// Load some background image
+		currentBackground.renderScale(2.0f);
 	}
 }
 

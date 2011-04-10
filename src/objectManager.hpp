@@ -3,7 +3,8 @@
 
 #include <vector>
 #include "ship.hpp"
-#include "square.hpp"
+#include "sprite.hpp"
+#include "arena.hpp"
 
 class ObjectManager
 {
@@ -13,5 +14,7 @@ public:
 	ObjectManager();
 	~ObjectManager();
 };
+
+extern ObjectManager objectmgr;
 
 #endif

@@ -265,6 +265,7 @@ Sprite::Sprite(const std::string &filename) :
 		GLenum format = check(surface, filename);
 		w = surface->w;
 		h = surface->h;
+		
 		if (buildMipmaps) {
 			gluBuild2DMipmaps(target,
 			format,
@@ -315,6 +316,41 @@ void Sprite::render()
 	glDisable(GL_LIGHTING);
 	glDisable(GL_BLEND);
 	glDisable(GL_DEPTH_TEST);
+	glBindTexture(GL_TEXTURE_2D, id);
+	glColor4f(1, 1, 1, opacity);
+	
+	glBegin(GL_QUADS);
+	glTexCoord2f(0, 1); glVertex2f(-w, -h);
+	glTexCoord2f(1, 1); glVertex2f(w, -h);
+	glTexCoord2f(1, 0); glVertex2f(w, h);
+	glTexCoord2f(0, 0); glVertex2f(-w, h);
+	glEnd();
+	
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+}
+
+void Sprite::renderScale(float scale)
+{
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	glOrtho(0, progmgr.getScreenX(), 0, progmgr.getScreenY(), -1, 1);
+	
+	glMatrixMode(GL_MODELVIEW);
+	glTranslatef(x, y, 0);
+	glScalef(scale, scale, scale);
+
+	glEnable(GL_TEXTURE_2D);
+	glDisable(GL_LIGHTING);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glBlendEquation(GL_ADD);
 	glBindTexture(GL_TEXTURE_2D, id);
 	glColor4f(1, 1, 1, opacity);
 	

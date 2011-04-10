@@ -1,3 +1,5 @@
+// Gets key presses, all SDL
+
 #include "inputManager.hpp"
 #include "programManager.hpp"
 

@@ -1,6 +1,7 @@
 #include "programManager.hpp"
 #include "inputManager.hpp"
 #include "renderer.hpp"
+#include "timedFunctions.hpp"
 #include <iostream>
 
 #ifdef WIN32
@@ -74,7 +75,8 @@ void ProgramManager::work()
 		}
 		
 		renderer.render();
-		
+		triggers.poll();
+
 		inputmgr.handleInput();
 		SDL_GL_SwapBuffers();
 	}
