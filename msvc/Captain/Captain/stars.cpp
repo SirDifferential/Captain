@@ -56,4 +56,3 @@ void Stars::Star::render()
 	glColor4f(color.x, color.y, color.z, stars->opacity);
 	glVertex3fv(&position.x);
 }
-
