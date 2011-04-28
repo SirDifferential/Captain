@@ -326,6 +326,7 @@ void Sprite::change(const std::string &filename)
 
 	id = 0;
 	glGenTextures(1, &id);
+	std::cout << id << std::endl;
 	assert(id);
 	opacity = 0.0f;
 	
@@ -404,6 +405,14 @@ void Sprite::poke()
 void Sprite::render()
 {	
 	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	glOrtho(0, progmgr.getScreenX(), 0, progmgr.getScreenY(), -1, 1);
+
+	glMatrixMode(GL_MODELVIEW);
 	glTranslatef(x, y, 0);
 	glScalef(1.0f, 1.0f, 1.0f);
 
@@ -428,7 +437,15 @@ void Sprite::render()
 }
 
 void Sprite::renderScale(float scale)
-{	
+{
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	glOrtho(0, progmgr.getScreenX(), 0, progmgr.getScreenY(), -1, 1);
+	
 	glMatrixMode(GL_MODELVIEW);
 	glTranslatef(x, y, 0);
 	glScalef(scale, scale, scale);
