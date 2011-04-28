@@ -47,11 +47,11 @@ void ProgramManager::start()
 	nextFPS = 1000;
 	running = true;
 
-	screenX = 640;
-	screenY = 480;
+	screenX = 1024;
+	screenY = 768;
 	screenBPP = 32;
 
-	useRandomBG = false;
+	useRandomBG = true;
 }
 
 void ProgramManager::stop()

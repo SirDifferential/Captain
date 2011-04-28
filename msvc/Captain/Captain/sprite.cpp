@@ -317,6 +317,8 @@ Sprite::~Sprite()
 
 void Sprite::change(const std::string &filename)
 {
+	// The surface must be reseted before IMG_Load is called again
+	// Otherwise apocalypses occur. Six guineapigs died for this reason...
 	if (surface != NULL)
 	{
 		surface = NULL;
@@ -400,15 +402,7 @@ void Sprite::poke()
 }
 
 void Sprite::render()
-{
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glLoadIdentity();
-	glMatrixMode(GL_PROJECTION);
-	glPushMatrix();
-	glLoadIdentity();
-	glOrtho(0, progmgr.getScreenX(), 0, progmgr.getScreenY(), -1, 1);
-	
+{	
 	glMatrixMode(GL_MODELVIEW);
 	glTranslatef(x, y, 0);
 	glScalef(1.0f, 1.0f, 1.0f);
@@ -434,15 +428,7 @@ void Sprite::render()
 }
 
 void Sprite::renderScale(float scale)
-{
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glLoadIdentity();
-	glMatrixMode(GL_PROJECTION);
-	glPushMatrix();
-	glLoadIdentity();
-	glOrtho(0, progmgr.getScreenX(), 0, progmgr.getScreenY(), -1, 1);
-	
+{	
 	glMatrixMode(GL_MODELVIEW);
 	glTranslatef(x, y, 0);
 	glScalef(scale, scale, scale);

@@ -4,7 +4,6 @@
 #include "programManager.hpp"
 #include "objectManager.hpp"
 #include "stars.hpp"
-//#include "sprite.hpp"
 
 Renderer renderer;
 
@@ -18,7 +17,7 @@ Renderer::Renderer()
 {
 	eye.x = 0;
 	eye.y = 0;
-	eye.z = 30;
+	eye.z = 50;
 
 	center.x = 0;
 	center.y = 0;
@@ -42,13 +41,13 @@ void Renderer::changeBackground(std::string path)
 
 void Renderer::renderBase()
 {
-	glClearColor(0.2f,0,0,0);
+	glClearColor(0.0,0,0,0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	gluPerspective(65, progmgr.getScreenX()/progmgr.getScreenY(), 0.1, 100);
+	gluPerspective(65, progmgr.getScreenX()/progmgr.getScreenY(), 0.1, 150);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -56,6 +55,14 @@ void Renderer::renderBase()
 	gluLookAt(eye.x, eye.y, eye.z,
               center.x, center.y, center.z,
               0, 1, 0);
+	
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	glOrtho(0, progmgr.getScreenX(), 0, progmgr.getScreenY(), -1, 1);
 }
 
 void Renderer::renderBackground()

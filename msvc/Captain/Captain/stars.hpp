@@ -12,20 +12,25 @@ public:
 
 	float opacity;
 	void render();
+	void update();
 
 private:
 	class Star
 	{
 	public:
 		Vector3 position;
+		Vector3 velocity;
+		Vector3 acceleration;
 		Vector3 color;
 		int size;
 		void render();
+		void update();
 		Star(Stars *stars);
+		bool firstChaotic;
 	private:
 		Stars* stars;
 	};
-
+	
 	std::vector<Star> stars;
 };
 
