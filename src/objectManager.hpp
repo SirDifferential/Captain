@@ -13,6 +13,8 @@ private:
 public:
 	ObjectManager();
 	~ObjectManager();
+
+	void render();
 };
 
 extern ObjectManager objectmgr;

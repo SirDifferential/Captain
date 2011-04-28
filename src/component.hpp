@@ -7,6 +7,8 @@ private:
 public:
 	Component();
 	~Component();
+
+	void render();
 };
 
 #endif

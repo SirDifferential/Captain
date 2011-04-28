@@ -76,6 +76,7 @@ void Renderer::renderBackground()
 
 void Renderer::renderObjects()
 {
+	objectmgr.render();
 }
 
 void Renderer::renderForeground()

@@ -11,6 +11,8 @@ private:
 public:
 	Square();
 	~Square();
+
+	void render();
 };
 
 #endif

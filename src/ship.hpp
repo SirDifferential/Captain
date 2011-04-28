@@ -2,6 +2,7 @@
 #define __SHIP_HPP_
 
 #include "square.hpp"
+#include "sprite.hpp"
 #include "vector3.hpp"
 #include <vector>
 
@@ -17,9 +18,13 @@ private:
 
 	std::vector<Square> squares;
 
+	Sprite hull;
+
 public:
 	Ship();
     ~Ship();
+
+	void render();
 };
 
 #endif
