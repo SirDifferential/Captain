@@ -54,6 +54,14 @@ void Renderer::renderBase()
 	gluLookAt(eye.x, eye.y, eye.z,
               center.x, center.y, center.z,
               0, 1, 0);
+	
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	glOrtho(0, progmgr.getScreenX(), 0, progmgr.getScreenY(), -1, 1);
 }
 
 void Renderer::renderBackground()

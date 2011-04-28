@@ -248,8 +248,6 @@ Sprite::Sprite(const std::string &filename) :
 	bool buildMipmaps = true;
 	if (surface != NULL)
 		SDL_FreeSurface(surface);
-	else
-		surface = NULL;
 	std::cout << "Loading " << filename << std::endl;
 	if (target == GL_TEXTURE_CUBE_MAP) {
 		for (int side=0; side<6; side++) {
@@ -326,7 +324,6 @@ void Sprite::change(const std::string &filename)
 
 	id = 0;
 	glGenTextures(1, &id);
-	std::cout << id << std::endl;
 	assert(id);
 	opacity = 0.0f;
 	
@@ -336,8 +333,6 @@ void Sprite::change(const std::string &filename)
 	bool buildMipmaps = true;
 	if (surface != NULL)
 		SDL_FreeSurface(surface);
-	else
-		surface = NULL;
 	std::cout << "Loading " << filename << std::endl;
 	if (target == GL_TEXTURE_CUBE_MAP) {
 		for (int side=0; side<6; side++) {
@@ -405,14 +400,6 @@ void Sprite::poke()
 void Sprite::render()
 {	
 	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glLoadIdentity();
-	glMatrixMode(GL_PROJECTION);
-	glPushMatrix();
-	glLoadIdentity();
-	glOrtho(0, progmgr.getScreenX(), 0, progmgr.getScreenY(), -1, 1);
-
-	glMatrixMode(GL_MODELVIEW);
 	glTranslatef(x, y, 0);
 	glScalef(1.0f, 1.0f, 1.0f);
 
@@ -437,15 +424,7 @@ void Sprite::render()
 }
 
 void Sprite::renderScale(float scale)
-{
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glLoadIdentity();
-	glMatrixMode(GL_PROJECTION);
-	glPushMatrix();
-	glLoadIdentity();
-	glOrtho(0, progmgr.getScreenX(), 0, progmgr.getScreenY(), -1, 1);
-	
+{	
 	glMatrixMode(GL_MODELVIEW);
 	glTranslatef(x, y, 0);
 	glScalef(scale, scale, scale);

@@ -21,11 +21,11 @@ Stars::Stars()
 		i->position.x = (double(rand())/RAND_MAX);
 		i->position.y = (double(rand())/RAND_MAX);
 		i->position.z = (double(rand())/RAND_MAX)*-1;
-		i->position.x *= progmgr.getScreenX();
-		i->position.y *= progmgr.getScreenY();
-		i->color.x = (double(rand())/RAND_MAX) * 0.2 + 0.3;
-		i->color.y = (double(rand())/RAND_MAX) * 0.3 + 0.2;
-		i->color.z = (double(rand())/RAND_MAX) * 0.2 + 0.1;
+		i->position.x *= 2000;
+		i->position.y *= 2000;
+		i->color.x = 1.0-(double(rand())/RAND_MAX) * 0.4 + 0.3;
+		i->color.y = 1.0-(double(rand())/RAND_MAX) * 0.4 + 0.2;
+		i->color.z = 1.0-(double(rand())/RAND_MAX) * 0.4 + 0.1;
 		i->size = rand() % 3 + 1;
 		i->acceleration.z  = 0.0;
 		i->firstChaotic = true;
