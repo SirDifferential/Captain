@@ -4,7 +4,7 @@
 #include "programManager.hpp"
 #include "objectManager.hpp"
 #include "stars.hpp"
-#include "sprite.hpp"
+//#include "sprite.hpp"
 
 Renderer renderer;
 
@@ -20,24 +20,24 @@ Renderer::Renderer()
 	eye.y = 0;
 	eye.z = 30;
 
+	center.x = 0;
+	center.y = 0;
+	center.z = 0;
+	
+	changeBackground("default.png");
 	currentBackground.x = progmgr.getScreenX()>>1;
 	currentBackground.y = progmgr.getScreenY()>>1;
-	currentBackground.opacity = 1.0f;
 }
 
 Renderer::~Renderer()
 {
 }
 
-void Renderer::changeBackground()
-{
-	currentBackground = arena.giveBackground();
-}
-
 void Renderer::changeBackground(std::string path)
 {
-	Sprite temp(path);
-	currentBackground = path;
+	std::cout << "Changing background" << std::endl;
+	currentBackground.change(path);
+	currentBackground.poke();
 }
 
 void Renderer::renderBase()
@@ -64,7 +64,7 @@ void Renderer::renderBackground()
 	{
 		stars.render();
 	} else {
-		currentBackground.renderScale(2.0f);
+		currentBackground.renderScale(1.0f);
 	}
 }
 

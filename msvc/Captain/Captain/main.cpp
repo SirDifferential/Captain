@@ -4,8 +4,8 @@ Captain
 Yet another game project
 */
 
-#include <iostream>
 #include "programManager.hpp"
+#include <iostream>
 
 int main(int argc, char** argv)
 {

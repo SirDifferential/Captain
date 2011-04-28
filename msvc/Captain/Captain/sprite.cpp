@@ -60,7 +60,7 @@ SDL_Color Sprite::getPixel ( SDL_Surface* pSurface , int x , int y )
 GLenum Sprite::check(SDL_Surface *surface, const string &filename)
 {
 	if (!surface) {
-		clog << "Surface " << filename << " is empty" << endl;
+		std::cout << "Surface " << filename << " is empty" << std::endl;
 		throw string("SDL surface error:") += filename;
 	}
 	
@@ -72,12 +72,25 @@ GLenum Sprite::check(SDL_Surface *surface, const string &filename)
 	
 	/* Select texture format. */
 	GLenum format;
+	std::cout << "Checking format" << std::endl;
 	if (surface->format->BytesPerPixel == 4)
+	{
 		format = GL_RGBA;
+		useBlend == false;
+		std::cout << "GL_RGBA" << std::endl;
+	}
 	else if (surface->format->BytesPerPixel == 3)
+	{
 		format = GL_RGB;
+		useBlend == false;
+		std::cout << "GL_RGB" << std::endl;
+	}
 	else if (surface->format->BytesPerPixel == 1)
+	{
 		format = GL_LUMINANCE;
+		useBlend == false;
+		std::cout << "GL_LUMI" << std::endl;
+	}
 	else {
 		SDL_FreeSurface(surface);
 		throw "Image format must be 8, 24 or 32 bits per pixel.";
@@ -233,8 +246,11 @@ Sprite::Sprite(const std::string &filename) :
 	
 	GLuint target = GL_TEXTURE_2D;
 	bool buildMipmaps = true;
-	surface = NULL;
-	clog << "Loading " << filename << endl;
+	if (surface != NULL)
+		SDL_FreeSurface(surface);
+	else
+		surface = NULL;
+	std::cout << "Loading " << filename << std::endl;
 	if (target == GL_TEXTURE_CUBE_MAP) {
 		for (int side=0; side<6; side++) {
 			ostringstream f;
@@ -294,8 +310,93 @@ Sprite::Sprite(const std::string &filename) :
 
 Sprite::~Sprite()
 {
+	std::cout << "Deleting surface" << std::endl;
 	assert(surface);
 	SDL_FreeSurface(surface);
+}
+
+void Sprite::change(const std::string &filename)
+{
+	if (surface != NULL)
+	{
+		surface = NULL;
+	}
+
+	id = 0;
+	glGenTextures(1, &id);
+	assert(id);
+	opacity = 0.0f;
+	
+	glBindTexture(GL_TEXTURE_2D, id);
+	
+	GLuint target = GL_TEXTURE_2D;
+	bool buildMipmaps = true;
+	if (surface != NULL)
+		SDL_FreeSurface(surface);
+	else
+		surface = NULL;
+	std::cout << "Loading " << filename << std::endl;
+	if (target == GL_TEXTURE_CUBE_MAP) {
+		for (int side=0; side<6; side++) {
+			ostringstream f;
+			f << filename << side << ".png";
+			surface = IMG_Load(f.str().c_str());
+			GLenum format = check(surface, f.str()), t;
+			switch (side) {
+			case 0: t = GL_TEXTURE_CUBE_MAP_POSITIVE_X_EXT; break;
+			case 1: t = GL_TEXTURE_CUBE_MAP_NEGATIVE_X_EXT; break;
+			case 2: t = GL_TEXTURE_CUBE_MAP_POSITIVE_Y_EXT; break;
+			case 3: t = GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_EXT; break;
+			case 4: t = GL_TEXTURE_CUBE_MAP_POSITIVE_Z_EXT; break;
+			case 5: t = GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_EXT; break;
+			}
+			if (buildMipmaps)
+				gluBuild2DMipmaps(t,
+				format,
+				surface->w,
+				surface->h,
+				format,
+				GL_UNSIGNED_BYTE,
+				surface->pixels);
+			else throw "Code me.";
+			}
+	}
+	else if (target == GL_TEXTURE_2D) {
+		surface = IMG_Load(filename.c_str());
+		GLenum format = check(surface, filename);
+		w = surface->w;
+		h = surface->h;
+		
+		if (buildMipmaps) {
+			gluBuild2DMipmaps(target,
+			format,
+			surface->w,
+			surface->h,
+			format,
+			GL_UNSIGNED_BYTE,
+			surface->pixels);
+		} else {
+			glTexImage2D(target,
+			0,
+			format,
+			surface->w,
+			surface->h,
+			0,
+			format,
+			GL_UNSIGNED_BYTE,
+			surface->pixels);
+		}
+		glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(target, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(target, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	}
+}
+
+void Sprite::poke()
+{
+	std::cout << "Surface being poked!" << std::endl;
+	assert(surface);
 }
 
 void Sprite::render()
@@ -348,8 +449,15 @@ void Sprite::renderScale(float scale)
 
 	glEnable(GL_TEXTURE_2D);
 	glDisable(GL_LIGHTING);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	// Implement some better way for checking if the sprite has 4 colour channels
+	if (this->useBlend)
+	{
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	} else
+	{
+		glDisable(GL_BLEND);
+	}
 	glBlendEquation(GL_ADD);
 	glBindTexture(GL_TEXTURE_2D, id);
 	glColor4f(1, 1, 1, opacity);

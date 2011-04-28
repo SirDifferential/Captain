@@ -6,15 +6,6 @@ Arena::Arena()
 {
 }
 
-Arena::Arena(std::string path)
-{
-	background = path;
-}
-
-void Arena::changeBackground()
-{
-}
-
 Arena::~Arena()
 {
 }

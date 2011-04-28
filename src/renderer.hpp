@@ -16,7 +16,6 @@ public:
 	Renderer();
 	~Renderer();
 	void render();
-	void changeBackground();
 	void changeBackground(std::string path);
 };
 

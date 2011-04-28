@@ -22,9 +22,11 @@ public:
 	virtual ~Sprite();
 	
 	virtual void render();
+	void poke();
 	void renderScale(float scale);
 	void setPixels();
 	void setPixel ( SDL_Surface* pSurface , int x , int y , SDL_Color color );
+	void change(const std::string &filename);
 	SDL_Color getPixel ( SDL_Surface* pSurface , int x , int y );
 	GLenum check(SDL_Surface *surface, const string &filename);
 	GLenum checkGenerated(SDL_Surface *surface);
@@ -32,6 +34,7 @@ public:
 	float x, y;
 	float w, h;
 	float iterations;
+	bool useBlend;
 	GLenum format;
 	GLuint id;
 	float opacity;

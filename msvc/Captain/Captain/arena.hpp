@@ -5,15 +5,10 @@
 
 class Arena
 {
-private:
-	Sprite background;
-	void changeBackground();
 public:
 	Arena();
 	Arena(std::string);
 	~Arena();
-
-	Sprite giveBackground() { return background; }
 };
 
 extern Arena arena;

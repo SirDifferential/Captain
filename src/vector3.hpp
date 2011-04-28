@@ -223,7 +223,7 @@ public:
 
 inline ostream &operator <<(ostream &s, const Vector3 &v)
 {
-  s << '[' << v.x << ", " << v.y << ", " << v.z << ']' << endl;
+  s << '[' << v.x << ", " << v.y << ", " << v.z << ']' << std::endl;
   return s;
 }
 

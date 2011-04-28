@@ -51,7 +51,7 @@ void ProgramManager::start()
 	screenY = 480;
 	screenBPP = 32;
 
-	useRandomBG = true;
+	useRandomBG = false;
 }
 
 void ProgramManager::stop()
