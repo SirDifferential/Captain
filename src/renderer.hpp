@@ -10,13 +10,10 @@ private:
 	void renderBackground();
 	void renderObjects();
 	void renderForeground();
-
-	Sprite currentBackground;
 public:
 	Renderer();
 	~Renderer();
 	void render();
-	void changeBackground(std::string path);
 };
 
 extern Renderer renderer;

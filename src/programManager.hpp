@@ -17,8 +17,7 @@ private:
 	bool useRandomBG;
 	bool inMenu;
 	bool firstTime;
-
-	Text logo;
+	
 	Menu mainMenu;
 public:
 	ProgramManager();

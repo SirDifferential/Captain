@@ -1,5 +1,6 @@
 #include "programManager.hpp"
 #include "inputManager.hpp"
+#include "objectManager.hpp"
 #include "renderer.hpp"
 #include "timedFunctions.hpp"
 #include <iostream>
@@ -90,15 +91,14 @@ void ProgramManager::work()
 			mainMenu = Menu(menuItems);
 			
 			std::cout << "Creating logo" << std::endl;
-			logo = Text(300, 200, "CAPTAIN");
-			logo.x = 100;
-			logo.y = 100;
+			objectmgr.addNewGenericText(300, 200, "CAPTAIN");
+
+			objectmgr.changeMainBackground("default.png");
 			firstTime = false;
 			std::cout << "First loop variable setup done" << std::endl;
 		}
 		if (inMenu)
 		{
-			logo.render();
 			mainMenu.render();
 		}
 		

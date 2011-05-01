@@ -39,6 +39,7 @@ public:
 	GLuint id;
 	float opacity;
 	SDL_Surface *surface;
+	std::string path;
 };
 
 #endif

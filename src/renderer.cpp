@@ -5,6 +5,9 @@
 #include "objectManager.hpp"
 #include "stars.hpp"
 
+typedef boost::shared_ptr<Text> TextPtr;
+typedef boost::shared_ptr<Sprite> SpritePtr;
+
 Renderer renderer;
 
 namespace {
@@ -18,39 +21,29 @@ Renderer::Renderer()
 	eye.x = 0;
 	eye.y = 0;
 	eye.z = 50;
-
+	
 	center.x = 0;
 	center.y = 0;
 	center.z = 0;
-	
-	currentBackground.x = progmgr.getScreenX()>>1;
-	currentBackground.y = progmgr.getScreenY()>>1;
 }
 
 Renderer::~Renderer()
 {
 }
 
-void Renderer::changeBackground(std::string path)
-{
-	std::cout << "Changing background" << std::endl;
-	currentBackground.change(path);
-	currentBackground.poke();
-}
-
 void Renderer::renderBase()
 {
 	glClearColor(0.0,0,0,0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+	
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-
+	
 	gluPerspective(65, progmgr.getScreenX()/progmgr.getScreenY(), 0.1, 150);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
+	
 	gluLookAt(eye.x, eye.y, eye.z,
               center.x, center.y, center.z,
               0, 1, 0);
@@ -70,7 +63,7 @@ void Renderer::renderBackground()
 	{
 		stars.render();
 	} else {
-		currentBackground.renderScale(1.0f);
+		objectmgr.renderBackground();
 	}
 }
 

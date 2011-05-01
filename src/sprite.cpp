@@ -247,7 +247,10 @@ Sprite::Sprite(const std::string &filename) :
 	GLuint target = GL_TEXTURE_2D;
 	bool buildMipmaps = true;
 	if (surface != NULL)
+	{
+		surface = NULL;
 		SDL_FreeSurface(surface);
+	}
 	std::cout << "Loading " << filename << std::endl;
 	if (target == GL_TEXTURE_CUBE_MAP) {
 		for (int side=0; side<6; side++) {
@@ -304,11 +307,12 @@ Sprite::Sprite(const std::string &filename) :
 		glTexParameteri(target, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(target, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	}
+	path = filename;
 }
 
 Sprite::~Sprite()
 {
-	std::cout << "Deleting surface" << std::endl;
+	std::cout << "Deleting sprite " << path << std::endl;
 	assert(surface);
 	SDL_FreeSurface(surface);
 }

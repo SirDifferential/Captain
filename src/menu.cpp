@@ -21,7 +21,6 @@ Menu::Menu(std::vector<std::string> entries)
 	{
 		sizex = entries[i].length()*7;		// 7 pixels per character
 		sizey = 10;							// 10 pixels high
-		std::cout << "Adding a new menu item with sizex: " << sizex << ", sizey: " << sizey << ", text: " << entries[i].c_str() << std::endl;
 		TextPtr tempSpritePtr(new Text(sizex, sizey, entries[i].c_str()));
 		items.push_back(tempSpritePtr);
 		std::cout << "Item " << entries[i].c_str() << " added to the list" << std::endl;
