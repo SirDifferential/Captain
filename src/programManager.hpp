@@ -1,6 +1,9 @@
 #ifndef __PROGRAMMANAGER_HPP_
 #define __PROGRAMMANGER_HPP_
 
+#include "text.hpp"
+#include "menu.hpp"
+
 class ProgramManager
 {
 private:
@@ -12,6 +15,11 @@ private:
 	int screenY;
 	int screenBPP;
 	bool useRandomBG;
+	bool inMenu;
+	bool firstTime;
+
+	Text logo;
+	Menu mainMenu;
 public:
 	ProgramManager();
 	~ProgramManager();

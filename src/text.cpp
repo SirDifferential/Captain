@@ -10,9 +10,11 @@ Text::Text(int x, int y, std::string input)
 {
 	w = x;
 	h = y;
-	font = TTF_OpenFont( "NIAGENG.TTF", 40 );
+	font = TTF_OpenFont( "arial.ttf", 40 );
 	id = 0;
+	std::cout << "Calling glGenTExtures" << std::endl;
 	glGenTextures(1, &id);
+	std::cout << "&id: " << &id << std::endl;
 	assert(id);
 	opacity = 1.0f;
 
@@ -28,9 +30,15 @@ Text::Text(int x, int y, std::string input)
 	color2 = 1.0f;
 	color3 = 1.0f;
 	
+	std::cout << "assert font" << std::endl;
+	assert(font);
+	std::cout << "Creating SDL_Surface" << std::endl;
 	surface = TTF_RenderText_Blended( font, input.c_str(), textColor );
+	assert(surface);
+	std::cout << "Checking surface" << std::endl;
 	format = checkGenerated(surface);
-	
+	std::cout << "Check done" << std::endl;
+
 	assert(surface);
 	assert(surface->pixels);
 	// 8 = 1 channel, alpha

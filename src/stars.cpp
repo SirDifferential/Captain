@@ -21,8 +21,8 @@ Stars::Stars()
 		i->position.x = (double(rand())/RAND_MAX);
 		i->position.y = (double(rand())/RAND_MAX);
 		i->position.z = (double(rand())/RAND_MAX)*-1;
-		i->position.x *= 2000;
-		i->position.y *= 2000;
+		i->position.x *= 1300;
+		i->position.y *= 1300;
 		i->color.x = 1.0-(double(rand())/RAND_MAX) * 0.4 + 0.3;
 		i->color.y = 1.0-(double(rand())/RAND_MAX) * 0.4 + 0.2;
 		i->color.z = 1.0-(double(rand())/RAND_MAX) * 0.4 + 0.1;

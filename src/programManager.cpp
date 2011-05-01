@@ -28,6 +28,8 @@ ProgramManager::ProgramManager()
 	std::cout << "SDL initializing" << std::endl;
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_WM_SetCaption("Captain", NULL);
+	std::cout << "SDL_TTF initializing" << std::endl;
+	TTF_Init();
     SDL_SetVideoMode(screenX, screenY, screenBPP, SDL_OPENGL |SDL_RESIZABLE);
 	std::cout << "OpenGL initializing" << std::endl;
     glewInit();
@@ -52,6 +54,8 @@ void ProgramManager::start()
 	screenBPP = 32;
 
 	useRandomBG = true;
+	inMenu = true;
+	firstTime = true;
 }
 
 void ProgramManager::stop()
@@ -72,6 +76,30 @@ void ProgramManager::work()
 		{
 			std::cout << "FPS: " << (1.0f/delta) << std::endl;
 			nextFPS += 1000;
+		}
+		
+		// Some textures need to be created in the rendering loop
+		if (firstTime)
+		{
+			std::vector<std::string> menuItems;
+			menuItems.push_back("Play game");
+			menuItems.push_back("Options");
+			menuItems.push_back("Help");
+			menuItems.push_back("Quit");
+			std::cout << "Creating menu" << std::endl;
+			mainMenu = Menu(menuItems);
+			
+			std::cout << "Creating logo" << std::endl;
+			logo = Text(300, 200, "CAPTAIN");
+			logo.x = 100;
+			logo.y = 100;
+			firstTime = false;
+			std::cout << "First loop variable setup done" << std::endl;
+		}
+		if (inMenu)
+		{
+			logo.render();
+			mainMenu.render();
 		}
 		
 		renderer.render();
