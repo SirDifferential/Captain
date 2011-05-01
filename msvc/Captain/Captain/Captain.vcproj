@@ -172,39 +172,67 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\inputManager.cpp"
+				RelativePath="..\..\..\src\arena.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\main.cpp"
+				RelativePath="..\..\..\src\character.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\objectManager.cpp"
+				RelativePath="..\..\..\src\component.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\programManager.cpp"
+				RelativePath="..\..\..\src\inputManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\renderer.cpp"
+				RelativePath="..\..\..\src\main.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\ship.cpp"
+				RelativePath="..\..\..\src\menu.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\sprite.cpp"
+				RelativePath="..\..\..\src\objectManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\square.cpp"
+				RelativePath="..\..\..\src\programManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\text.cpp"
+				RelativePath="..\..\..\src\renderer.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\ship.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\sprite.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\square.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\stars.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\text.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\timedFunctions.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\vector3.cpp"
 				>
 			</File>
 		</Filter>
@@ -214,39 +242,63 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\inputManager.hpp"
+				RelativePath="..\..\..\src\arena.hpp"
 				>
 			</File>
 			<File
-				RelativePath=".\objectManager.hpp"
+				RelativePath="..\..\..\src\character.hpp"
 				>
 			</File>
 			<File
-				RelativePath=".\programManager.hpp"
+				RelativePath="..\..\..\src\component.hpp"
 				>
 			</File>
 			<File
-				RelativePath=".\renderer.hpp"
+				RelativePath="..\..\..\src\inputManager.hpp"
 				>
 			</File>
 			<File
-				RelativePath=".\ship.hpp"
+				RelativePath="..\..\..\src\menu.hpp"
 				>
 			</File>
 			<File
-				RelativePath=".\sprite.hpp"
+				RelativePath="..\..\..\src\objectManager.hpp"
 				>
 			</File>
 			<File
-				RelativePath=".\square.hpp"
+				RelativePath="..\..\..\src\programManager.hpp"
 				>
 			</File>
 			<File
-				RelativePath=".\text.hpp"
+				RelativePath="..\..\..\src\renderer.hpp"
 				>
 			</File>
 			<File
-				RelativePath=".\vector3.hpp"
+				RelativePath="..\..\..\src\ship.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\sprite.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\square.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\stars.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\text.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\timedFunctions.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\vector3.hpp"
 				>
 			</File>
 		</Filter>
