@@ -6,11 +6,11 @@ Text::Text()
 {
 }
 
-Text::Text(int x, int y, std::string input)
+Text::Text(int x, int y, std::string input, std::string fontPath, int fontSize)
 {
 	w = x;
 	h = y;
-	font = TTF_OpenFont( "arial.ttf", 40 );
+	font = TTF_OpenFont( fontPath.c_str(), fontSize );
 	id = 0;
 	std::cout << "Calling glGenTExtures" << std::endl;
 	glGenTextures(1, &id);

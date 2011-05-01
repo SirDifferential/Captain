@@ -28,9 +28,11 @@ void ObjectManager::render()
 	}
 }
 
-void ObjectManager::addNewGenericText(int w, int h, std::string message)
+void ObjectManager::addNewGenericText(int w, int h, std::string message, std::string fontPath, int fontSize, int locx, int locy)
 {
-	TextPtr tempTextPtr(new Text(w, h, message.c_str()));
+	TextPtr tempTextPtr(new Text(w, h, message.c_str(), fontPath, fontSize));
+	tempTextPtr->x = locx;
+	tempTextPtr->y = locy;
 	genericTexts.push_back(tempTextPtr);
 }
 

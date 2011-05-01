@@ -7,7 +7,7 @@ class Text : public Sprite
 {
 public:
 	Text();
-	Text(int x, int y, std::string);
+	Text(int x, int y, std::string, std::string fontPath, int fontSize);
 	void render();
 	void update(int offset);
 

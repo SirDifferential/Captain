@@ -91,18 +91,18 @@ void ProgramManager::work()
 			mainMenu = Menu(menuItems);
 			
 			std::cout << "Creating logo" << std::endl;
-			objectmgr.addNewGenericText(300, 200, "CAPTAIN");
+			objectmgr.addNewGenericText(300, 200, "CAPTAIN", "BulwarkNF.ttf", 70, progmgr.getScreenX()/2, progmgr.getScreenY()-250);
 
 			objectmgr.changeMainBackground("default.png");
 			firstTime = false;
 			std::cout << "First loop variable setup done" << std::endl;
 		}
+		
+		renderer.render();
 		if (inMenu)
 		{
 			mainMenu.render();
 		}
-		
-		renderer.render();
 		triggers.poll();
 
 		inputmgr.handleInput();

@@ -23,7 +23,7 @@ public:
 
 	void render();
 	void renderBackground();
-	void addNewGenericText(int w, int h, std::string);
+	void addNewGenericText(int w, int h, std::string, std::string fontPath, int fontSize, int locx, int locy);
 	void addNewBGSprite(const std::string &filename);
 	void changeMainBackground(std::string filename);
 };
