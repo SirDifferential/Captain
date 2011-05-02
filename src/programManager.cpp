@@ -22,6 +22,8 @@
 
 ProgramManager progmgr;
 
+static Mix_Music *music;
+
 ProgramManager::ProgramManager()
 {
 	std::cout << "Creating ProgramManager" << std::endl;
@@ -31,6 +33,13 @@ ProgramManager::ProgramManager()
     SDL_WM_SetCaption("Captain", NULL);
 	std::cout << "SDL_TTF initializing" << std::endl;
 	TTF_Init();
+#ifndef NOMUSIC
+	std::cout << "Playing music" << std::endl;
+	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 512);
+	music = Mix_LoadMUS("captain_tune.ogg");
+	Mix_PlayMusic(music, 5);
+	Mix_VolumeMusic(SDL_MIX_MAXVOLUME);
+#endif
     SDL_SetVideoMode(screenX, screenY, screenBPP, SDL_OPENGL |SDL_RESIZABLE);
 	std::cout << "OpenGL initializing" << std::endl;
     glewInit();
