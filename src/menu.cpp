@@ -1,6 +1,7 @@
 #include "menu.hpp"
 #include "programManager.hpp"
 #include "objectManager.hpp"
+#include <iostream>
 
 typedef boost::shared_ptr<Text> TextPtr;
 
@@ -26,21 +27,31 @@ Menu::Menu(std::vector<std::string> entries)
 		items.push_back(tempSpritePtr);
 		std::cout << "Item " << entries[i].c_str() << " added to the list" << std::endl;
 	}
+
+	std::cout << "Creating logo" << std::endl;
+	objectmgr.addNewMenuText(300, 200, "CAPTAIN", "BulwarkNF.ttf", 70, progmgr.getScreenX()/2, progmgr.getScreenY()-250);
+	TextPtr tempTextPtr(new Text(10, 10, "0", "ArcadeClassic.ttf", 30));
+	cursor = tempTextPtr;
 	
 	assert(items.size() != 0);
-	int step = height/items.size();
+	step = height/items.size();
 	if (step > 40)
 		step = 40;
 	
 	int posy = height;
 	int i = 0;
+	
+	cursor->x = width-170;
+	cursor->y = height-step;
+	
 	for (std::vector<TextPtr>::iterator iter = items.begin(); iter != items.end(); iter++)
 	{
 		(*iter)->x = width;				// Draw to center
-		//(*iter)->y = height + i*step;	// Draw with good spacing
-		(*iter)->y = height - i*step;
+		(*iter)->y = height - i*step;	// Draw with a good spacing
 		i++;
 	}
+	
+	currentSelection = 0;
 }
 
 Menu::~Menu()
@@ -55,4 +66,48 @@ void Menu::render()
 	{
 		(*iter)->render();
 	}
+
+	cursor->render();
+}
+
+void Menu::moveup()
+{
+	currentSelection--;
+	if (currentSelection < 0)
+		currentSelection = items.size()-1;
+	TextPtr tempTextPtr = items[currentSelection];
+	cursor->y = tempTextPtr->y;
+}
+
+void Menu::movedown()
+{
+	currentSelection++;
+	if (currentSelection > items.size()-1)
+		currentSelection = 0;
+	TextPtr tempTextPtr = items[currentSelection];
+	cursor->y = tempTextPtr->y;
+}
+
+void Menu::select()
+{
+	// Make stuff here for dynamic options
+	if (currentSelection == 0)
+	{
+		progmgr.setInMenu(false);
+	}
+	if (currentSelection == 1)
+	{
+		progmgr.setInMenu(false);
+		progmgr.setInOptions(true);
+	}
+	if (currentSelection == 2)
+	{
+		progmgr.setInMenu(false);
+		progmgr.setInHelp(true);
+	}
+	if (currentSelection == 3)
+	{
+		progmgr.setRunning(false);
+	}
+
 }

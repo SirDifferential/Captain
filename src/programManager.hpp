@@ -16,6 +16,8 @@ private:
 	int screenBPP;
 	bool useRandomBG;
 	bool inMenu;
+	bool inOptions;
+	bool inHelp;
 	bool firstTime;
 	
 	Menu mainMenu;
@@ -32,6 +34,9 @@ public:
 	int getScreenX() { return screenX; }
 	int getScreenY() { return screenY; }
 	void setRunning(bool r) { running = r; }
+	void setInMenu(bool i) { inMenu = i; }
+	void setInOptions(bool i) { inOptions = i; }
+	void setInHelp(bool i) { inHelp = i; }
 	bool getUseRandomBG() { return useRandomBG; }
 };
 

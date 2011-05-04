@@ -98,9 +98,6 @@ void ProgramManager::work()
 			menuItems.push_back("Quit");
 			std::cout << "Creating menu" << std::endl;
 			mainMenu = Menu(menuItems);
-			
-			std::cout << "Creating logo" << std::endl;
-			objectmgr.addNewMenuText(300, 200, "CAPTAIN", "BulwarkNF.ttf", 70, progmgr.getScreenX()/2, progmgr.getScreenY()-250);
 
 			objectmgr.changeMainBackground("default.png");
 			firstTime = false;
@@ -110,7 +107,7 @@ void ProgramManager::work()
 		renderer.render();
 		if (inMenu)
 		{
-			inputmgr.handleMenuInput();
+			inputmgr.handleMenuInput(mainMenu);
 			mainMenu.render();
 		}
 		triggers.poll();

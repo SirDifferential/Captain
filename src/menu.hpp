@@ -9,12 +9,19 @@ class Menu
 {
 private:
 	std::vector<boost::shared_ptr<Text> > items;
+	boost::shared_ptr<Text> cursor;
+	
+	int currentSelection;
+	int step;
 public:
 	Menu();
 	Menu(std::vector<std::string> entries);
 	~Menu();
 	
 	void render();
+	void moveup();
+	void movedown();
+	void select();
 };
 
 #endif

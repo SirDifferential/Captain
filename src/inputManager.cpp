@@ -41,7 +41,7 @@ void InputManager::handleInput()
 	}
 }
 
-void InputManager::handleMenuInput()
+void InputManager::handleMenuInput(Menu &menu)
 {
 	SDL_Event e;
 	while (SDL_PollEvent(&e)) {
@@ -53,6 +53,16 @@ void InputManager::handleMenuInput()
 				switch (e.key.keysym.sym) {
 					case SDLK_ESCAPE:
 						progmgr.setRunning(false);
+						break;
+					case SDLK_UP:
+						menu.moveup();
+						break;
+					case SDLK_DOWN:
+						menu.movedown();
+						break;
+					case SDLK_RETURN:
+						menu.select();
+						break;
 				}
 				break;
 		}
