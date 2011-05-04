@@ -30,7 +30,7 @@ void ObjectManager::render()
 
 void ObjectManager::renderMenuStuff()
 {
-	for (std::vector<<TextPtr>::iterator iter = menuTexts.begin(); iter != menuTexts.end(); iter++)
+	for (std::vector<TextPtr>::iterator iter = menuTexts.begin(); iter != menuTexts.end(); iter++)
 	{
 		(*iter)->render();
 	}
