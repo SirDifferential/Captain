@@ -40,3 +40,21 @@ void InputManager::handleInput()
 		}
 	}
 }
+
+void InputManager::handleMenuInput()
+{
+	SDL_Event e;
+	while (SDL_PollEvent(&e)) {
+		switch (e.type) {
+			case SDL_QUIT:
+				progmgr.setRunning(false);
+				break;
+			case SDL_KEYDOWN:
+				switch (e.key.keysym.sym) {
+					case SDLK_ESCAPE:
+						progmgr.setRunning(false);
+				}
+				break;
+		}
+	}
+}

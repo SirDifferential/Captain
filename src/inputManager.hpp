@@ -8,6 +8,7 @@ public:
 	InputManager();
 	~InputManager();
 	void handleInput();
+	void handleMenuInput();
 };
 
 extern InputManager inputmgr;

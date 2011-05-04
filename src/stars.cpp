@@ -22,12 +22,14 @@ Stars::Stars()
 		i->position.y = (double(rand())/RAND_MAX);
 		i->position.z = (double(rand())/RAND_MAX)*-1;
 		i->position.x *= 1300;
+		i->position.x += 1000;
 		i->position.y *= 1300;
 		i->color.x = 1.0-(double(rand())/RAND_MAX) * 0.4 + 0.3;
 		i->color.y = 1.0-(double(rand())/RAND_MAX) * 0.4 + 0.2;
 		i->color.z = 1.0-(double(rand())/RAND_MAX) * 0.4 + 0.1;
 		i->size = rand() % 3 + 1;
-		i->acceleration.z  = 0.0;
+		i->velocity.x = -1.6;
+		i->velocity.y = (double(rand())/RAND_MAX)*-1*0.05;
 		i->firstChaotic = true;
 	}
 }
@@ -44,6 +46,7 @@ Stars::Star::Star(Stars *stars)
 
 void Stars::render()
 {
+	update();
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GL_LIGHTING);
 	glDisable(GL_BLEND);
@@ -88,6 +91,7 @@ void Stars::Star::update()
 	// Blow up
 	if (firstChaotic)
 	{
+		/*
 		acceleration.x = double(rand())/RAND_MAX;
 		acceleration.y = double(rand())/RAND_MAX;
 		
@@ -99,14 +103,15 @@ void Stars::Star::update()
 		if (double(rand())/RAND_MAX > 0.5)
 			acceleration.y = acceleration.y * -1;
 		
-		acceleration.y = acceleration.y/1000;
-		firstChaotic = false;
 		
-		velocity.x = 0;
-		velocity.y = 0;
+		acceleration.y = acceleration.y/1000;
+		*/
+		firstChaotic = false;
 	} else {
-		velocity.x = velocity.x + acceleration.x;
-		velocity.y = velocity.y + acceleration.y;
+		if (position.x < 0)
+			position.x = (double(rand())/RAND_MAX) * progmgr.getScreenX()+1000;
+		if (position.y < 0)
+			position.y = (double(rand())/RAND_MAX) * progmgr.getScreenY()+1000;
 		position.x = position.x + velocity.x;
 		position.y = position.y + velocity.y;
 	}

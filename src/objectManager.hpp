@@ -14,6 +14,7 @@ class ObjectManager
 private:
 	std::vector<Ship> shipVector;
 	std::vector<boost::shared_ptr<Text> > genericTexts;
+	std::vector<boost:.shared_ptr<Text> > menuTexts;
 	std::vector<boost::shared_ptr<Arena> > arenaList;
 	std::vector<boost::shared_ptr<Sprite> > backgroundSprites;
 	boost::shared_ptr<Sprite> mainBackgroundPtr;
@@ -22,6 +23,7 @@ public:
 	~ObjectManager();
 
 	void render();
+	void renderMenuStuff();
 	void renderBackground();
 	void addNewGenericText(int w, int h, std::string, std::string fontPath, int fontSize, int locx, int locy);
 	void addNewBGSprite(const std::string &filename);
