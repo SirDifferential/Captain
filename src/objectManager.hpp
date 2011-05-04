@@ -14,7 +14,7 @@ class ObjectManager
 private:
 	std::vector<Ship> shipVector;
 	std::vector<boost::shared_ptr<Text> > genericTexts;
-	std::vector<boost:.shared_ptr<Text> > menuTexts;
+	std::vector<boost::shared_ptr<Text> > menuTexts;
 	std::vector<boost::shared_ptr<Arena> > arenaList;
 	std::vector<boost::shared_ptr<Sprite> > backgroundSprites;
 	boost::shared_ptr<Sprite> mainBackgroundPtr;
