@@ -9,6 +9,4 @@ make
 echo 'Moving executable to bin/data'
 mv ./Captain ../bin/data
 cd ..
-echo 'Linking'
-ln -s ./bin/data/Captain run_captain
-echo 'Now run the game from run_captain!'
+echo 'Run from run_captain.sh'
