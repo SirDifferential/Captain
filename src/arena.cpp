@@ -24,27 +24,27 @@ void Arena::generateNewArena()
 	starsPtr = tempPtr;
 	
 	// Add some planets and stars
-	numberOfPlanets = toolbox.giveRandomInt(15);
-	numberOfSuns = toolbox.giveRandomInt(3);
+	numberOfPlanets = toolbox.giveRandomInt(1, 15);
+	numberOfSuns = toolbox.giveRandomInt(1, 3);
 	std::cout << "There will be " << numberOfPlanets << " planets" << std::endl;
 	std::cout << "There will be " << numberOfSuns << " suns" << std::endl;
 	
 	for (int i = 0; i < numberOfPlanets; i++)
 	{
-		int mass = toolbox.giveRandomInt(10000)+1000;
-		int temperature = toolbox.giveRandomInt(1000);
-		int posX = toolbox.giveRandomInt(1000);
-		int posY = toolbox.giveRandomInt(1000);
+		int mass = toolbox.giveRandomInt(1000, 10000);
+		int temperature = toolbox.giveRandomInt(0, 1000);
+		int posX = toolbox.giveRandomInt(0, 1000);
+		int posY = toolbox.giveRandomInt(0, 1000);
 		PlanetPtr tempPtr(new Planet(mass, temperature, posX, posY));
 		planetVector.push_back(tempPtr);
 	}
 	
 	for (int i = 0; i < numberOfSuns; i++)
 	{
-		int mass = toolbox.giveRandomInt(100000)+10000;
-		int temperature = toolbox.giveRandomInt(5000)+5000;
-		int posX = toolbox.giveRandomInt(10);
-		int posY = toolbox.giveRandomInt(10);
+		int mass = toolbox.giveRandomInt(10000, 100000);
+		int temperature = toolbox.giveRandomInt(5000, 90000);
+		int posX = toolbox.giveRandomInt(0, 10);
+		int posY = toolbox.giveRandomInt(0, 10);
 		SunPtr tempPtr(new Sun(mass, temperature, posX, posY));
 		sunVector.push_back(tempPtr);
 	}

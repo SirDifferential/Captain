@@ -7,6 +7,8 @@ Toolbox toolbox;
 
 Toolbox::Toolbox()
 {
+	timesRandomized = 0;
+	srand(time(0));
 }
 
 Toolbox::~Toolbox()
@@ -15,10 +17,11 @@ Toolbox::~Toolbox()
 
 int Toolbox::giveRandomInt()
 {
+	timesRandomized++;
 	return rand();
 }
 
-int Toolbox::giveRandomInt(int max)
+int Toolbox::giveRandomInt(int min, int max)
 {
-	return int((double(rand())/RAND_MAX)*max);
+	return ((rand()%(max-min))+min);
 }
