@@ -200,6 +200,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\planet.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\programManager.cpp"
 				>
 			</File>
@@ -224,11 +228,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\sun.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\text.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\src\timedFunctions.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\toolbox.cpp"
 				>
 			</File>
 			<File
@@ -266,6 +278,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\planet.hpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\programManager.hpp"
 				>
 			</File>
@@ -290,11 +306,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\sun.hpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\text.hpp"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\src\timedFunctions.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\toolbox.hpp"
 				>
 			</File>
 			<File
