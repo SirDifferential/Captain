@@ -5,6 +5,12 @@
 
 typedef boost::shared_ptr<Text> TextPtr;
 
+/*
+This class does the main menu only at the moment. Parts of it
+are prepared for all sorts of menus though, but for now it's
+all hardcoded for the main menu
+*/
+
 Menu::Menu()
 {
 }
@@ -19,6 +25,7 @@ Menu::Menu(std::vector<std::string> entries)
 	int sizex = 0;
 	int sizey = 0;
 	
+	// Add texts into objectmgr TextPtr vector
 	for (int i = 0; i < entries.size(); i++)
 	{
 		sizex = entries[i].length()*15;		// 7 pixels per character
@@ -27,7 +34,7 @@ Menu::Menu(std::vector<std::string> entries)
 		items.push_back(tempSpritePtr);
 		std::cout << "Item " << entries[i].c_str() << " added to the list" << std::endl;
 	}
-
+	
 	std::cout << "Creating logo" << std::endl;
 	objectmgr.addNewMenuText(300, 200, "CAPTAIN", "BulwarkNF.ttf", 70, progmgr.getScreenX()/2, progmgr.getScreenY()-250);
 	TextPtr tempTextPtr(new Text(10, 10, "0", "ArcadeClassic.ttf", 30));
@@ -51,7 +58,9 @@ Menu::Menu(std::vector<std::string> entries)
 		i++;
 	}
 	
-	currentSelection = 0;
+	// Meh, let's just add this hack here
+	currentSelection = 1;
+	moveup();
 }
 
 Menu::~Menu()
@@ -66,7 +75,7 @@ void Menu::render()
 	{
 		(*iter)->render();
 	}
-
+	
 	cursor->render();
 }
 
@@ -94,6 +103,7 @@ void Menu::select()
 	if (currentSelection == 0)
 	{
 		progmgr.setInMenu(false);
+		progmgr.setInGame(true);
 	}
 	if (currentSelection == 1)
 	{
@@ -109,5 +119,5 @@ void Menu::select()
 	{
 		progmgr.setRunning(false);
 	}
-
+	
 }

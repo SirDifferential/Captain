@@ -3,11 +3,17 @@
 
 typedef boost::shared_ptr<Text> TextPtr;
 typedef boost::shared_ptr<Sprite> SpritePtr;
+typedef boost::shared_ptr<Stars> StarsPtr;
 
 ObjectManager objectmgr;
 
 ObjectManager::ObjectManager()
 {
+	roomNumber = 1;
+	arenaCreated = false;
+	
+	StarsPtr tempPtr(new Stars());
+	menuStarsPtr = tempPtr;
 }
 
 ObjectManager::~ObjectManager()
@@ -66,5 +72,28 @@ void ObjectManager::changeMainBackground(std::string filename)
 
 void ObjectManager::renderBackground()
 {
-	mainBackgroundPtr->render();
+	if (progmgr.getInMenu())
+		menuStarsPtr->render();
+	else if (currentArenaPtr == NULL)
+	{
+		mainBackgroundPtr->render();
+	}
+	else
+		currentArenaPtr->renderStars();
+}
+
+void ObjectManager::prepareArena()
+{
+	boost::shared_ptr<Arena> tempPtr(new Arena());
+	currentArenaPtr = tempPtr;
+	arenaCreated = true;
+}
+
+void ObjectManager::updateArena()
+{
+}
+
+void ObjectManager::removeArena()
+{
+	arenaCreated = false;
 }

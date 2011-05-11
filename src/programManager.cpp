@@ -24,6 +24,8 @@ ProgramManager progmgr;
 
 static Mix_Music *music;
 
+#define NOMUSIC
+
 ProgramManager::ProgramManager()
 {
 	std::cout << "Creating ProgramManager" << std::endl;
@@ -58,12 +60,11 @@ void ProgramManager::start()
 	gameTime = 0.0f;
 	nextFPS = 1000;
 	running = true;
-
+	
 	screenX = 1024;
 	screenY = 768;
 	screenBPP = 32;
-
-	useRandomBG = true;
+	
 	inMenu = true;
 	firstTime = true;
 }
@@ -91,6 +92,7 @@ void ProgramManager::work()
 		// Some textures need to be created in the rendering loop
 		if (firstTime)
 		{
+			// Create the main menu
 			std::vector<std::string> menuItems;
 			menuItems.push_back("Play game");
 			menuItems.push_back("Options");
@@ -98,20 +100,32 @@ void ProgramManager::work()
 			menuItems.push_back("Quit");
 			std::cout << "Creating menu" << std::endl;
 			mainMenu = Menu(menuItems);
-
+			
+			// Add something to work as a background while other things are being readied
 			objectmgr.changeMainBackground("default.png");
 			firstTime = false;
 			std::cout << "First loop variable setup done" << std::endl;
 		}
 		
 		renderer.render();
+		
 		if (inMenu)
 		{
 			inputmgr.handleMenuInput(mainMenu);
 			mainMenu.render();
 		}
-		triggers.poll();
-
+		
+		if (inGame)
+		{
+			if (objectmgr.getArenaCreated() == false)
+			{
+				objectmgr.prepareArena();
+			}
+			
+			objectmgr.updateArena();
+		}
+		
+		triggers.poll();		
 		inputmgr.handleInput();
 		SDL_GL_SwapBuffers();
 	}

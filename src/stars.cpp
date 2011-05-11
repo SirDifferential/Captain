@@ -14,6 +14,31 @@ float distanceTo(float loc, float target)
 Stars::Stars()
 {
 	opacity = 1;
+	useSpeed = true;
+	stars.reserve(10000);
+	for (int i=0; i<10000; i++)
+		stars.push_back(Star(this));
+	for (std::vector<Star>::iterator i=stars.begin(); i!=stars.end(); ++i) {
+		i->position.x = (double(rand())/RAND_MAX);
+		i->position.y = (double(rand())/RAND_MAX);
+		i->position.z = (double(rand())/RAND_MAX)*-1;
+		i->position.x *= 1300;
+		i->position.x += 1000;
+		i->position.y *= 1300;
+		i->color.x = 1.0-(double(rand())/RAND_MAX) * 0.4 + 0.3;
+		i->color.y = 1.0-(double(rand())/RAND_MAX) * 0.4 + 0.2;
+		i->color.z = 1.0-(double(rand())/RAND_MAX) * 0.4 + 0.1;
+		i->size = rand() % 3 + 1;
+		i->velocity.x = -1.6;
+		i->velocity.y = (double(rand())/RAND_MAX)*-1*0.05;
+		i->firstChaotic = true;
+	}
+}
+
+Stars::Stars(bool speed)
+{
+	useSpeed = speed;
+	opacity = 1;
 	stars.reserve(10000);
 	for (int i=0; i<10000; i++)
 		stars.push_back(Star(this));
@@ -46,7 +71,8 @@ Stars::Star::Star(Stars *stars)
 
 void Stars::render()
 {
-	update();
+	if (useSpeed)
+		update();
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GL_LIGHTING);
 	glDisable(GL_BLEND);

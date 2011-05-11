@@ -13,7 +13,6 @@ Renderer renderer;
 namespace {
 	Vector3 eye;
 	Vector3 center;
-	Stars stars;
 }
 
 Renderer::Renderer()
@@ -59,12 +58,7 @@ void Renderer::renderBase()
 
 void Renderer::renderBackground()
 {
-	if (progmgr.getUseRandomBG())
-	{
-		stars.render();
-	} else {
-		objectmgr.renderBackground();
-	}
+	objectmgr.renderBackground();
 }
 
 void Renderer::renderObjects()

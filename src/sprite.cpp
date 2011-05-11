@@ -72,7 +72,6 @@ GLenum Sprite::check(SDL_Surface *surface, const string &filename)
 	
 	/* Select texture format. */
 	GLenum format;
-	std::cout << "Checking format" << std::endl;
 	if (surface->format->BytesPerPixel == 4)
 	{
 		format = GL_RGBA;

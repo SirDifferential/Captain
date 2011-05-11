@@ -8,11 +8,13 @@ class Stars
 {
 public:
 	Stars();
+	Stars(bool speed);
 	~Stars();
 
 	float opacity;
 	void render();
 	void update();
+	bool useSpeed;
 
 private:
 	class Star
