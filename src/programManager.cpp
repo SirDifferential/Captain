@@ -19,6 +19,7 @@
 #endif
 
 #include <GL/glew.h>
+#include <GL/glut.h>
 
 ProgramManager progmgr;
 
@@ -44,7 +45,12 @@ ProgramManager::ProgramManager()
 #endif
     SDL_SetVideoMode(screenX, screenY, screenBPP, SDL_OPENGL |SDL_RESIZABLE);
 	std::cout << "OpenGL initializing" << std::endl;
-    glewInit();
+    GLenum err = glewInit();
+	if (GLEW_OK != err)
+	{
+		std::cout << "Error starting glew: " << glewGetErrorString(err) << std::endl;
+	}
+	std::cout << "Status: Using GLEW " << glewGetString(GLEW_VERSION) << std::endl;
 	std::cout << "progmgr created" << std::endl;
 }
 

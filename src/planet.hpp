@@ -8,11 +8,14 @@ class Planet
 private:
 	int mass;
 	int temperature;
+	int radius;
 	Vector3 position;
 public:
 	Planet();
-	Planet(int mass, int temperature, int posX, int posY);
+	Planet(int mass, int temperature, int radius, int posX, int posY);
 	~Planet();
+	
+	void render();
 };
 
 #endif

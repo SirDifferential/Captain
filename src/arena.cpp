@@ -25,7 +25,7 @@ void Arena::generateNewArena()
 	
 	// Add some planets and stars
 	numberOfPlanets = toolbox.giveRandomInt(1, 15);
-	numberOfSuns = toolbox.giveRandomInt(1, 3);
+	numberOfSuns = toolbox.giveRandomInt(1, 2);
 	std::cout << "There will be " << numberOfPlanets << " planets" << std::endl;
 	std::cout << "There will be " << numberOfSuns << " suns" << std::endl;
 	
@@ -33,9 +33,10 @@ void Arena::generateNewArena()
 	{
 		int mass = toolbox.giveRandomInt(1000, 10000);
 		int temperature = toolbox.giveRandomInt(0, 1000);
+		int radius = toolbox.giveRandomInt(100,5000);
 		int posX = toolbox.giveRandomInt(0, 1000);
 		int posY = toolbox.giveRandomInt(0, 1000);
-		PlanetPtr tempPtr(new Planet(mass, temperature, posX, posY));
+		PlanetPtr tempPtr(new Planet(mass, temperature, radius, posX, posY));
 		planetVector.push_back(tempPtr);
 	}
 	
@@ -43,9 +44,10 @@ void Arena::generateNewArena()
 	{
 		int mass = toolbox.giveRandomInt(10000, 100000);
 		int temperature = toolbox.giveRandomInt(5000, 90000);
+		int radius = toolbox.giveRandomInt(10000, 100000);
 		int posX = toolbox.giveRandomInt(0, 10);
 		int posY = toolbox.giveRandomInt(0, 10);
-		SunPtr tempPtr(new Sun(mass, temperature, posX, posY));
+		SunPtr tempPtr(new Sun(mass, temperature, radius, posX, posY));
 		sunVector.push_back(tempPtr);
 	}
 }
