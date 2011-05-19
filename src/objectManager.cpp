@@ -79,7 +79,7 @@ void ObjectManager::renderBackground()
 		mainBackgroundPtr->render();
 	}
 	else
-		currentArenaPtr->renderStars();
+		currentArenaPtr->render();
 }
 
 void ObjectManager::prepareArena()

@@ -131,7 +131,7 @@ void ProgramManager::work()
 			objectmgr.updateArena();
 		}
 		
-		triggers.poll();		
+		triggers.poll();
 		inputmgr.handleInput();
 		SDL_GL_SwapBuffers();
 	}

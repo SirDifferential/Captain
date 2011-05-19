@@ -52,7 +52,30 @@ void Arena::generateNewArena()
 	}
 }
 
+void Arena::render()
+{
+	renderStars();
+	renderSuns();
+	renderPlanets();
+}
+
 void Arena::renderStars()
 {
-	starsPtr->render();
+	starsPtr->render();		// Background stars
+}
+
+void Arena::renderSuns()
+{
+	for (std::vector<SunPtr>::iterator iter = sunVector.begin(); iter != sunVector.end(); iter++)
+	{
+		(*iter)->render();
+	}
+}
+
+void Arena::renderPlanets()
+{
+	for (std::vector<PlanetPtr>::iterator iter = planetVector.begin(); iter != planetVector.end(); iter++)
+	{
+		(*iter)->render();
+	}
 }

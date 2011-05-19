@@ -22,7 +22,10 @@ public:
 	~Arena();
 	
 	void generateNewArena();
+	void render();
 	void renderStars();
+	void renderSuns();
+	void renderPlanets();
 };
 
 #endif
