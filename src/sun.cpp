@@ -8,7 +8,8 @@ GLfloat vertices[] = {1,1,1,  -1,1,1,  -1,-1,1,  1,-1,1,        // v0-v1-v2-v3
                       -1,1,1,  -1,1,-1,  -1,-1,-1,  -1,-1,1,    // v1-v6-v7-v2
                       -1,-1,-1,  1,-1,-1,  1,-1,1,  -1,-1,1,    // v7-v4-v3-v2
                       1,-1,-1,  -1,-1,-1,  -1,1,-1,  1,1,-1};   // v4-v7-v6-v5
-					  
+
+
 GLfloat normals[] = {0,0,1,  0,0,1,  0,0,1,  0,0,1,             // v0-v1-v2-v3
                      1,0,0,  1,0,0,  1,0,0, 1,0,0,              // v0-v3-v4-v5
                      0,1,0,  0,1,0,  0,1,0, 0,1,0,              // v0-v5-v6-v1
@@ -42,7 +43,11 @@ Sun::Sun(int m, int t, int r, int posX, int posY)
 	temperature = t;
 	position.x = posX;
 	position.y = posY;
+	position.z = -10;
 	radius = r;
+	colour.x = double(rand())/RAND_MAX;
+	colour.y = double(rand())/RAND_MAX;
+	colour.z = double(rand())/RAND_MAX;
 	
 	std::cout << "=======" << std::endl;
 	std::cout << "Created a new sun with following properties:" << std::endl;
@@ -62,7 +67,8 @@ Sun::~Sun()
 void Sun::render()
 {
 	int numberOfVerts = sizeof(indices)/sizeof(indices[0]);
-	renderer.renderVertexArray(vertices, indices, normals, colors, angle2, numberOfVerts);
+	//renderer.renderVertexArray(vertices, indices, normals, colors, angle2, numberOfVerts, 0.1f, position, colour);
+	renderer.renderVertexArray(vertices, indices, normals, colors, angle2, numberOfVerts, 0.1f, position, colour);
 	angle2 += 0.15f;
 	if (angle2 > 360.0f)
 		angle2 = 0.0f;

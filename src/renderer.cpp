@@ -38,7 +38,7 @@ void Renderer::renderBase()
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	
-	gluPerspective(65, progmgr.getScreenX()/progmgr.getScreenY(), 0.1, 150);
+	gluPerspective(65, progmgr.getScreenX()/progmgr.getScreenY(), 0.1, 50);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -68,6 +68,7 @@ void Renderer::renderObjects()
 
 void Renderer::renderForeground()
 {
+	objectmgr.renderHUD();
 }
 
 void Renderer::render()
@@ -121,11 +122,35 @@ void Renderer::normcrossprod(float v1[3], float v2[3], float out[3])
 	out[2] = v1[0]*v2[1] - v1[1]*v2[0];
 }
 
-void Renderer::renderVertexArray(GLfloat vertices[], GLubyte indices[], GLfloat normals[], GLfloat colors[], float rotation, int numberOfVertices)
+void Renderer::renderVertexArray(GLfloat vertices[], GLubyte indices[], GLfloat normals[], GLfloat colors[],
+								 float rotation, int numberOfVertices, float scale, Vector3 trans, Vector3 colour)
 {
 	glShadeModel(GL_SMOOTH);
-	glColor3f(0.1, 0.5, 0.3);
-
+	//glColor3f(0.5, 0.9, 0.9);
+	GLfloat whiteSpecularMaterial[] = {1.0, 1.0, 1.0};
+	GLfloat greenEmissiveMaterial[] = {0.0, 1.0, 0.0};
+	GLfloat mShininess[] = {128};
+	GLfloat redDiffuseMaterial[] = {1.0, 0.0, 0.0};
+	float mcolor[] = { colour.x, colour.y, colour.z, 1.0f };
+	
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_LIGHTING);
+	GLfloat ambientLight[] = { colour.x, colour.y, colour.z, 1.0f };
+	GLfloat diffuseLight[] = { colour.x, colour.y, colour.z, 1.0f };
+	GLfloat specularLight[] = { colour.x, colour.y, colour.z, 1.0f };
+	GLfloat position[] = { trans.x, trans.y, trans.z };
+	glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight);
+	glLightfv(GL_LIGHT0, GL_POSITION, position);
+	
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, mcolor);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, redDiffuseMaterial);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, whiteSpecularMaterial);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mShininess);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, greenEmissiveMaterial);
+	glEnable(GL_LIGHT0);
+	
     // enable and specify pointers to vertex arrays
     glEnableClientState(GL_NORMAL_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);
@@ -135,8 +160,8 @@ void Renderer::renderVertexArray(GLfloat vertices[], GLubyte indices[], GLfloat 
     glVertexPointer(3, GL_FLOAT, 0, vertices);
 	
 	glLoadIdentity();
-	glScalef(0.3, 0.3, 0.3);
-    glTranslatef(0.0f, 0.0f, -1.0f);
+	glScalef(scale, scale, scale);
+    glTranslatef(trans.x, trans.y, trans.z);
     glRotatef(rotation, 3.0f, 0.0f, 1.0f);
 	
     glDrawArrays(GL_QUADS, 0, numberOfVertices);
@@ -146,20 +171,4 @@ void Renderer::renderVertexArray(GLfloat vertices[], GLubyte indices[], GLfloat 
     glDisableClientState(GL_VERTEX_ARRAY);  // disable vertex arrays
     glDisableClientState(GL_COLOR_ARRAY);
     glDisableClientState(GL_NORMAL_ARRAY);
-
-
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_LIGHTING);
-	GLfloat ambientLight[] = { 0.9f, 0.9f, 0.9f, 1.0f };
-	GLfloat diffuseLight[] = { 0.8f, 0.8f, 0.8, 1.0f };
-	GLfloat specularLight[] = { 0.5f, 0.5f, 0.5f, 1.0f };
-	GLfloat position[] = { -1.5f, 1.0f, -4.0f, 1.0f };
-	glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight);
-	glLightfv(GL_LIGHT0, GL_POSITION, position);
-	float colorBlue[] = { 0.0f, 0.0f, 1.0f, 1.0f };
-	float mcolor[] = { 1.0f, 0.3f, 0.9f, 1.0f };
-	glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, mcolor);
-	glEnable(GL_LIGHT0);
 }

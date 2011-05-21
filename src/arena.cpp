@@ -25,7 +25,7 @@ void Arena::generateNewArena()
 	
 	// Add some planets and stars
 	numberOfPlanets = toolbox.giveRandomInt(1, 15);
-	numberOfSuns = toolbox.giveRandomInt(1, 2);
+	numberOfSuns = toolbox.giveRandomInt(1, 10);
 	std::cout << "There will be " << numberOfPlanets << " planets" << std::endl;
 	std::cout << "There will be " << numberOfSuns << " suns" << std::endl;
 	

@@ -12,6 +12,7 @@ private:
 	Vector3 position;
 	double angle;
 	float angle2;
+	Vector3 colour;
 public:
 	Sun();
 	Sun(int mass, int temperature, int radius, int posX, int posY);

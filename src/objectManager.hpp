@@ -31,6 +31,7 @@ public:
 	void render();
 	void renderMenuStuff();
 	void renderBackground();
+	void renderHUD();
 	void addNewGenericText(int w, int h, std::string, std::string fontPath, int fontSize, int locx, int locy);
 	void addNewMenuText(int w, int h, std::string, std::string fontPath, int fontSize, int locx, int locy);
 	void addNewBGSprite(const std::string &filename);

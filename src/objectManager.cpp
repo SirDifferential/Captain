@@ -42,6 +42,10 @@ void ObjectManager::renderMenuStuff()
 	}
 }
 
+void ObjectManager::renderHUD()
+{
+}
+
 void ObjectManager::addNewGenericText(int w, int h, std::string message, std::string fontPath, int fontSize, int locx, int locy)
 {
 	TextPtr tempTextPtr(new Text(w, h, message.c_str(), fontPath, fontSize));
