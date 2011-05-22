@@ -7,11 +7,11 @@ class ObjLoader
 {
 private:
 public:
-    ObjLoader();
-    ~ObjLoader();
+	ObjLoader();
+	~ObjLoader();
 	std::vector<std::vector<double> > readObjectFile(std::string path);
 };
 
-extern ObjLoader;
+extern ObjLoader objectLoader;
 
 #endif

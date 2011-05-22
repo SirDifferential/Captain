@@ -5,7 +5,7 @@
 #include <iostream>
 #include "toolbox.hpp"
 
-ObjLoader objloader;
+ObjLoader objectLoader;
 
 ObjLoader::ObjLoader()
 {
@@ -115,10 +115,11 @@ std::vector<std::vector<double> > ObjLoader::readObjectFile(std::string path)
 			// Do nothing
 		}
 	}
+	
 	out.push_back(vertexData);
 	out.push_back(normalData);
 	out.push_back(indiceData);
 	dataReader.close();
-
+	
 	return out;
 }
