@@ -1,5 +1,5 @@
 #include "arena.hpp"
-#include "ProgramManager.hpp"
+#include "programManager.hpp"
 #include "toolbox.hpp"
 
 typedef boost::shared_ptr<Planet> PlanetPtr;

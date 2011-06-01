@@ -7,9 +7,9 @@
 class Object3D
 {
 private:
-	GLfloat vertices[somesize];
-	GLfloat normals[somesize];
-	GLubyte indices[somesize];
+//	GLfloat vertices[somesize];
+//	GLfloat normals[somesize];
+//	GLubyte indices[somesize];
 	
 	int verticeCount;
 	
