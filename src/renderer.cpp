@@ -59,6 +59,7 @@ void Renderer::renderBase()
 void Renderer::renderBackground()
 {
 	objectmgr.renderBackground();
+	renderLamps();
 }
 
 void Renderer::renderObjects()
@@ -122,10 +123,41 @@ void Renderer::normcrossprod(float v1[3], float v2[3], float out[3])
 	out[2] = v1[0]*v2[1] - v1[1]*v2[0];
 }
 
+void Renderer::renderLamps()
+{
+        glShadeModel(GL_SMOOTH);
+        //glColor3f(0.5, 0.9, 0.9);
+        GLfloat whiteSpecularMaterial[] = {1.0, 1.0, 1.0};
+        GLfloat greenEmissiveMaterial[] = {0.0, 1.0, 0.0};
+        GLfloat mShininess[] = {128};
+        GLfloat redDiffuseMaterial[] = {1.0, 0.0, 0.0};
+        float mcolor[] = { 0.3f, 0.3f, 0.3f, 1.0f };
+
+        glEnable(GL_DEPTH_TEST);
+        glEnable(GL_LIGHTING);
+        GLfloat ambientLight[] = { 0.3f, 0.3f, 0.3f, 1.0f };
+        GLfloat diffuseLight[] = { 0.6f, 0.6f, 0.6f, 1.0f };
+        GLfloat specularLight[] = { 0.8f, 0.8f, 0.8f, 1.0f };
+        GLfloat position[] = { 0, 0, 0 };
+        glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight);
+        glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
+        glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight);
+        glLightfv(GL_LIGHT0, GL_POSITION, position);
+
+        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, mcolor);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, redDiffuseMaterial);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, whiteSpecularMaterial);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mShininess);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, greenEmissiveMaterial);
+        glEnable(GL_LIGHT0);
+
+}
+
 void Renderer::renderVertexArray(GLfloat vertices[], GLubyte indices[], GLfloat normals[], GLfloat colors[],
 								 float rotation, int numberOfVertices, float scale, Vector3 trans, Vector3 colour)
 {
 	glShadeModel(GL_SMOOTH);
+	/*
 	//glColor3f(0.5, 0.9, 0.9);
 	GLfloat whiteSpecularMaterial[] = {1.0, 1.0, 1.0};
 	GLfloat greenEmissiveMaterial[] = {0.0, 1.0, 0.0};
@@ -150,7 +182,7 @@ void Renderer::renderVertexArray(GLfloat vertices[], GLubyte indices[], GLfloat 
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mShininess);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, greenEmissiveMaterial);
 	glEnable(GL_LIGHT0);
-	
+	*/
     // enable and specify pointers to vertex arrays
     glEnableClientState(GL_NORMAL_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);
@@ -177,6 +209,7 @@ void Renderer::renderVertexArray(std::vector<double> vertices, std::vector<doubl
 {
         glShadeModel(GL_SMOOTH);
         //glColor3f(0.5, 0.9, 0.9);
+	/*
         GLfloat whiteSpecularMaterial[] = {1.0, 1.0, 1.0};
         GLfloat greenEmissiveMaterial[] = {0.0, 1.0, 0.0};
         GLfloat mShininess[] = {128};
@@ -200,7 +233,7 @@ void Renderer::renderVertexArray(std::vector<double> vertices, std::vector<doubl
         glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mShininess);
         glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, greenEmissiveMaterial);
         glEnable(GL_LIGHT0);
-	
+	*/
 	// enable and specify pointers to vertex arrays
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);

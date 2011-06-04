@@ -63,8 +63,8 @@ void Arena::generateNewArena()
 void Arena::render()
 {
 	renderStars();
-	renderSuns();
-	renderPlanets();
+//	renderSuns();
+//	renderPlanets();
 	renderObjects();
 }
 
