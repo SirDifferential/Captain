@@ -66,6 +66,7 @@ Sun::~Sun()
 
 void Sun::render()
 {
+	// Surely there is a better way to do this
 	int numberOfVerts = sizeof(indices)/sizeof(indices[0]);
 	//renderer.renderVertexArray(vertices, indices, normals, colors, angle2, numberOfVerts, 0.1f, position, colour);
 	renderer.renderVertexArray(vertices, indices, normals, colors, angle2, numberOfVerts, 0.1f, position, colour);

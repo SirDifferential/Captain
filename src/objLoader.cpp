@@ -31,7 +31,7 @@ std::vector<std::vector<double> > ObjLoader::readObjectFile(std::string path)
 	std::vector<double> vertexData;			// Read vertexes here
 	std::vector<double> indiceData;			// read indices here
 	std::vector<double> normalData;			// Read normals here
-	std::vector<std::vector<double> > out;	// Return in this container
+	std::vector<std::vector<double> > out;		// Return in this container
 	
 	if (!dataReader)
 		std::cout << "Error opening model file: " << path.c_str() << std::endl;

@@ -172,3 +172,52 @@ void Renderer::renderVertexArray(GLfloat vertices[], GLubyte indices[], GLfloat 
     glDisableClientState(GL_COLOR_ARRAY);
     glDisableClientState(GL_NORMAL_ARRAY);
 }
+
+void Renderer::renderVertexArray(std::vector<double> vertices, std::vector<double> normals, std::vector<double> indices, int numberOfVertices)
+{
+        glShadeModel(GL_SMOOTH);
+        //glColor3f(0.5, 0.9, 0.9);
+        GLfloat whiteSpecularMaterial[] = {1.0, 1.0, 1.0};
+        GLfloat greenEmissiveMaterial[] = {0.0, 1.0, 0.0};
+        GLfloat mShininess[] = {128};
+        GLfloat redDiffuseMaterial[] = {1.0, 0.0, 0.0};
+        float mcolor[] = { 0.3f, 0.3f, 0.3f, 1.0f };
+	
+        glEnable(GL_DEPTH_TEST);
+        glEnable(GL_LIGHTING);
+        GLfloat ambientLight[] = { 0.3f, 0.3f, 0.3f, 1.0f };
+        GLfloat diffuseLight[] = { 0.6f, 0.6f, 0.6f, 1.0f };
+        GLfloat specularLight[] = { 0.8f, 0.8f, 0.8f, 1.0f };
+        GLfloat position[] = { 0, 0, 0 };
+        glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight);
+        glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
+        glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight);
+        glLightfv(GL_LIGHT0, GL_POSITION, position);
+	
+        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, mcolor);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, redDiffuseMaterial);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, whiteSpecularMaterial);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mShininess);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, greenEmissiveMaterial);
+        glEnable(GL_LIGHT0);
+	
+	// enable and specify pointers to vertex arrays
+	glEnableClientState(GL_NORMAL_ARRAY);
+	glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glNormalPointer(GL_FLOAT, 0, &normals[0]);
+	glVertexPointer(3, GL_FLOAT, 0, &vertices[0]);
+	
+        glLoadIdentity();
+        glScalef(1.0f, 1.0f, 1.0f);
+	//glTranslatef(trans.x, trans.y, trans.z);
+	//glRotatef(rotation, 3.0f, 0.0f, 1.0f);
+	
+	glDrawArrays(GL_QUADS, 0, numberOfVertices);
+	
+	glPopMatrix();
+	
+	glDisableClientState(GL_VERTEX_ARRAY);  // disable vertex arrays
+	glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
+}

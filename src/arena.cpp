@@ -4,6 +4,7 @@
 
 typedef boost::shared_ptr<Planet> PlanetPtr;
 typedef boost::shared_ptr<Sun> SunPtr;
+typedef boost::shared_ptr<Object3D> Object3DPtr;
 
 Arena::Arena()
 {
@@ -50,6 +51,13 @@ void Arena::generateNewArena()
 		SunPtr tempPtr(new Sun(mass, temperature, radius, posX, posY));
 		sunVector.push_back(tempPtr);
 	}
+	
+	// Add some cubes for testing objects
+	for (int i = 0; i < 10; i++)
+	{
+		Object3DPtr tempPtr(new Object3D("cube.obj"));
+		objectVector.push_back(tempPtr);
+	}
 }
 
 void Arena::render()
@@ -57,6 +65,7 @@ void Arena::render()
 	renderStars();
 	renderSuns();
 	renderPlanets();
+	renderObjects();
 }
 
 void Arena::renderStars()
@@ -75,6 +84,14 @@ void Arena::renderSuns()
 void Arena::renderPlanets()
 {
 	for (std::vector<PlanetPtr>::iterator iter = planetVector.begin(); iter != planetVector.end(); iter++)
+	{
+		(*iter)->render();
+	}
+}
+
+void Arena::renderObjects()
+{
+	for (std::vector<Object3DPtr>::iterator iter = objectVector.begin(); iter != objectVector.end(); iter++)
 	{
 		(*iter)->render();
 	}
