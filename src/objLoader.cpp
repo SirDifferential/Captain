@@ -31,7 +31,7 @@ std::vector<std::vector<double> > ObjLoader::readObjectFile(std::string path)
 	std::vector<double> vertexData;			// Read vertexes here
 	std::vector<double> indiceData;			// read indices here
 	std::vector<double> normalData;			// Read normals here
-	std::vector<std::vector<double> > out;		// Return in this container
+	std::vector<std::vector<double> > out;	// Return in this container
 	
 	if (!dataReader)
 		std::cout << "Error opening model file: " << path.c_str() << std::endl;
@@ -41,7 +41,6 @@ std::vector<std::vector<double> > ObjLoader::readObjectFile(std::string path)
 		dataReader.getline(lineBuffer, bufferSize);
 		line = lineBuffer;
 		
-		
 		if (line[0] == 'v' && line[1] == ' ')			// Vertex
 		{
 			coordinatesAdded = 0;
@@ -49,6 +48,8 @@ std::vector<std::vector<double> > ObjLoader::readObjectFile(std::string path)
 			// Start reading from the first number. Skip the leading v and whitespace
 			for (int i = 2; coordinatesAdded < 3; i++)
 			{
+				if (line[i] == NULL)
+					break;
 				// If we are at a new coordinate
 				if (line[i] == ' ')
 				{
@@ -65,7 +66,7 @@ std::vector<std::vector<double> > ObjLoader::readObjectFile(std::string path)
 				}
 				
 				// Add the number or decimal dot to the string to be converted
-				decimalNumberString.append(toolbox.charToString(line[i]));
+				decimalNumberString.append(tbox.charToString(line[i]));
 				
 				if (coordinatesAdded > 3 && i > 40)
 				{
@@ -83,6 +84,8 @@ std::vector<std::vector<double> > ObjLoader::readObjectFile(std::string path)
 			// Start reading from the first number. Skip the leading v and whitespace
 			for (int i = 3; coordinatesAdded < 3; i++)
 			{
+				if (line[i] == NULL)
+					break;
 				// If we are at a new coordinate
 				if (line[i] == ' ')
 				{
@@ -99,7 +102,7 @@ std::vector<std::vector<double> > ObjLoader::readObjectFile(std::string path)
 				}
 				
 				// Add the number or decimal dot to the string to be converted
-				decimalNumberString.append(toolbox.charToString(line[i]));
+				decimalNumberString.append(tbox.charToString(line[i]));
 				
 				if (coordinatesAdded > 3 && i > 40)
 				{

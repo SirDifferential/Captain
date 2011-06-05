@@ -18,6 +18,6 @@ public:
 	std::string charToString(char c);
 };
 
-extern Toolbox toolbox;
+extern Toolbox tbox;
 
 #endif

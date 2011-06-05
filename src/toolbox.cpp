@@ -5,7 +5,7 @@
 #include <sstream>
 #include <string>
 
-Toolbox toolbox;
+Toolbox tbox;
 
 Toolbox::Toolbox()
 {

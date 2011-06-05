@@ -1,4 +1,5 @@
 #include "planet.hpp"
+#include <iostream>
 
 Planet::Planet()
 {
@@ -29,4 +30,3 @@ Planet::~Planet()
 void Planet::render()
 {
 }
-
