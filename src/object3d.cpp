@@ -23,9 +23,10 @@ void Object3D::loadModel(std::string path)
 	normals = data.at(1);
 	indices = data.at(2);
 	verticeCount = vertices.size();
+	indiceCount = indices.size();
 }
 
 void Object3D::render()
 {
-	renderer.renderVertexArray(vertices, normals, indices, verticeCount);
+	renderer.renderObject(GL_TRIANGLES, indiceCount, GL_UNSIGNED_INT, indices, vertices, normals);
 }

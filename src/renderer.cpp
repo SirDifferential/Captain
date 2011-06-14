@@ -254,3 +254,26 @@ void Renderer::renderVertexArray(std::vector<double> vertices, std::vector<doubl
 	glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
 }
+
+void Renderer::renderObject(GLenum primitiveType, int indiceCount, GLenum datatype, std::vector<double> indices, std::vector<double> vertices, std::vector<double> normals)
+{
+	glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_NORMAL_ARRAY);
+	
+	std::cout << "glVertexPointer defined" << std::endl;
+	glVertexPointer(3, GL_DOUBLE, 0, &vertices[0]);
+	std::cout << "glNormalPointer defined" << std::endl;
+	glNormalPointer(GL_DOUBLE, 0, &normals[0]);
+	std::cout << "glDrawElements called" << std::endl;
+	std::cout << "ptype: " << primitiveType << std::endl;
+	std::cout << "indicecount: " << indiceCount << std::endl;
+	std::cout << "datatype: " << datatype << std::endl;
+	std::cout << "element 0: " << indices.at(2) << std::endl;
+	std::cout << "" << std::endl;
+	glDrawElements(primitiveType, indiceCount, datatype, &indices[0]);
+	std::cout << "pop matrix" << std::endl;
+	glPopMatrix();
+	
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
+}

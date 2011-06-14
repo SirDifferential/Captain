@@ -14,6 +14,7 @@ private:
 	std::vector<double> indices;
 	
 	int verticeCount;
+	int indiceCount;
 	
 public:
 	Object3D();
