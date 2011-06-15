@@ -37,3 +37,14 @@ std::string Toolbox::charToString(char c)
 	
 	return out;
 }
+
+// Converts std::vector<double> into std::vector<int>
+std::vector<int> Toolbox::doubleVectorToIntVector(std::vector<double> in)
+{
+	std::vector<int> output;
+	for (int i = 0; i < in.size(); i++)
+	{
+		output.push_back(int(in.at(i)));
+	}
+	return output;
+}

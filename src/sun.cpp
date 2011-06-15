@@ -2,6 +2,8 @@
 #include "programManager.hpp"
 #include "renderer.hpp"
 
+/*
+
 GLfloat vertices[] = {1,1,1,  -1,1,1,  -1,-1,1,  1,-1,1,        // v0-v1-v2-v3
                       1,1,1,  1,-1,1,  1,-1,-1,  1,1,-1,        // v0-v3-v4-v5
                       1,1,1,  1,1,-1,  -1,1,-1,  -1,1,1,        // v0-v5-v6-v1
@@ -33,8 +35,15 @@ GLubyte indices[] = {0,1,2,3,
                      20,21,22,23};
 
 
+*/
+
 Sun::Sun()
 {
+	std::cout << "Creating temp pointer" << std::endl;
+	boost::shared_ptr<Object3D> tempPtr(new Object3D("cube.obj"));
+	std::cout << "Assigning temp pointer to actual" << std::endl;
+	modelPointer = tempPtr;
+	std::cout << "done" << std::endl;
 }
 
 Sun::Sun(int m, int t, int r, int posX, int posY)
@@ -66,6 +75,7 @@ Sun::~Sun()
 
 void Sun::render()
 {
+	/*
 	// Surely there is a better way to do this
 	int numberOfVerts = sizeof(indices)/sizeof(indices[0]);
 	//renderer.renderVertexArray(vertices, indices, normals, colors, angle2, numberOfVerts, 0.1f, position, colour);
@@ -73,5 +83,6 @@ void Sun::render()
 	angle2 += 0.15f;
 	if (angle2 > 360.0f)
 		angle2 = 0.0f;
-	
+	*/
+	modelPointer->render();
 }

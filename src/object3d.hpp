@@ -11,7 +11,7 @@ private:
 	
 	std::vector<double> vertices;
 	std::vector<double> normals;
-	std::vector<double> indices;
+	std::vector<int> indices;
 	
 	int verticeCount;
 	int indiceCount;

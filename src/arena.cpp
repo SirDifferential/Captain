@@ -52,12 +52,14 @@ void Arena::generateNewArena()
 		sunVector.push_back(tempPtr);
 	}
 	
+	/*
 	// Add some cubes for testing objects
 	for (int i = 0; i < 10; i++)
 	{
 		Object3DPtr tempPtr(new Object3D("cube.obj"));
 		objectVector.push_back(tempPtr);
 	}
+	*/
 }
 
 void Arena::render()
