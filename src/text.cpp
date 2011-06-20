@@ -6,6 +6,9 @@ Text::Text()
 {
 }
 
+// Constructs the text. Params are the dimensions, desired text,
+// path to the truetype font file, and the size of the font. Note
+// that the size is somewhat important for getting a good looking sprite
 Text::Text(int x, int y, std::string input, std::string fontPath, int fontSize)
 {
 	w = x;
@@ -15,15 +18,15 @@ Text::Text(int x, int y, std::string input, std::string fontPath, int fontSize)
 	glGenTextures(1, &id);
 	assert(id);
 	opacity = 1.0f;
-
+	
 	glBindTexture(GL_TEXTURE_2D, id);
-
+	
 	GLuint target = GL_TEXTURE_2D;
-
+	
 	textColor.r = 255;
 	textColor.b = 255;
 	textColor.g = 255;
-
+	
 	color1 = 1.0f;
 	color2 = 1.0f;
 	color3 = 1.0f;
@@ -32,7 +35,7 @@ Text::Text(int x, int y, std::string input, std::string fontPath, int fontSize)
 	surface = TTF_RenderText_Blended( font, input.c_str(), textColor );
 	assert(surface);
 	format = checkGenerated(surface);
-
+	
 	assert(surface);
 	assert(surface->pixels);
 	// 8 = 1 channel, alpha
@@ -55,6 +58,7 @@ Text::Text(int x, int y, std::string input, std::string fontPath, int fontSize)
 	assert(surface);
 }
 
+// Render the text as a 4 vertice plane with the sprite working as a texture
 void Text::render()
 {
 	glMatrixMode(GL_MODELVIEW);
@@ -68,7 +72,7 @@ void Text::render()
 	glMatrixMode(GL_MODELVIEW);
 	glTranslatef(x, y, 0);
 	glScalef(1.0f, 1.0f, 1.0f);
-
+	
 	glEnable(GL_TEXTURE_2D);
 	glDisable(GL_LIGHTING);
 	// SDL_Surface->glTexImage2D conversion made earlier. We have only the alpha
@@ -93,3 +97,4 @@ void Text::render()
 	glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();
 }
+

@@ -14,6 +14,8 @@
 
 InputManager inputmgr;
 
+// Construct the singleton that records key presses.
+// It's all SDL
 InputManager::InputManager()
 {
 	std::cout << "Creating InputManager" << std::endl;
@@ -23,6 +25,7 @@ InputManager::~InputManager()
 {
 }
 
+// Read the input from the event structure
 void InputManager::handleInput()
 {
 	SDL_Event e;
@@ -68,3 +71,4 @@ void InputManager::handleMenuInput(Menu &menu)
 		}
 	}
 }
+

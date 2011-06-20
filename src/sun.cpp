@@ -2,6 +2,8 @@
 #include "programManager.hpp"
 #include "renderer.hpp"
 
+/*
+
 GLfloat vertices[] = {1,1,1,  -1,1,1,  -1,-1,1,  1,-1,1,        // v0-v1-v2-v3
                       1,1,1,  1,-1,1,  1,-1,-1,  1,1,-1,        // v0-v3-v4-v5
                       1,1,1,  1,1,-1,  -1,1,-1,  -1,1,1,        // v0-v5-v6-v1
@@ -33,10 +35,13 @@ GLubyte indices[] = {0,1,2,3,
                      20,21,22,23};
 
 
+*/
+
 Sun::Sun()
 {
 }
 
+// Construct a new sun, spooky. Params are mass, temperature, radius, location
 Sun::Sun(int m, int t, int r, int posX, int posY)
 {
 	mass = m;
@@ -48,6 +53,15 @@ Sun::Sun(int m, int t, int r, int posX, int posY)
 	colour.x = double(rand())/RAND_MAX;
 	colour.y = double(rand())/RAND_MAX;
 	colour.z = double(rand())/RAND_MAX;
+	angle2 = 0.0f;
+	position.y -= 5;
+	position.x -= 5;
+	
+	boost::shared_ptr<Object3D> tempPtr(new Object3D("suzanne.obj"));
+	modelPointer = tempPtr;
+	modelPointer->setLocation(position);
+	modelPointer->setRotation(angle2);
+	position.y -= 5;
 	
 	std::cout << "=======" << std::endl;
 	std::cout << "Created a new sun with following properties:" << std::endl;
@@ -57,20 +71,28 @@ Sun::Sun(int m, int t, int r, int posX, int posY)
 	std::cout << "- position X: " << position.x << std::endl;
 	std::cout << "- position Y: " << position.y << std::endl;
 	std::cout << "=======" << std::endl;
-	angle2 = 0.0f;
 }
 
 Sun::~Sun()
 {
 }
 
+// Render the sun by asking the model to render
 void Sun::render()
 {
+	/*
+	// Surely there is a better way to do this
 	int numberOfVerts = sizeof(indices)/sizeof(indices[0]);
 	//renderer.renderVertexArray(vertices, indices, normals, colors, angle2, numberOfVerts, 0.1f, position, colour);
 	renderer.renderVertexArray(vertices, indices, normals, colors, angle2, numberOfVerts, 0.1f, position, colour);
 	angle2 += 0.15f;
 	if (angle2 > 360.0f)
 		angle2 = 0.0f;
-	
+	*/
+	modelPointer->render();
+	angle2 += 0.15f;
+	if (angle2 > 360.0f)
+		angle2 = 0.0f;
+	modelPointer->setRotation(angle2);
 }
+

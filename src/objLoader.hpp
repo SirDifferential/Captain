@@ -2,7 +2,7 @@
 #define __OBJLOADER_HPP_
 
 #include <vector>
-
+#include <string>
 class ObjLoader
 {
 private:

@@ -3,8 +3,12 @@
 #include "objectManager.hpp"
 #include "renderer.hpp"
 #include "timedFunctions.hpp"
+#include "scene.hpp"
 #include <iostream>
 
+// My Visual Studio is pointing directly into the SDL include dirs, so I'm
+// using this inclusion system. I should probably make my system consistent
+// with Linuxes.
 #ifdef WIN32
 #include <SDL.h>
 #include <SDL_mixer.h>
@@ -21,31 +25,37 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
 
+#define FPS 60
+
 ProgramManager progmgr;
 
 static Mix_Music *music;
 
 #define NOMUSIC
 
+// Lo and behold! Our entire program is about to start.
+// This function pretty much stars all the subsystems and launches the mess
+// that this game is.
 ProgramManager::ProgramManager()
 {
 	std::cout << "Creating ProgramManager" << std::endl;
 	start();
 	std::cout << "SDL initializing" << std::endl;
-    SDL_Init(SDL_INIT_EVERYTHING);
-    SDL_WM_SetCaption("Captain", NULL);
+	SDL_Init(SDL_INIT_EVERYTHING);
+	SDL_WM_SetCaption("Captain", NULL);
 	std::cout << "SDL_TTF initializing" << std::endl;
 	TTF_Init();
-#ifndef NOMUSIC
+	#ifndef NOMUSIC
 	std::cout << "Playing music" << std::endl;
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 512);
 	music = Mix_LoadMUS("captain_tune.ogg");
 	Mix_PlayMusic(music, 5);
 	Mix_VolumeMusic(SDL_MIX_MAXVOLUME);
-#endif
-    SDL_SetVideoMode(screenX, screenY, screenBPP, SDL_OPENGL |SDL_RESIZABLE);
+	#endif
+	// TODO: Make SDL fullscreen work properly on multiple monitors
+	SDL_SetVideoMode(screenX, screenY, screenBPP, SDL_OPENGL |SDL_RESIZABLE);
 	std::cout << "OpenGL initializing" << std::endl;
-    GLenum err = glewInit();
+	GLenum err = glewInit();
 	if (GLEW_OK != err)
 	{
 		std::cout << "Error starting glew: " << glewGetErrorString(err) << std::endl;
@@ -54,15 +64,18 @@ ProgramManager::ProgramManager()
 	std::cout << "progmgr created" << std::endl;
 }
 
+// Should anything else be closed manually?
 ProgramManager::~ProgramManager()
 {
 	SDL_Quit();
 }
 
+// Assigns some variables that are used for all sorts of program-vital things
+// such as the screen resolution
 void ProgramManager::start()
 {
 	std::cout << "Setting up start-up variables" << std::endl;
-    delta = 0.0f;
+	delta = 0.0f;
 	gameTime = 0.0f;
 	nextFPS = 1000;
 	running = true;
@@ -70,17 +83,16 @@ void ProgramManager::start()
 	screenX = 1024;
 	screenY = 768;
 	screenBPP = 32;
-	
-	inMenu = true;
-	firstTime = true;
 }
 
 void ProgramManager::stop()
 {
 }
 
+// THE function. Looping occurs here
 void ProgramManager::work()
 {
+	objectmgr.doFirstScene();
 	while (progmgr.running)
 	{
 		float time = 0.001f * SDL_GetTicks();
@@ -89,23 +101,17 @@ void ProgramManager::work()
 			delta = 0;
 		gameTime = time;
 		
+		
 		if (SDL_GetTicks() > nextFPS)
 		{
 			std::cout << "FPS: " << (1.0f/delta) << std::endl;
 			nextFPS += 1000;
 		}
 		
+		/*
 		// Some textures need to be created in the rendering loop
 		if (firstTime)
 		{
-			// Create the main menu
-			std::vector<std::string> menuItems;
-			menuItems.push_back("Play game");
-			menuItems.push_back("Options");
-			menuItems.push_back("Help");
-			menuItems.push_back("Quit");
-			std::cout << "Creating menu" << std::endl;
-			mainMenu = Menu(menuItems);
 			
 			// Add something to work as a background while other things are being readied
 			objectmgr.changeMainBackground("default.png");
@@ -130,9 +136,20 @@ void ProgramManager::work()
 			
 			objectmgr.updateArena();
 		}
+		*/
 		
+		renderer.render();	
+		objectmgr.update();	// Calls currentScene to update
 		triggers.poll();
 		inputmgr.handleInput();
 		SDL_GL_SwapBuffers();
+		
+		// Limit FPS to 60
+		while (delta < 1.0f/FPS) 
+		{
+			// Loop
+			delta = (0.001f*SDL_GetTicks())-time;
+		}
 	}
 }
+

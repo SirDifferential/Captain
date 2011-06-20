@@ -13,12 +13,13 @@
 
 #define dist(a, b, c, d) sqrt(double((a - c) * (a - c) + (b - d) * (b - d)))
 
+// Sets one pixel into the desired colour
 void Sprite::setPixel ( SDL_Surface* pSurface , int x , int y , SDL_Color color ) 
 {
 	// http://www.gamedev.net/reference/programming/features/sdl2/page5.asp
 	
 	//convert color
-	Uint32 col = SDL_MapRGB ( pSurface->format , color.r , color.g , color.b ) ;
+	Uint32 col = SDL_MapRGB ( pSurface->format , color.r , color.g , color.b );
 	
 	//determine position
 	char* pPosition = ( char* ) pSurface->pixels ;
@@ -33,6 +34,7 @@ void Sprite::setPixel ( SDL_Surface* pSurface , int x , int y , SDL_Color color 
 	memcpy ( pPosition , &col , pSurface->format->BytesPerPixel ) ;
 }
 
+// Returns the RGB value of a single pixel
 SDL_Color Sprite::getPixel ( SDL_Surface* pSurface , int x , int y ) 
 {
 	// http://www.gamedev.net/reference/programming/features/sdl2/page5.asp
@@ -57,6 +59,7 @@ SDL_Color Sprite::getPixel ( SDL_Surface* pSurface , int x , int y )
 	return ( color ) ;
 }
 
+// When a sprite has been constructed, make sure it is healthy
 GLenum Sprite::check(SDL_Surface *surface, const string &filename)
 {
 	if (!surface) {
@@ -97,9 +100,9 @@ GLenum Sprite::check(SDL_Surface *surface, const string &filename)
 	return format;
 }
 
+// Same as above, but for generated sprites, not img_load based
 GLenum Sprite::checkGenerated(SDL_Surface *surface)
 {	
-	
 	/* Select texture format. */
 	GLenum format;
 	if (surface->format->BytesPerPixel == 4) {
@@ -119,6 +122,7 @@ GLenum Sprite::checkGenerated(SDL_Surface *surface)
 	return format;
 }
 
+// Returns a random RGB colour
 SDL_Color Sprite::getRandomColor()
 {
 	int min = 1;
@@ -130,14 +134,14 @@ SDL_Color Sprite::getRandomColor()
 	return out;
 }
 
+// Resets all the pixels of a sprite into a random colour
 void Sprite::setPixels()
 {
-
 	GLuint target = GL_TEXTURE_2D;
-
+	
 	// Lock the surface for direct pixel acccess
 	SDL_LockSurface(surface);
-
+	
 	SDL_Color color;
 	
 	color.r = 200;
@@ -171,6 +175,8 @@ Sprite::Sprite()
 {
 }
 
+// The standard constructor for non-img_load based sprites.
+// Params are the dimensions
 Sprite::Sprite(int x, int y)
 {
 	w = x;
@@ -233,6 +239,7 @@ Sprite::Sprite(int x, int y)
 	}
 }
 
+// Construct a new sprite by loading from a file
 Sprite::Sprite(const std::string &filename) :
 	x(0), y(0)
 {
@@ -316,6 +323,7 @@ Sprite::~Sprite()
 	SDL_FreeSurface(surface);
 }
 
+// Change an existing sprite to use some other file
 void Sprite::change(const std::string &filename)
 {
 	// The surface must be reseted before IMG_Load is called again
@@ -324,7 +332,7 @@ void Sprite::change(const std::string &filename)
 	{
 		surface = NULL;
 	}
-
+	
 	id = 0;
 	glGenTextures(1, &id);
 	assert(id);
@@ -394,12 +402,14 @@ void Sprite::change(const std::string &filename)
 	}
 }
 
+// Assert the surface to make sure it exists
 void Sprite::poke()
 {
 	std::cout << "Surface being poked!" << std::endl;
 	assert(surface);
 }
 
+// Renders the sprite as a 4 vertice plane with the sprite as a texture
 void Sprite::render()
 {	
 	glMatrixMode(GL_MODELVIEW);
@@ -426,6 +436,7 @@ void Sprite::render()
 	glPopMatrix();
 }
 
+// Same as above, but with scaling
 void Sprite::renderScale(float scale)
 {	
 	glMatrixMode(GL_MODELVIEW);
@@ -459,3 +470,4 @@ void Sprite::renderScale(float scale)
 	glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();
 }
+

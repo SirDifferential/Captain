@@ -1,5 +1,8 @@
 /*
 Everything by abax
+I haven't really studied this much yet. All I know is that this class is
+a three float vector class with all the tools we ever need.
+Cool guy, that apaksi. You should really play this game, "Bottles"
 */
 
 #ifndef _VECTOR3_H

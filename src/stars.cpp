@@ -4,6 +4,7 @@
 #include <ctime>
 #include <cstdlib>
 
+// Returns the distance between two points
 float distanceTo(float loc, float target)
 {
 	float out = 0.0f;
@@ -11,6 +12,7 @@ float distanceTo(float loc, float target)
 	return out;
 }
 
+// Constructs a new field of stars. This is a a vector of Star-objects
 Stars::Stars()
 {
 	opacity = 1;
@@ -35,6 +37,7 @@ Stars::Stars()
 	}
 }
 
+// Same as above, but each star gets some acceleration
 Stars::Stars(bool speed)
 {
 	useSpeed = speed;
@@ -63,12 +66,14 @@ Stars::~Stars()
 {
 }
 
+// This cryptic play on words assigns the main stars vector as the residence
+// for this single, lonely star so that it isn't alone anymore 
 Stars::Star::Star(Stars *stars)
 {
 	this->stars = stars;
 }
 
-
+// The "upper" render function. Renders the stars in the stars vector
 void Stars::render()
 {
 	if (useSpeed)
@@ -87,21 +92,28 @@ void Stars::render()
 	glEnd();
 }
 
+// If some sort of updating is needed (such as colour changes or movement),
+// do it here
 void Stars::update()
 {
-	
+	// Update the individual stars. Do note that if there are thousands
+	// of them, then this will take a long time	
 	for (unsigned int i = 0; i < stars.size(); i++)
 	{
 		stars[i].update();
 	}
 }
 
+// The "lower" render function. Renders a single dot into the 3D space
+// Called from the "upper" render function, Stars::render()
 void Stars::Star::render()
 {
 	glColor4f(color.x, color.y, color.z, stars->opacity);
 	glVertex3fv(&position.x);
 }
 
+// If an individual star needs to be updated, do it here.
+// Warning: Doing this for all the stars takes a lot of CPU
 void Stars::Star::update()
 {
 	/*
@@ -142,3 +154,4 @@ void Stars::Star::update()
 		position.y = position.y + velocity.y;
 	}
 }
+

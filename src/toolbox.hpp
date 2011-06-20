@@ -2,6 +2,7 @@
 #define __TOOLBOX_HPP_
 
 #include <string>
+#include <vector>
 
 class Toolbox
 {
@@ -16,8 +17,9 @@ public:
 	int giveRandomInt(int min, int max);
 	
 	std::string charToString(char c);
+	std::vector<int> doubleVectorToIntVector(std::vector<double> in);
 };
 
-extern Toolbox toolbox;
+extern Toolbox tbox;
 
 #endif

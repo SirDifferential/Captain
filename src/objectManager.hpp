@@ -7,39 +7,39 @@
 #include "arena.hpp"
 #include "text.hpp"
 #include "stars.hpp"
+#include "scene.hpp"
 #include <vector>
 #include <boost/shared_ptr.hpp>
 
 class ObjectManager
 {
 private:
+	std::vector<boost::shared_ptr<Scene> > sceneVector;
 	std::vector<Ship> shipVector;
 	std::vector<boost::shared_ptr<Text> > genericTexts;
-	std::vector<boost::shared_ptr<Text> > menuTexts;
-	std::vector<boost::shared_ptr<Arena> > arenaList;
 	std::vector<boost::shared_ptr<Sprite> > backgroundSprites;
-	boost::shared_ptr<Stars> menuStarsPtr;
 	boost::shared_ptr<Sprite> mainBackgroundPtr;
-	boost::shared_ptr<Arena> currentArenaPtr;
+	boost::shared_ptr<Scene> currentScenePtr;
 	
-	int roomNumber;
+	int sceneNumber;
 	bool arenaCreated;
 public:
 	ObjectManager();
 	~ObjectManager();
 	
+	void doFirstScene();
+	
+	void update();
+	void changeScene(int num);
 	void render();
-	void renderMenuStuff();
 	void renderBackground();
 	void renderHUD();
 	void addNewGenericText(int w, int h, std::string, std::string fontPath, int fontSize, int locx, int locy);
-	void addNewMenuText(int w, int h, std::string, std::string fontPath, int fontSize, int locx, int locy);
 	void addNewBGSprite(const std::string &filename);
 	void changeMainBackground(std::string filename);
 	
-	void prepareArena();
+	void createNewArena();
 	void removeArena();
-	void updateArena();
 	
 	bool getArenaCreated() { return arenaCreated; }
 };
