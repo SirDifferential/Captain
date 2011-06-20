@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #ifndef __OBJLOADER_HPP_
 #define __OBJLOADER_HPP_
 

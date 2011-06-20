@@ -95,4 +95,3 @@ void Sun::render()
 		angle2 = 0.0f;
 	modelPointer->setRotation(angle2);
 }
-

@@ -53,4 +53,3 @@ std::vector<int> Toolbox::doubleVectorToIntVector(std::vector<double> in)
 	}
 	return output;
 }
-

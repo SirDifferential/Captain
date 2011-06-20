@@ -110,3 +110,4 @@ void Arena::renderObjects()
 void Arena::update()
 {
 }
+

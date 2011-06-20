@@ -225,4 +225,3 @@ std::vector<std::vector<double> > ObjLoader::readObjectFile(std::string path)
 	
 	return out;
 }
-

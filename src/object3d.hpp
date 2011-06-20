@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #ifndef __OBJECT3D_HPP_
 #define __OBJECT3D_HPP_
 
@@ -32,3 +33,4 @@ public:
 };
 
 #endif
+
