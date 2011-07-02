@@ -59,12 +59,13 @@ std::vector<std::vector<double> > ObjLoader::readObjectFile(std::string path)
 			coordinatesAdded = 0;
 			decimalNumberString = "";
 			// Start reading from the first number. Skip the leading v and whitespace
-			for (int i = 2; coordinatesAdded < 3; i++)
+			for (int i = 2; coordinatesAdded <= 3; i++)
 			{
 				if (line[i] == NULL)
 					break;
 				// If we are at a new coordinate
-				if (line[i] == ' ')
+				if (line[i] == ' ' ||
+					i == line.size() - 1)
 				{
 					// Convert the string into a double
 					if (coordinatesAdded == 0)
@@ -90,6 +91,7 @@ std::vector<std::vector<double> > ObjLoader::readObjectFile(std::string path)
 			vertexData.push_back(x);
 			vertexData.push_back(y);
 			vertexData.push_back(z);
+
 		} else if (line[0] == 'v' && line[1] == 'n')	// Vertex normal
 		{
 			coordinatesAdded = 0;
