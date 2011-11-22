@@ -12,7 +12,6 @@ public:
     ~Inputmanager();
     
     void checkInput();
-    void checkMenuInput(Menu &menu);
 };
 
 extern Inputmanager inputmgr;

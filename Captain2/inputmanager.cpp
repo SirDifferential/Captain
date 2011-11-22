@@ -23,50 +23,52 @@ Inputmanager::~Inputmanager()
 
 void Inputmanager::checkInput()
 {
-    SDL_Event e;
-    while (SDL_PollEvent(&e))
+    boost::shared_ptr<Room> currentRoom = manager.getRoomMgr()->giveCurrentRoom();
+    if (currentRoom->getName().compare("Main menu") == 0)
     {
-        switch (e.type)
+	    SDL_Event e;
+	    while (SDL_PollEvent(&e)) {
+		    switch (e.type) {
+			    case SDL_QUIT:
+				    manager.stop();
+				    break;
+			    case SDL_KEYDOWN:
+				    switch (e.key.keysym.sym) {
+					    case SDLK_ESCAPE:
+						    manager.stop();
+						    break;
+					    case SDLK_UP:
+                            currentRoom->giveMenu()->moveup();
+						    break;
+					    case SDLK_DOWN:
+						    currentRoom->giveMenu()->movedown();
+						    break;
+					    case SDLK_RETURN:
+						    currentRoom->giveMenu()->select();
+						    break;
+				    }
+				    break;
+		    }
+        }
+    } else
+    {
+        SDL_Event e;
+        while (SDL_PollEvent(&e))
         {
-            case SDL_QUIT:
-                manager.stop();
-                break;
-            case SDL_KEYDOWN:
-                switch (e.key.keysym.sym)
-                {
-                    case SDLK_ESCAPE:
-                        manager.stop();
-                        break;
-                }
-                break;
+            switch (e.type)
+            {
+                case SDL_QUIT:
+                    manager.stop();
+                    break;
+                case SDL_KEYDOWN:
+                    switch (e.key.keysym.sym)
+                    {
+                        case SDLK_ESCAPE:
+                            manager.stop();
+                            break;
+                    }
+                    break;
+            }
         }
     }
-}
-
-void Inputmanager::checkMenuInput(Menu &menu)
-{
-	SDL_Event e;
-	while (SDL_PollEvent(&e)) {
-		switch (e.type) {
-			case SDL_QUIT:
-				manager.stop();
-				break;
-			case SDL_KEYDOWN:
-				switch (e.key.keysym.sym) {
-					case SDLK_ESCAPE:
-						manager.stop();
-						break;
-					case SDLK_UP:
-						menu.moveup();
-						break;
-					case SDLK_DOWN:
-						menu.movedown();
-						break;
-					case SDLK_RETURN:
-						menu.select();
-						break;
-				}
-				break;
-		}
-	}
 }

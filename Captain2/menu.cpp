@@ -9,6 +9,7 @@ typedef boost::shared_ptr<Text> TextPtr;
 
 Menu::Menu()
 {
+    fprintf(stderr, "Menu constructing\n");
 	std::vector<std::string> entries;
 	entries.push_back("Play game");
 	entries.push_back("Options");
@@ -16,8 +17,8 @@ Menu::Menu()
 	entries.push_back("Quit");
 
 	// Size of screen
-	int width = opengl.getScreenX()/2;
-	int height = opengl.getScreenY()/2-50;		// Leave 50 pixels of border
+    int width = manager.getOpengl()->getScreenX()/2;
+	int height = manager.getOpengl()->getScreenY()/2-50;		// Leave 50 pixels of border
 	
 	// Size of text
 	int sizex = 0;
@@ -25,17 +26,17 @@ Menu::Menu()
 	
 	for (int i = 0; i < entries.size(); i++)
 	{
-		sizex = entries[i].length()*15;	// 7 pixels per character
-		sizey = 25;			// 10 pixels high
+		sizex = entries[i].length()*7;
+		sizey = 12;
 		TextPtr tempTextPtr(new Text(sizex, sizey, entries[i].c_str(), "data/fonts/ArcadeClassic.ttf", 50));
 		items.push_back(tempTextPtr);
         fprintf(stderr, "Item %s added to the list\n", entries[i].c_str());
 	}
 	
 	fprintf(stderr, "Creating logo\n");
-	TextPtr tempTextPtr2(new Text(300, 200, "CAPTAIN", "data/fonts/BulwarkNF.ttf", 70)); 
+	TextPtr tempTextPtr2(new Text(70, 20, "CAPTAIN", "data/fonts/BulwarkNF.ttf", 40)); 
 	additionalTexts.push_back(tempTextPtr2);
-	TextPtr tempTextPtr(new Text(10, 10, "123", "data/fonts/ArcadeClassic.ttf", 30));
+	TextPtr tempTextPtr(new Text(10, 10, "O", "data/fonts/ArcadeClassic.ttf", 15));
 	cursor = tempTextPtr;
 	
 	assert(items.size() != 0);
@@ -59,10 +60,12 @@ Menu::Menu()
 	// Meh, let's just add this hack here
 	currentSelection = 1;
 	moveup();
+    fprintf(stderr, "Menu constructed\n");
 }
 
 Menu::~Menu()
 {
+    fprintf(stderr, "Menu destructing\n");
 }
 
 // Move the cursor up one slot
@@ -90,7 +93,7 @@ void Menu::select()
 	// Make stuff here for dynamic options
 	if (currentSelection == 0)
 	{
-		//objectmgr.createNewArena();
+        manager.getRoomMgr()->nextRoom();
 	}
 	if (currentSelection == 1)
 	{
@@ -107,10 +110,8 @@ void Menu::select()
 	
 }
 
-// Handle moving in the menu
 void Menu::update()
 {
-	inputmgr.checkMenuInput(*this);
 }
 
 void Menu::render()

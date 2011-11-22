@@ -13,14 +13,16 @@ Manager::Manager()
     debug = true;
     running = true;
     gameTime = 0.0f;
-    if (!opengl.start())
+    boost::shared_ptr<Opengl> tempPtr1(new Opengl());
+    openglPtr = tempPtr1;
+    if (!openglPtr->start())
         stop();
-    boost::shared_ptr<RoomManager> tempPtr1(new RoomManager());
-    roomManagerPtr = tempPtr1;
+    boost::shared_ptr<RoomManager> tempPtr2(new RoomManager());
+    roomManagerPtr = tempPtr2;
     if (!roomManagerPtr->init())
         stop();
-    boost::shared_ptr<AudioManager> tempPtr2(new AudioManager());
-    audioManagerPtr = tempPtr2;
+    boost::shared_ptr<AudioManager> tempPtr3(new AudioManager());
+    audioManagerPtr = tempPtr3;
     if (!audioManagerPtr->init())
         stop();
     audioManagerPtr->startMusic();
@@ -38,32 +40,33 @@ void Manager::stop()
 
 int Manager::run()
 {
-    float time = opengl.giveTicks();
+    float time = openglPtr->giveTicks();
     nextFPS = time + 1000;
     fprintf(stderr, "Entering main loop\n");
     while (running)
     {
-        time = 0.001f * opengl.giveTicks();
+        time = 0.001f * openglPtr->giveTicks();
         float delta = time-gameTime;
         if (delta > 0.5)
             delta = 0;
         gameTime = time;
 
-        if (opengl.giveTicks() > nextFPS && debug == true)
+        if (openglPtr->giveTicks() > nextFPS && debug == true)
         {
             fprintf(stderr, "FPS: %f\n", (1.0f/delta));
             nextFPS += 1000;
         }
 
+        inputmgr.checkInput();
         renderer.render();
 
-        if (opengl.getLimitFPS() == 1)
+        if (openglPtr->getLimitFPS() == 1)
         {
             // Limit the FPS
-            while (delta < 1.0f/opengl.getFPS())
+            while (delta < 1.0f/openglPtr->getFPS())
             {
                 inputmgr.checkInput();
-                delta = (0.001f*opengl.giveTicks())-time;
+                delta = (0.001f*openglPtr->giveTicks())-time;
             }
         }
     }

@@ -16,7 +16,7 @@ AudioManager::~AudioManager()
 
 bool AudioManager::init()
 {
-    currentMusicPath = "data/music/across_the_andromeda.ogg";
+    currentMusicPath = "data/music/across_andromeda.mod";
 #ifndef NOMUSIC
     fprintf(stderr, "Intializing: SDL_mixer\n");
     Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 512);

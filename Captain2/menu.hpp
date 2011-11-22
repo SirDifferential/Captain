@@ -25,6 +25,4 @@ public:
     void render();
 };
 
-extern Menu menu;
-
 #endif

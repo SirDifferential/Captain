@@ -11,7 +11,6 @@
 class Text : public Sprite
 {
 private:
-    Sprite textSprite;
 	TTF_Font *font;
 	SDL_Color textColor;
 	float color1, color2, color3;

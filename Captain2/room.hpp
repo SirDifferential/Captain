@@ -26,6 +26,7 @@ public:
     boost::shared_ptr<Sprite> getSprite(std::string name);
     void addSprite(std::string name, boost::shared_ptr<Sprite> s);
     void removeSprite(std::string name);
+    boost::shared_ptr<Menu> giveMenu() { return menuPtr; }
 
     std::string getName() { return name; }
 };

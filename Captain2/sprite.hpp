@@ -17,7 +17,7 @@ class Sprite
 {
 public:
 
-    SDL_Surface *spriteSurface;	// SDL_Surface containing the colour data
+    SDL_Surface* spriteSurface;	// SDL_Surface containing the colour data
     int w, h;					// Resolution of the sprite
     int x, y, z;				// Location in the world
     float scale;                // Scaling factor
@@ -47,6 +47,7 @@ public:
     void setHeight(int n) { h = n; }
     int getWidth() { return w; }
     int getHeight() { return h; }
+    void setName(std::string s) { name = s; }
     void setSpriteSurface(SDL_Surface* surf) { spriteSurface = surf; }
     SDL_Surface* getSpriteSurface() { return spriteSurface; }
 };

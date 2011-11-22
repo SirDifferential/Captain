@@ -17,14 +17,12 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
 
-Opengl opengl;
-
 Opengl::Opengl()
 {
     fprintf(stderr, "Making friends with OpenGL...\n");
     // Default failsafe settings
-    screenX = 640;
-    screenY = 480;
+    screenX = 800;
+    screenY = 600;
     screenBPP = 32;
     fps = 60;
     limit_fps = true;

@@ -35,6 +35,4 @@ public:
     void setLimitFPS(bool b);
 };
 
-extern Opengl opengl;
-
 #endif

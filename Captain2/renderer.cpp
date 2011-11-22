@@ -11,7 +11,7 @@ Renderer::Renderer()
     fprintf(stderr, "Renderer being hammered together from an old radio and a roll of duct tape...\n");
     eye.x = 0;
     eye.y = 0;
-    eye.z = 20;
+    eye.z = 140;
     
     center.x = 0;
     center.y = 0;
@@ -26,8 +26,8 @@ Renderer::~Renderer()
 
 void Renderer::moveCamera()
 {
-   // eye.x = sin(manager.getTime())*5;
-   // eye.y = cos(manager.getTime())*10;
+   //eye.x = sin(manager.getTime())*150;
+   //eye.y = cos(manager.getTime())*100;
 }
 
 void Renderer::clearScreen()
@@ -37,7 +37,7 @@ void Renderer::clearScreen()
     
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(65, opengl.getScreenX()/opengl.getScreenY(), 0.1, 150);
+    gluPerspective(65, manager.getOpengl()->getScreenX()/manager.getOpengl()->getScreenY(), 0.1, 150);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     
@@ -68,7 +68,7 @@ void Renderer::render()
     renderBackground();
     renderMain();
     renderForeground();
-    opengl.swapBuffers();
+    manager.getOpengl()->swapBuffers();
 }
 
 void Renderer::renderObject(    GLenum primitiveType, int indiceCount, GLenum datatype,

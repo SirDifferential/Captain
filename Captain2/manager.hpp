@@ -5,6 +5,7 @@
 #include <boost/shared_ptr.hpp>
 #include "audiomanager.hpp"
 #include "roommanager.hpp"
+#include "opengl.hpp"
 
 class Manager
 {
@@ -18,6 +19,7 @@ private:
     bool debug;
     boost::shared_ptr<AudioManager> audioManagerPtr;
     boost::shared_ptr<RoomManager> roomManagerPtr;
+    boost::shared_ptr<Opengl> openglPtr;
 public:
     Manager();
     ~Manager();
@@ -28,6 +30,7 @@ public:
     void getEnter();
     boost::shared_ptr<AudioManager> getAudioMgr() { return audioManagerPtr; }
     boost::shared_ptr<RoomManager> getRoomMgr() { return roomManagerPtr; }
+    boost::shared_ptr<Opengl> getOpengl() { return openglPtr; }
 };
 
 extern Manager manager;

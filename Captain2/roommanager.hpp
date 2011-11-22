@@ -22,7 +22,8 @@ public:
     bool init();
     boost::shared_ptr<Room> getRoom(std::string n);
     void addRoom(boost::shared_ptr<Room> r);
-
+    void nextRoom();
+    boost::shared_ptr<Room> giveCurrentRoom();
     void work();
 };
 

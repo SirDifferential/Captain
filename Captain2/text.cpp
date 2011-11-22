@@ -13,8 +13,11 @@ Text::Text()
 // that the size is somewhat important for getting a good looking sprite
 Text::Text(int x, int y, std::string input, std::string fontPath, int fontSize)
 {
+    fprintf(stderr, "New text constructing with: x: %d, y: %d, input: %s, font: %s, size: %d\n", x, y, input.c_str(), fontPath.c_str(), fontSize);
 	w = x;
 	h = y;
+    x = 1;
+    y = 1;
 	font = TTF_OpenFont( fontPath.c_str(), fontSize );
 	id = 0;
 	glGenTextures(1, &id);
@@ -37,8 +40,6 @@ Text::Text(int x, int y, std::string input, std::string fontPath, int fontSize)
 	spriteSurface = TTF_RenderText_Blended( font, input.c_str(), textColor );
 	assert(spriteSurface);
 	format = checkGeneric(spriteSurface);
-	
-	assert(spriteSurface);
 	assert(spriteSurface->pixels);
 	// 8 = 1 channel, alpha
 	// 32 = RGBA
@@ -58,6 +59,7 @@ Text::Text(int x, int y, std::string input, std::string fontPath, int fontSize)
 	glTexParameteri(target, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(target, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	assert(spriteSurface);
+    fprintf(stderr, "Text built\n");
 }
 
 // Render the text as a 4 vertice plane with the sprite working as a texture
@@ -69,10 +71,10 @@ void Text::render()
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
 	glLoadIdentity();
-	glOrtho(0, opengl.getScreenX(), 0, opengl.getScreenY(), -1, 1);
+	glOrtho(0, manager.getOpengl()->getScreenX(), 0, manager.getOpengl()->getScreenY(), -1, 1);
 	
 	glMatrixMode(GL_MODELVIEW);
-	glTranslatef(x, y, 0);
+    glTranslatef(manager.getOpengl()->getScreenX()/10+x, manager.getOpengl()->getScreenY()/10+y, 0);
 	glScalef(1.0f, 1.0f, 1.0f);
 	
 	glEnable(GL_TEXTURE_2D);

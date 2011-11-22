@@ -81,6 +81,8 @@ Sprite::Sprite(std::string &path) :
 {
     x = 1;
     y = 1;
+    w = 1024;
+    h = 1024;
     scale = 0.1;
     id = 0;
     glGenTextures(1, &id);

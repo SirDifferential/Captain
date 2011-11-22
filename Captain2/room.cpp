@@ -28,6 +28,11 @@ void Room::operate()
             (*spriteIterator).second->render();
 	} else if (roomType == 2) // A menu
 	{
+        if (spriteMap.size() > 0)
+        {
+            for (spriteIterator = spriteMap.begin(); spriteIterator != spriteMap.end(); spriteIterator++)
+                (*spriteIterator).second->render();
+        }
 		menuPtr->update();
 		menuPtr->render();
 	}
