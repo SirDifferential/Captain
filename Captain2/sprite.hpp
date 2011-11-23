@@ -29,6 +29,7 @@ public:
     Sprite(int sizeX, int sizeY);
     Sprite(std::string &path);
     virtual ~Sprite();
+    SDL_Color col;
     
     void setPixel(SDL_Surface* pSurface , int x , int y , SDL_Color color);
     SDL_Color getPixel(SDL_Surface* pSurface , int x , int y);

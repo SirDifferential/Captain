@@ -27,13 +27,16 @@ void Inputmanager::checkInput()
     if (currentRoom->getName().compare("Main menu") == 0)
     {
 	    SDL_Event e;
-	    while (SDL_PollEvent(&e)) {
-		    switch (e.type) {
+	    while (SDL_PollEvent(&e))
+        {
+		    switch (e.type)
+            {
 			    case SDL_QUIT:
 				    manager.stop();
 				    break;
 			    case SDL_KEYDOWN:
-				    switch (e.key.keysym.sym) {
+				    switch (e.key.keysym.sym)
+                    {
 					    case SDLK_ESCAPE:
 						    manager.stop();
 						    break;
@@ -49,6 +52,49 @@ void Inputmanager::checkInput()
 				    }
 				    break;
 		    }
+        }
+    } else if (currentRoom->getName().compare("Help") == 0)
+    {
+        SDL_Event e;
+        while (SDL_PollEvent(&e))
+        {
+            switch (e.type)
+            {
+                case SDL_QUIT:
+                    manager.stop();
+                    break;
+                case SDL_KEYDOWN:
+                    switch (e.key.keysym.sym)
+                    {
+                        case SDLK_ESCAPE:
+                            manager.getRoomMgr()->changeRoom("Main menu");
+                            break;
+                    }
+                    break;
+            }
+        }
+    } else if (currentRoom->getType() == 3 || currentRoom->getType() == 4)  // cinematics / text
+    {
+        SDL_Event e;
+        while (SDL_PollEvent(&e))
+        {
+            switch (e.type)
+            {
+                case SDL_QUIT:
+                    manager.stop();
+                    break;
+                case SDL_KEYDOWN:
+                    switch (e.key.keysym.sym)
+                    {
+                        case SDLK_ESCAPE:
+                            currentRoom->iterateSprites();
+                            break;
+                        case SDLK_RETURN:
+                            currentRoom->iterateSprites();
+                            break;
+                    }
+                    break;
+            }
         }
     } else
     {

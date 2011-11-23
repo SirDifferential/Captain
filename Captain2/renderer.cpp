@@ -32,7 +32,7 @@ void Renderer::moveCamera()
 
 void Renderer::clearScreen()
 {
-    glClearColor(0.3,0.7,0.2,0);
+    glClearColor(0.0,0.0,0.0,0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
     glMatrixMode(GL_PROJECTION);

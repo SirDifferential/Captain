@@ -21,8 +21,10 @@ public:
     ~RoomManager();
     bool init();
     boost::shared_ptr<Room> getRoom(std::string n);
+    int getRoomIndex(std::string);
     void addRoom(boost::shared_ptr<Room> r);
     void nextRoom();
+    void changeRoom(std::string name);
     boost::shared_ptr<Room> giveCurrentRoom();
     void work();
 };

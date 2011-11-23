@@ -28,13 +28,12 @@ Text::Text(int x, int y, std::string input, std::string fontPath, int fontSize)
 	
 	GLuint target = GL_TEXTURE_2D;
 	
-	textColor.r = 255;
-	textColor.b = 255;
-	textColor.g = 255;
-	
-	color1 = 1.0f;
-	color2 = 1.0f;
-	color3 = 1.0f;
+	textColor.r = 255.0f;
+	textColor.g = 255.0f;
+	textColor.b = 255.0f;
+    color.x = 1.0f;
+    color.y = 1.0f;
+    color.z = 1.0f;
 	
 	assert(font);
 	spriteSurface = TTF_RenderText_Blended( font, input.c_str(), textColor );
@@ -87,7 +86,7 @@ void Text::render()
 	glBlendEquation(GL_FUNC_ADD);
 	glDisable(GL_DEPTH_TEST);
 	glBindTexture(GL_TEXTURE_2D, id);
-	glColor4f(color1, color2, color3, opacity);
+	glColor4f(color.x, color.y, color.z, opacity);
 	
 	glBegin(GL_QUADS);
 	glTexCoord2f(0, 1); glVertex2f(-w, -h);
@@ -100,4 +99,19 @@ void Text::render()
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();
+}
+
+void Text::setColorR(float f)
+{
+    color.x = f;
+}
+
+void Text::setColorG(float f)
+{
+    color.y = f;
+}
+
+void Text::setColorB(float f)
+{
+    color.z = f;
 }

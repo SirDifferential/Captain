@@ -1,11 +1,13 @@
 #include "room.hpp"
+#include "manager.hpp"
 
-Room::Room(std::string s, int n)
+Room::Room(std::string s, int n, int t)
 {
-    fprintf(stderr, "Room creating with name %s and number %d\n", s.c_str(), n);
+    fprintf(stderr, "Room creating with name %s and number %d and type %d\n", s.c_str(), n, t);
     name = s;
     roomNumber = n;
-    roomType = 1;
+    roomType = t;
+    firstRun = true;
 }
 
 Room::~Room()
@@ -28,6 +30,7 @@ void Room::operate()
             (*spriteIterator).second->render();
 	} else if (roomType == 2) // A menu
 	{
+        // Allow browsing in the menu
         if (spriteMap.size() > 0)
         {
             for (spriteIterator = spriteMap.begin(); spriteIterator != spriteMap.end(); spriteIterator++)
@@ -35,7 +38,39 @@ void Room::operate()
         }
 		menuPtr->update();
 		menuPtr->render();
-	}
+	} else if (roomType == 3) // Cinematics
+    {
+        if (firstRun)
+        {
+            roomStartTime = manager.getTime();
+            timePerPicture = 4;
+            pictureChangeTime = roomStartTime;
+            spriteIterator = spriteMap.begin();
+            firstRun = false;
+        }
+
+        if (manager.getTime() - pictureChangeTime > timePerPicture)
+        {
+            pictureChangeTime = manager.getTime();
+            spriteIterator++;
+        }
+        if (spriteIterator == spriteMap.end())
+            manager.getRoomMgr()->nextRoom();
+        else
+            (*spriteIterator).second->render();
+	} else if (roomType == 4) // Static text rooms
+    {
+        if (firstRun)
+        {
+            spriteIterator = spriteMap.begin();
+            firstRun = false;
+        }
+
+        if (spriteIterator == spriteMap.end())
+            manager.getRoomMgr()->nextRoom();
+        else
+            (*spriteIterator).second->render();
+    }
 }
 
 boost::shared_ptr<Sprite> Room::getSprite(std::string name)
@@ -67,4 +102,9 @@ void Room::removeSprite(std::string name)
     {
         fprintf(stderr, "No sprite found to delete! Sprite: %s, Room: %d", name.c_str(), roomNumber);
     }
+}
+
+void Room::iterateSprites()
+{
+    spriteIterator++;
 }

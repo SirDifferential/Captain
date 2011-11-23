@@ -90,7 +90,11 @@ Sprite::Sprite(std::string &path) :
     opacity = 0.0f;
     glBindTexture(GL_TEXTURE_2D, id);
     name = path;
-    
+
+    col.r = 1.0f;
+    col.g = 1.0f;
+    col.b = 1.0f;
+
     GLuint target = GL_TEXTURE_2D;
     bool buildMipmaps = true;
     spriteSurface = NULL;
@@ -270,7 +274,7 @@ void Sprite::render()
     glDisable(GL_BLEND);
     glDisable(GL_DEPTH_TEST);
     glBindTexture(GL_TEXTURE_2D, id);
-    glColor4f(1, 1, 1, opacity);
+    glColor4f(col.r, col.g, col.b, opacity);
     
     glBegin(GL_QUADS);
         glTexCoord2f(0, 1); glVertex2f(-w, -h);

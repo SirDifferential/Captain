@@ -4,6 +4,7 @@
 #include "inputmanager.hpp"
 #include "manager.hpp"
 #include <boost/shared_ptr.hpp>
+#include <math.h>
 
 typedef boost::shared_ptr<Text> TextPtr;
 
@@ -34,7 +35,9 @@ Menu::Menu()
 	}
 	
 	fprintf(stderr, "Creating logo\n");
-	TextPtr tempTextPtr2(new Text(70, 20, "CAPTAIN", "data/fonts/BulwarkNF.ttf", 40)); 
+	TextPtr tempTextPtr2(new Text(280, 80, "CAPTAIN", "data/fonts/BulwarkNF.ttf", 80));
+    tempTextPtr2->x = 300;
+    tempTextPtr2->y = 450;
 	additionalTexts.push_back(tempTextPtr2);
 	TextPtr tempTextPtr(new Text(10, 10, "O", "data/fonts/ArcadeClassic.ttf", 15));
 	cursor = tempTextPtr;
@@ -47,7 +50,7 @@ Menu::Menu()
 	int posy = height;
 	int i = 0;
 	
-	cursor->x = width-170;
+	cursor->x = width-120;
 	cursor->y = height-step;
 	
 	for (std::vector<TextPtr>::iterator iter = items.begin(); iter != items.end(); iter++)
@@ -101,7 +104,7 @@ void Menu::select()
 	}
 	if (currentSelection == 2)
 	{
-		// Display help
+        manager.getRoomMgr()->changeRoom("Help");
 	}
 	if (currentSelection == 3)
 	{
@@ -119,6 +122,9 @@ void Menu::render()
 	// If there are additional graphics
 	for (std::vector<TextPtr>::iterator iter = additionalTexts.begin(); iter!= additionalTexts.end(); iter++)
 	{
+        (*iter)->setColorR(abs(sin(manager.getTime()*0.9)));
+        (*iter)->setColorG(abs(cos(manager.getTime()*0.75)));
+        (*iter)->setColorB(abs(cos(manager.getTime()*0.5)));
 		(*iter)->render();
 	}
 	

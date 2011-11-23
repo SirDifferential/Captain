@@ -18,8 +18,12 @@ private:
 
     spriteContainer spriteMap;
     spriteContainer::iterator spriteIterator;
+    double roomStartTime;
+    bool firstRun;
+    double timePerPicture; // For cinematics
+    double pictureChangeTime; // For cinematics
 public:
-    Room(std::string s, int n);
+    Room(std::string s, int n, int t);
     Room(std::string s, int n, boost::shared_ptr<Menu> m);
     ~Room();
     void operate();
@@ -27,8 +31,10 @@ public:
     void addSprite(std::string name, boost::shared_ptr<Sprite> s);
     void removeSprite(std::string name);
     boost::shared_ptr<Menu> giveMenu() { return menuPtr; }
+    void iterateSprites();
 
     std::string getName() { return name; }
+    int getType() { return roomType; }
 };
 
 #endif
