@@ -28,6 +28,11 @@ void Room::operate()
 	{
         for (spriteIterator = spriteMap.begin(); spriteIterator != spriteMap.end(); spriteIterator++)
             (*spriteIterator).second->render();
+        for (shipIterator = shipMap.begin(); shipIterator != shipMap.end(); shipIterator++)
+        {
+            (*shipIterator).second->update();
+            (*shipIterator).second->render();
+        }
 	} else if (roomType == 2) // A menu
 	{
         // Allow browsing in the menu
@@ -104,7 +109,33 @@ void Room::removeSprite(std::string name)
     }
 }
 
+void Room::addShip(boost::shared_ptr<Ship> s)
+{
+    shipMap[s->getName()] = s;
+    if (s->getName().compare("Player ship") == 0)
+        playerShip = s;
+}
+
+void Room::removeShip(std::string name)
+{
+    shipIterator = shipMap.find(name.c_str());
+    if (shipIterator != shipMap.end())
+    {
+        shipMap.erase(shipIterator);
+    } else
+    {
+        fprintf(stderr, "No ship found to delete! Ship: %s, Room: %d\n", name.c_str(), roomNumber);
+    }
+}
+
 void Room::iterateSprites()
 {
     spriteIterator++;
+}
+
+boost::shared_ptr<Ship> Room::getPlayerShip()
+{
+    if (playerShip == NULL)
+        fprintf(stderr, "Ship is null\n");
+    return playerShip;
 }

@@ -1,5 +1,5 @@
-#ifndef __MANAGER_HPP_
-#define __MANAGER_HPP_
+#ifndef _MANAGER_HPP_
+#define _MANAGER_HPP_
 
 #include <vector>
 #include <boost/shared_ptr.hpp>

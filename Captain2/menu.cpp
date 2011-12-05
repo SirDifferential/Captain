@@ -96,7 +96,7 @@ void Menu::select()
 	// Make stuff here for dynamic options
 	if (currentSelection == 0)
 	{
-        manager.getRoomMgr()->nextRoom();
+        manager.getRoomMgr()->changeRoom("First level");
 	}
 	if (currentSelection == 1)
 	{

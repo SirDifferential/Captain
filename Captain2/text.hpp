@@ -1,5 +1,5 @@
-#ifndef __TEXT_HPP_
-#define __TEXT_HPP_
+#ifndef _TEXT_HPP_
+#define _TEXT_HPP_
 
 #include "sprite.hpp"
 #include "vector3.hpp"

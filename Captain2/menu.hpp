@@ -1,5 +1,5 @@
-#ifndef __MENU_HPP_
-#define __MENU_HPP_
+#ifndef _MENU_HPP_
+#define _MENU_HPP_
 
 #include "text.hpp"
 #include <vector>

@@ -39,6 +39,9 @@ bool RoomManager::init()
     roomVector.push_back(menuRoom);
    
     boost::shared_ptr<Room> room1Ptr(new Room("First level", 100, 1));
+    boost::shared_ptr<Ship> playerShip(new Ship("Player ship", "data/2D/playerShip001.png"));
+    room1Ptr->addSprite("menubg", spritePtr2);
+    room1Ptr->addShip(playerShip);
 
     boost::shared_ptr<Room> helpRoom(new Room("Help", 900, 4));
     path1 = "data/2D/help.png";
@@ -84,7 +87,10 @@ void RoomManager::addRoom(boost::shared_ptr<Room> r)
 
 void RoomManager::work()
 {
-    roomVector.at(activeRoom)->operate();
+    if (activeRoom < roomVector.size() && activeRoom >= 0)
+        roomVector.at(activeRoom)->operate();
+    else
+        fprintf(stderr, "Room error, this is bad! Panic! D: :<\n");
 }
 
 void RoomManager::nextRoom()
@@ -96,8 +102,10 @@ void RoomManager::nextRoom()
 void RoomManager::changeRoom(std::string name)
 {
     int index = getRoomIndex(name);
-    if (index != -1)
+    if (index >= 0 && index < roomVector.size())
         activeRoom = index;
+    else
+        fprintf(stderr, "Cannot change room to index %d in roomVector of size %d", index, roomVector.size());
 }
 
 boost::shared_ptr<Room> RoomManager::giveCurrentRoom()

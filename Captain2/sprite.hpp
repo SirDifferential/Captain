@@ -30,7 +30,9 @@ public:
     Sprite(std::string &path);
     virtual ~Sprite();
     SDL_Color col;
-    
+    bool useAlpha;
+    float rotation;
+
     void setPixel(SDL_Surface* pSurface , int x , int y , SDL_Color color);
     SDL_Color getPixel(SDL_Surface* pSurface , int x , int y);
     void setAllPixels(SDL_Surface* pSurface, SDL_Color color);

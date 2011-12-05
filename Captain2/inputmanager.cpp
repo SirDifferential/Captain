@@ -83,6 +83,7 @@ void Inputmanager::checkInput()
                 case SDL_QUIT:
                     manager.stop();
                     break;
+
                 case SDL_KEYDOWN:
                     switch (e.key.keysym.sym)
                     {
@@ -91,6 +92,43 @@ void Inputmanager::checkInput()
                             break;
                         case SDLK_RETURN:
                             currentRoom->iterateSprites();
+                            break;
+                    }
+                    break;
+            }
+        }
+    } else if (currentRoom->getType() == 3 || currentRoom->getType() == 1)  // Arena
+    {
+        Uint8* keystate = SDL_GetKeyState(NULL);
+        if(keystate[SDLK_LEFT])
+        {
+            currentRoom->getPlayerShip()->rotateLeft();
+        }
+        if(keystate[SDLK_RIGHT])
+        {
+            currentRoom->getPlayerShip()->rotateRight();
+        }
+        if(keystate[SDLK_UP])
+        {
+            currentRoom->getPlayerShip()->accelerate();
+        }
+        if(keystate[SDLK_DOWN])
+        {
+            currentRoom->getPlayerShip()->decelerate();
+        }
+        SDL_Event e;
+        while (SDL_PollEvent(&e))
+        {
+            switch (e.type)
+            {
+                case SDL_QUIT:
+                    manager.stop();
+                    break;
+                case SDL_KEYDOWN:
+                    switch (e.key.keysym.sym)
+                    {
+                        case SDLK_ESCAPE:
+                            manager.getRoomMgr()->changeRoom("Main menu");
                             break;
                     }
                     break;

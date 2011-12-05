@@ -34,6 +34,7 @@ Sprite::Sprite(int sizeX, int sizeY)
     assert(id);
     opacity = 1.0f;
     name = tbox.resolutionToString(w, h);
+    rotation = 0.0f;
     
     glBindTexture(GL_TEXTURE_2D, id);
     
@@ -83,6 +84,7 @@ Sprite::Sprite(std::string &path) :
     y = 1;
     w = 1024;
     h = 1024;
+    opacity = 1;
     scale = 0.1;
     id = 0;
     glGenTextures(1, &id);
@@ -90,6 +92,7 @@ Sprite::Sprite(std::string &path) :
     opacity = 0.0f;
     glBindTexture(GL_TEXTURE_2D, id);
     name = path;
+    rotation = 0.0f;
 
     col.r = 1.0f;
     col.g = 1.0f;
@@ -105,6 +108,10 @@ Sprite::Sprite(std::string &path) :
         std::string error = IMG_GetError();
         fprintf(stderr, "IMG_Load returns: %s\n", error.c_str());
         format = check(spriteSurface, path);
+        if (format == GL_RGBA)
+            useAlpha = true;
+        else
+            useAlpha = false;
         w = spriteSurface->w;
         h = spriteSurface->h;
         
@@ -268,14 +275,25 @@ void Sprite::render()
     
     glTranslatef(x, y, 0);
     glScalef(scale, scale, scale);
+    glRotatef(rotation, 0, 0, 1);
     
     glEnable(GL_TEXTURE_2D);
     glDisable(GL_LIGHTING);
-    glDisable(GL_BLEND);
+
     glDisable(GL_DEPTH_TEST);
     glBindTexture(GL_TEXTURE_2D, id);
     glColor4f(col.r, col.g, col.b, opacity);
     
+    if (useAlpha)
+    {
+	    glEnable(GL_BLEND);
+	    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+	    glBlendEquation(GL_FUNC_ADD);
+    } else
+    {
+        glDisable(GL_BLEND);
+    }
+
     glBegin(GL_QUADS);
         glTexCoord2f(0, 1); glVertex2f(-w, -h);
         glTexCoord2f(1, 1); glVertex2f(w, -h);
