@@ -19,7 +19,7 @@ public:
 
     SDL_Surface* spriteSurface;	// SDL_Surface containing the colour data
     int w, h;					// Resolution of the sprite
-    int x, y, z;				// Location in the world
+    float x, y, z;				// Location in the world
     float scale;                // Scaling factor
     GLuint id;					// The OpenGL handle
     GLenum format;				// The colour format (RGB, RGBA, LUMINANCE)

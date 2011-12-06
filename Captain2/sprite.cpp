@@ -130,7 +130,7 @@ Sprite::Sprite(std::string &path) :
         glTexParameteri(target, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(target, GL_TEXTURE_WRAP_T, GL_REPEAT);
     }
-    fprintf(stderr, "New sprite built with following properties: data sprite %s, %d%s%d\n", name.c_str(), w, "x", h);
+    fprintf(stderr, "New sprite built with following properties: data sprite %s, %d%s%d, use alpha: %d\n", name.c_str(), w, "x", h, useAlpha);
 }
 
 Sprite::~Sprite()
@@ -279,7 +279,6 @@ void Sprite::render()
     
     glEnable(GL_TEXTURE_2D);
     glDisable(GL_LIGHTING);
-
     glDisable(GL_DEPTH_TEST);
     glBindTexture(GL_TEXTURE_2D, id);
     glColor4f(col.r, col.g, col.b, opacity);
@@ -287,8 +286,8 @@ void Sprite::render()
     if (useAlpha)
     {
 	    glEnable(GL_BLEND);
-	    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-	    glBlendEquation(GL_FUNC_ADD);
+	    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	    glBlendEquation(GL_ADD);
     } else
     {
         glDisable(GL_BLEND);
