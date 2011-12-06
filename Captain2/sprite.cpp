@@ -89,7 +89,7 @@ Sprite::Sprite(std::string &path) :
     id = 0;
     glGenTextures(1, &id);
     assert(id);
-    opacity = 0.0f;
+    opacity = 1.0f;
     glBindTexture(GL_TEXTURE_2D, id);
     name = path;
     rotation = 0.0f;
@@ -281,7 +281,7 @@ void Sprite::render()
     glDisable(GL_LIGHTING);
     glDisable(GL_DEPTH_TEST);
     glBindTexture(GL_TEXTURE_2D, id);
-    glColor4f(col.r, col.g, col.b, 1.0f);
+    glColor4f(col.r, col.g, col.b, opacity);
     
     if (useAlpha)
     {
