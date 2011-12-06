@@ -39,7 +39,7 @@ bool RoomManager::init()
     roomVector.push_back(menuRoom);
    
     boost::shared_ptr<Room> room1Ptr(new Room("First level", "data/music/preacher.it", 100, 1));
-    boost::shared_ptr<Ship> playerShip(new Ship("Player ship", "data/2D/alphatest_1024x1024.png"));
+    boost::shared_ptr<Ship> playerShip(new Ship("Player ship", "data/2D/playerShip001.png"));
     room1Ptr->addSprite("menubg", spritePtr2);
     room1Ptr->addShip(playerShip);
 

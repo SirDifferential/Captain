@@ -281,7 +281,7 @@ void Sprite::render()
     glDisable(GL_LIGHTING);
     glDisable(GL_DEPTH_TEST);
     glBindTexture(GL_TEXTURE_2D, id);
-    glColor4f(col.r, col.g, col.b, opacity);
+    glColor4f(col.r, col.g, col.b, 1.0f);
     
     if (useAlpha)
     {
