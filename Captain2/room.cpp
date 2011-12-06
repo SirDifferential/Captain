@@ -1,12 +1,13 @@
 #include "room.hpp"
 #include "manager.hpp"
 
-Room::Room(std::string s, int n, int t)
+Room::Room(std::string s, std::string mus, int n, int t)
 {
     fprintf(stderr, "Room creating with name %s and number %d and type %d\n", s.c_str(), n, t);
     name = s;
     roomNumber = n;
     roomType = t;
+    music = mus;
     firstRun = true;
 }
 
@@ -14,18 +15,29 @@ Room::~Room()
 {
 }
 
-Room::Room(std::string s, int n, boost::shared_ptr<Menu> m)
+Room::Room(std::string s, std::string mus, int n, boost::shared_ptr<Menu> m)
 {
     name = s;
     roomNumber = n;
 	roomType = 2;
 	menuPtr = m;
+    music = mus;
 }
 
 void Room::operate()
 {
 	if (roomType == 1)	// An arena
 	{
+        if (firstRun)
+        {
+            // If room has a new music, change it
+            if (music.compare("no music") != 0)
+            {
+                if (manager.getAudioMgr()->getCurrentMusic().compare(music) != 0)
+                    manager.getAudioMgr()->changeMainMusic(music);
+            }
+            firstRun = false;
+        }
         for (spriteIterator = spriteMap.begin(); spriteIterator != spriteMap.end(); spriteIterator++)
             (*spriteIterator).second->render();
         for (shipIterator = shipMap.begin(); shipIterator != shipMap.end(); shipIterator++)

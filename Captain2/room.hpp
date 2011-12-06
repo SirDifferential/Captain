@@ -27,9 +27,10 @@ private:
     bool firstRun;
     double timePerPicture; // For cinematics
     double pictureChangeTime; // For cinematics
+    std::string music;
 public:
-    Room(std::string s, int n, int t);
-    Room(std::string s, int n, boost::shared_ptr<Menu> m);
+    Room(std::string s, std::string mus, int n, int t);
+    Room(std::string s, std::string mus, int n, boost::shared_ptr<Menu> m);
     ~Room();
     void operate();
     boost::shared_ptr<Sprite> getSprite(std::string name);

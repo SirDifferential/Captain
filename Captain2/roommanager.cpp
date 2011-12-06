@@ -15,7 +15,7 @@ RoomManager::~RoomManager()
 bool RoomManager::init()
 {   
     fprintf(stderr, "RoomManager creating rooms\n");
-    boost::shared_ptr<Room> introRoom(new Room("Intro", 1, 3));
+    boost::shared_ptr<Room> introRoom(new Room("Intro", "no music", 1, 3));
     std::string path1 = "data/2D/logo_1024x1024.png";
     boost::shared_ptr<Sprite> introSpritePtr1(new Sprite(path1));
     introRoom->addSprite("intro picture", introSpritePtr1);
@@ -32,18 +32,18 @@ bool RoomManager::init()
     roomVector.push_back(introRoom);
 
     boost::shared_ptr<Menu> menuPtr(new Menu);
-    boost::shared_ptr<Room> menuRoom(new Room("Main menu", 2, menuPtr));
+    boost::shared_ptr<Room> menuRoom(new Room("Main menu", "no music", 2, menuPtr));
     path1 = "data/2D/menubg_1024x1024.png";
     boost::shared_ptr<Sprite> spritePtr2(new Sprite(path1));
     menuRoom->addSprite("menubg", spritePtr2);
     roomVector.push_back(menuRoom);
    
-    boost::shared_ptr<Room> room1Ptr(new Room("First level", 100, 1));
+    boost::shared_ptr<Room> room1Ptr(new Room("First level", "data/music/preacher.it", 100, 1));
     boost::shared_ptr<Ship> playerShip(new Ship("Player ship", "data/2D/playerShip001.png"));
     room1Ptr->addSprite("menubg", spritePtr2);
     room1Ptr->addShip(playerShip);
 
-    boost::shared_ptr<Room> helpRoom(new Room("Help", 900, 4));
+    boost::shared_ptr<Room> helpRoom(new Room("Help", "no music", 900, 4));
     path1 = "data/2D/help.png";
     boost::shared_ptr<Sprite> helpSpritePtr(new Sprite(path1));
     helpRoom->addSprite("help", helpSpritePtr);

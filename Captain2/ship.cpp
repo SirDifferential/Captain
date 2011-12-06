@@ -16,7 +16,8 @@ Ship::Ship(std::string n, std::string spritePath)
     velocity.y = 0;
     velocity.z = 0;
 
-    thrust = 0.005;
+    thrust = 0.002;
+    shipRotation = 0.0f;
 }
 
 Ship::~Ship()
@@ -26,47 +27,33 @@ Ship::~Ship()
 void Ship::accelerate()
 {
     fprintf(stderr, "Accelerating\n");
-    if (spritePtr->rotation > 180)
-    {
-        velocity.x -= sin(spritePtr->rotation)*thrust;
-        velocity.y -= cos(spritePtr->rotation)*thrust;
-    } else
-    {
-        velocity.x += sin(spritePtr->rotation)*thrust;
-        velocity.y += cos(spritePtr->rotation)*thrust;
-    }
-    fprintf(stderr, "Velocity x: %f, velocity: %f, velocity z: %d\n", velocity.x, velocity.y, velocity.z);
-    //fprintf(stderr, "Location x: %f, location y: %f, location z: %d", location.x, location.y, location.z);
+    velocity.x += -1*sin(shipRotation)*thrust;
+    velocity.y += cos(shipRotation)*thrust;
 }
 
 void Ship::decelerate()
 {
     fprintf(stderr, "Decelerating\n");
-    if (spritePtr->rotation > 180)
-    {
-        velocity.x -= sin(spritePtr->rotation)*thrust;
-        velocity.y -= cos(spritePtr->rotation)*thrust;
-    } else
-    {
-        velocity.x -= sin(spritePtr->rotation)*thrust;
-        velocity.y -= cos(spritePtr->rotation)*thrust;
-    }
+    velocity.x -= -1*sin(shipRotation)*thrust;
+    velocity.y -= cos(shipRotation)*thrust;
 }
 
 void Ship::rotateLeft()
 {
     fprintf(stderr, "Turning left\n");
-    spritePtr->rotation += 5.0f;
-    if (spritePtr->rotation > 360)
-        spritePtr->rotation = 0.0f;
+    shipRotation += 0.01f;
+    if (shipRotation > 6.28318)  // Radians
+        shipRotation = 0.0f;
+    spritePtr->rotation = shipRotation*(180/3.14159);    // Sprite rotation in degrees
 }
 
 void Ship::rotateRight()
 {
     fprintf(stderr, "Turning right\n");
-    spritePtr->rotation -= 5.0f;
-    if (spritePtr->rotation > 360)
-        spritePtr->rotation = 0.0f;
+    shipRotation -= 0.01;
+    if (shipRotation > 6.28318)
+        shipRotation = 0.0f;
+    spritePtr->rotation = shipRotation*(180/3.14159);
 }
 
 void Ship::update()

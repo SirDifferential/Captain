@@ -13,6 +13,7 @@ private:
 
     Vector3 location;
     Vector3 velocity;
+    float shipRotation;     // Radians
 
     float thrust;
 

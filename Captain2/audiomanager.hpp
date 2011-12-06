@@ -14,6 +14,7 @@ private:
     int id;
     Mix_Music *music;
     Mix_Music *sfx1;
+    std::string currentMusicPath;
 public:
     AudioManager();
     ~AudioManager();
@@ -21,10 +22,10 @@ public:
     bool init();
     void startMusic();
     void stopMusic();
-    std::string currentMusicPath;
     void changeMainMusic(std::string path);
     void playSoundEffect(std::string path);
     void loadAudio(Mix_Music* &audio, std::string path);
+    std::string getCurrentMusic() { return currentMusicPath; }
 };
 
 #endif
