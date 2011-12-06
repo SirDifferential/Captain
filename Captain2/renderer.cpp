@@ -24,10 +24,17 @@ Renderer::~Renderer()
     fprintf(stderr, "Renderer rendered renderless...\n");
 }
 
-void Renderer::moveCamera()
+void Renderer::moveCamera(float coord_x, float coord_y, float coord_z)
 {
    //eye.x = sin(manager.getTime())*150;
    //eye.y = cos(manager.getTime())*100;
+    eye.x = coord_x;
+    eye.y = coord_y;
+    eye.z = coord_z;
+
+    center.x = coord_x;
+    center.y = coord_y;
+    center.z = 0;
 }
 
 void Renderer::clearScreen()
@@ -37,7 +44,7 @@ void Renderer::clearScreen()
     
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(65, manager.getOpengl()->getScreenX()/manager.getOpengl()->getScreenY(), 0.1, 150);
+    gluPerspective(65, manager.getOpengl()->getScreenX()/manager.getOpengl()->getScreenY(), 0.1, 1001);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     
@@ -62,7 +69,6 @@ void Renderer::renderForeground()
 
 void Renderer::render()
 {
-    moveCamera();
     clearScreen();
     calculateLights();
     renderBackground();

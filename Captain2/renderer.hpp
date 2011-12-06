@@ -19,7 +19,7 @@ public:
     Renderer();
     ~Renderer();
     
-    void moveCamera();
+    void moveCamera(float coord_x, float coord_y, float coord_z);
     void clearScreen();
     void renderBackground();
     void renderMain();

@@ -1,6 +1,7 @@
 #include "ship.hpp"
 #include "sprite.hpp"
 #include "vector3.hpp"
+#include "renderer.hpp"
 
 Ship::Ship(std::string n, std::string spritePath)
 {
@@ -65,6 +66,12 @@ void Ship::update()
 
 void Ship::render()
 {
+    float cameraHeight = (abs(velocity.x) + abs(velocity.y) * 1000);
+    if (cameraHeight < 200)
+        cameraHeight = 200;
+    if (cameraHeight > 1000)
+        cameraHeight = 1000;
+    renderer.moveCamera(location.x, location.y, cameraHeight);
     spritePtr->render();
 }
 
