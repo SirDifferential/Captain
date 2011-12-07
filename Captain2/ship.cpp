@@ -19,6 +19,8 @@ Ship::Ship(std::string n, std::string spritePath)
 
     thrust = 0.002;
     shipRotation = 0.0f;
+    useAutomaticZooming = true;
+    cameraHeight = 200.0f;
 }
 
 Ship::~Ship()
@@ -66,12 +68,22 @@ void Ship::update()
 
 void Ship::render()
 {
-    float cameraHeight = (abs(velocity.x) + abs(velocity.y) * 1000);
-    if (cameraHeight < 200)
-        cameraHeight = 200;
-    if (cameraHeight > 1000)
-        cameraHeight = 1000;
-    renderer.moveCamera(location.x, location.y, cameraHeight);
+    if (useAutomaticZooming)
+    {
+        cameraHeight = (abs(velocity.x) + abs(velocity.y) * 1000);
+        if (cameraHeight < 200)
+            cameraHeight = 200;
+        if (cameraHeight > 1000)
+            cameraHeight = 1000;
+        renderer.moveCamera(location.x, location.y, cameraHeight);
+    } else
+    {
+        if (cameraHeight < 200)
+            cameraHeight = 200;
+        if (cameraHeight > 1000)
+            cameraHeight = 1000;
+        renderer.moveCamera(location.x, location.y, cameraHeight);
+    }
     spritePtr->render();
 }
 
@@ -84,4 +96,14 @@ void Ship::resetAllVectors()
     velocity.x = 0;
     velocity.y = 0;
     velocity.z = 0;
+}
+
+void Ship::cameraZoomIn()
+{
+    cameraHeight += 1.0f;
+}
+
+void Ship::cameraZoomOut()
+{
+    cameraHeight -= 1.0f;
 }

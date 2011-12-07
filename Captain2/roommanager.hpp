@@ -12,6 +12,7 @@ private:
     std::vector<boost::shared_ptr<Room> > roomVector;
     std::vector<boost::shared_ptr<Room> >::iterator roomIter;
     int activeRoom;
+    boost::shared_ptr<Room> arenaRoom;  // The current, playable arena
 public:
     RoomManager();
     ~RoomManager();
@@ -22,6 +23,7 @@ public:
     void nextRoom();
     void changeRoom(std::string name);
     boost::shared_ptr<Room> giveCurrentRoom();
+    boost::shared_ptr<Room> giveArenaRoom() { return arenaRoom; }
     void work();
 };
 

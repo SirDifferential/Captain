@@ -1,23 +1,16 @@
-#include "menu.hpp"
-#include "opengl.hpp"
-#include "text.hpp"
-#include "inputmanager.hpp"
+#include "options.hpp"
 #include "manager.hpp"
-#include <boost/shared_ptr.hpp>
-#include <math.h>
 
 typedef boost::shared_ptr<Text> TextPtr;
 
-// TODO: Make this into a generic class that can be used for all menus
-
-Menu::Menu()
+Options::Options()
 {
-    fprintf(stderr, "Menu constructing\n");
+    fprintf(stderr, "Options constructing\n");
 	std::vector<std::string> entries;
-	entries.push_back("Play game");
-	entries.push_back("Options");
-	entries.push_back("Help");
-	entries.push_back("Quit");
+    entries.push_back("Auto zoom");
+    entries.push_back("empty");
+    entries.push_back("empty");
+	entries.push_back("Return");
 
 	// Size of screen
     int width = manager.getOpengl()->getScreenX()/2;
@@ -37,10 +30,18 @@ Menu::Menu()
 	}
 	
 	fprintf(stderr, "Creating logo\n");
-	TextPtr tempTextPtr2(new Text(280, 80, "CAPTAIN", "data/fonts/BulwarkNF.ttf", 80));
+	TextPtr tempTextPtr2(new Text(280, 80, "Options", "data/fonts/BulwarkNF.ttf", 80));
     tempTextPtr2->x = 300;
     tempTextPtr2->y = 450;
 	additionalTexts.push_back(tempTextPtr2);
+    tempTextPtr2 = TextPtr(new Text(20, 10, "On", "data/fonts/ArcadeClassic.ttf", 50));
+    tempTextPtr2->x = width+130;
+    tempTextPtr2->y = height;
+    additionalTexts.push_back(tempTextPtr2);
+    tempTextPtr2 = TextPtr(new Text(20, 10, "Off", "data/fonts/ArcadeClassic.ttf", 50));
+    tempTextPtr2->x = width+130;
+    tempTextPtr2->y = height;
+    additionalTexts.push_back(tempTextPtr2);
 	TextPtr tempTextPtr(new Text(10, 10, "O", "data/fonts/ArcadeClassic.ttf", 15));
 	cursor = tempTextPtr;
 	
@@ -65,16 +66,16 @@ Menu::Menu()
 	// Meh, let's just add this hack here
 	currentSelection = 1;
 	moveup();
-    fprintf(stderr, "Menu constructed\n");
+    fprintf(stderr, "Options constructed\n");
 }
 
-Menu::~Menu()
+Options::~Options()
 {
-    fprintf(stderr, "Menu destructing\n");
+    fprintf(stderr, "Options destructing\n");
 }
 
 // Move the cursor up one slot
-void Menu::moveup()
+void Options::moveup()
 {
 	currentSelection--;
 	if (currentSelection < 0)
@@ -84,7 +85,7 @@ void Menu::moveup()
 }
 
 // Move the cursor down one slot
-void Menu::movedown()
+void Options::movedown()
 {
 	currentSelection++;
 	if (currentSelection > items.size()-1)
@@ -93,41 +94,57 @@ void Menu::movedown()
 	cursor->y = tempTextPtr->y;
 }
 
-void Menu::select()
+void Options::select()
 {
 	// Make stuff here for dynamic options
 	if (currentSelection == 0)
 	{
-        manager.getRoomMgr()->changeRoom("First level");
+        boost::shared_ptr<Room> arenaRoom = manager.getRoomMgr()->giveArenaRoom();
+        if (arenaRoom->getPlayerShip()->getUseAutoZoom() == false)
+            arenaRoom->getPlayerShip()->setUseAutoZoom(true);
+        else
+            arenaRoom->getPlayerShip()->setUseAutoZoom(false);
 	}
 	if (currentSelection == 1)
 	{
-		manager.getRoomMgr()->changeRoom("Options");
+		fprintf(stderr, "Nothing implemented\n");
 	}
 	if (currentSelection == 2)
 	{
-        manager.getRoomMgr()->changeRoom("Help");
+        fprintf(stderr, "Nothing implemented\n");
 	}
 	if (currentSelection == 3)
 	{
-		manager.stop();
+		manager.getRoomMgr()->changeRoom("Main menu");
 	}
 	
 }
 
-void Menu::update()
+void Options::update()
 {
 }
 
-void Menu::render()
+void Options::render()
 {	
-	// If there are additional graphics
+    boost::shared_ptr<Room> arenaRoom = manager.getRoomMgr()->giveArenaRoom();
+    
+
 	for (std::vector<TextPtr>::iterator iter = additionalTexts.begin(); iter!= additionalTexts.end(); iter++)
 	{
-        (*iter)->setColorR(abs(sin(manager.getTime()*0.9)));
-        (*iter)->setColorG(abs(cos(manager.getTime()*0.75)));
-        (*iter)->setColorB(abs(cos(manager.getTime()*0.5)));
-		(*iter)->render();
+        if ((*iter)->getContent().compare("On") == 0 && (arenaRoom->getPlayerShip()->getUseAutoZoom() == true))
+        {
+            (*iter)->render();
+            fprintf(stderr, "Rendering\n");
+        } else if ((*iter)->getContent().compare("Off") == 0 && (arenaRoom->getPlayerShip()->getUseAutoZoom() == false))
+        {
+            (*iter)->render();
+        } else if ((*iter)->getContent().compare("On") == 1 && (*iter)->getContent().compare("Off") == 1)
+        {
+            (*iter)->setColorR(abs(sin(manager.getTime()*0.9)));
+            (*iter)->setColorG(abs(cos(manager.getTime()*0.75)));
+            (*iter)->setColorB(abs(cos(manager.getTime()*0.5)));
+		    (*iter)->render();
+        }
 	}
 	
 	for (std::vector<TextPtr>::iterator iter = items.begin(); iter != items.end(); iter++)

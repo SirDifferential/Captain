@@ -38,7 +38,8 @@ void Inputmanager::checkInput()
 				    switch (e.key.keysym.sym)
                     {
 					    case SDLK_ESCAPE:
-						    manager.stop();
+                            // Ehm, this is a bit ugly: change to currently active arena
+                            manager.getRoomMgr()->changeRoom(manager.getRoomMgr()->giveArenaRoom()->getName());
 						    break;
 					    case SDLK_UP:
                             currentRoom->giveMenu()->moveup();
@@ -116,6 +117,16 @@ void Inputmanager::checkInput()
         {
             currentRoom->getPlayerShip()->decelerate();
         }
+
+        if(keystate[SDLK_z])
+        {
+            currentRoom->getPlayerShip()->cameraZoomIn();
+        }
+        if(keystate[SDLK_x])
+        {
+            currentRoom->getPlayerShip()->cameraZoomOut();
+        }
+
         SDL_Event e;
         while (SDL_PollEvent(&e))
         {
@@ -133,6 +144,35 @@ void Inputmanager::checkInput()
                     }
                     break;
             }
+        }
+    } else if (currentRoom->getName().compare("Options") == 0)
+    {
+	    SDL_Event e;
+	    while (SDL_PollEvent(&e))
+        {
+		    switch (e.type)
+            {
+			    case SDL_QUIT:
+				    manager.stop();
+				    break;
+			    case SDL_KEYDOWN:
+				    switch (e.key.keysym.sym)
+                    {
+					    case SDLK_ESCAPE:
+                            manager.getRoomMgr()->changeRoom("Main menu");
+						    break;
+					    case SDLK_UP:
+                            currentRoom->giveOptions()->moveup();
+						    break;
+					    case SDLK_DOWN:
+						    currentRoom->giveOptions()->movedown();
+						    break;
+					    case SDLK_RETURN:
+						    currentRoom->giveOptions()->select();
+						    break;
+				    }
+				    break;
+		    }
         }
     } else
     {

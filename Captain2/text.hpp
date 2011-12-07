@@ -15,6 +15,7 @@ private:
 	TTF_Font *font;
 	SDL_Color textColor;
 	Vector3 color;
+    std::string content;
 public:
 	Text();
 	Text(int x, int y, std::string, std::string fontPath, int fontSize);
@@ -27,6 +28,7 @@ public:
     float getColorR() { return color.x; }
     float getColorG() { return color.y; }
     float getColorB() { return color.z; }
+    std::string getContent() { return content; }
 
 };
 

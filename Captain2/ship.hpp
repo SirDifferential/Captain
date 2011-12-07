@@ -16,8 +16,9 @@ private:
     float shipRotation;     // Radians
 
     float thrust;
-
+    bool useAutomaticZooming;   // If camera zooms based on velocity
     boost::shared_ptr<Sprite> spritePtr;
+    float cameraHeight; // How high from the ship the camera is
 public:
     Ship(std::string n, std::string spritePath);
     ~Ship();
@@ -29,8 +30,12 @@ public:
     void rotateLeft();
     void rotateRight();
     void resetAllVectors();
+    void cameraZoomIn();
+    void cameraZoomOut();
 
     std::string getName() { return name; }
+    void setUseAutoZoom(bool in) { useAutomaticZooming = in; }
+    bool getUseAutoZoom() { return useAutomaticZooming; }
 };
 
 #endif

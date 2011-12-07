@@ -14,6 +14,7 @@ private:
     Vector3 center;
     bool firstRun;
     std::vector<boost::shared_ptr<Sprite> > sprites;
+    float nativeHeight; // How far the camera is normally
     
 public:
     Renderer();
@@ -30,7 +31,8 @@ public:
                 std::vector<double> normals, Vector3 location,
                 float rotation, float scale);
     void calculateLights();
-    
+    Vector3 getCameraLocation() { return eye; }
+    float getNativeHeight() { return nativeHeight; }
 };
 
 extern Renderer renderer;

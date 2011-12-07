@@ -16,6 +16,7 @@ Renderer::Renderer()
     center.x = 0;
     center.y = 0;
     center.z = 0;
+    nativeHeight = 140.0f;
     firstRun = true;
 }
 

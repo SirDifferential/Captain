@@ -39,6 +39,8 @@ public:
     std::string stripString(std::string source, int quantity, std::string mode);
     std::string relativePathToAbsolute(std::string path);
     std::string reverseString(std::string toReverse);
+    std::string combineStringAndInt(std::string in1, int in2);
+    std::string combineStringAndInts(std::string in1, int in2, int in3);
 };
 
 extern Toolbox tbox;

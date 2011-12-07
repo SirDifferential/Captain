@@ -1,5 +1,6 @@
 #include "room.hpp"
 #include "manager.hpp"
+#include "renderer.hpp"
 
 Room::Room(std::string s, std::string mus, int n, int t)
 {
@@ -24,6 +25,15 @@ Room::Room(std::string s, std::string mus, int n, boost::shared_ptr<Menu> m)
     music = mus;
 }
 
+Room::Room(std::string s, std::string mus, int n, boost::shared_ptr<Options> o)
+{
+    name = s;
+    roomNumber = n;
+	roomType = 2;
+    optionsPtr = o;
+    music = mus;
+}
+
 void Room::operate()
 {
 	if (roomType == 1)	// An arena
@@ -38,6 +48,11 @@ void Room::operate()
             }
             firstRun = false;
         }
+        if (starsVector.size() > 0)
+        {
+            for (unsigned int i = 0; i < starsVector.size(); i++)
+                starsVector.at(i)->render();
+        }
         for (spriteIterator = spriteMap.begin(); spriteIterator != spriteMap.end(); spriteIterator++)
             (*spriteIterator).second->render();
         for (shipIterator = shipMap.begin(); shipIterator != shipMap.end(); shipIterator++)
@@ -47,16 +62,28 @@ void Room::operate()
         }
 	} else if (roomType == 2) // A menu
 	{
+        renderer.moveCamera(0, 0, renderer.getNativeHeight());
         // Allow browsing in the menu
         if (spriteMap.size() > 0)
         {
             for (spriteIterator = spriteMap.begin(); spriteIterator != spriteMap.end(); spriteIterator++)
                 (*spriteIterator).second->render();
         }
-		menuPtr->update();
-		menuPtr->render();
+        if (menuPtr != NULL)
+        {
+		    menuPtr->update();
+		    menuPtr->render();
+        } else if (optionsPtr != NULL)
+        {
+            optionsPtr->update();
+            optionsPtr->render();
+        } else
+        {
+            fprintf(stderr, "No menu pointers assigned, this is bad!\n");
+        }
 	} else if (roomType == 3) // Cinematics
     {
+        renderer.moveCamera(0, 0, renderer.getNativeHeight());
         if (firstRun)
         {
             roomStartTime = manager.getTime();
@@ -77,6 +104,7 @@ void Room::operate()
             (*spriteIterator).second->render();
 	} else if (roomType == 4) // Static text rooms
     {
+        renderer.moveCamera(0, 0, renderer.getNativeHeight());
         if (firstRun)
         {
             spriteIterator = spriteMap.begin();
@@ -138,6 +166,11 @@ void Room::removeShip(std::string name)
     {
         fprintf(stderr, "No ship found to delete! Ship: %s, Room: %d\n", name.c_str(), roomNumber);
     }
+}
+
+void Room::addStars(boost::shared_ptr<Stars> s)
+{
+    starsVector.push_back(s);
 }
 
 void Room::iterateSprites()

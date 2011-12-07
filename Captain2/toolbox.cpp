@@ -197,3 +197,27 @@ std::string Toolbox::reverseString(std::string toReverse)
     fprintf(stderr, "%s\n", out.c_str());
     return out;
 }
+
+// Returns a new string consisting of in1 and in2
+std::string Toolbox::combineStringAndInt(std::string in1, int in2)
+{
+    std::string out = "";
+    std::stringstream buffer;
+    buffer << in1;
+    buffer << in2;
+    out = buffer.str();
+    return out;
+}
+
+// Returns a new string consisting of in1 and in2 and in3
+std::string Toolbox::combineStringAndInts(std::string in1, int in2, int in3)
+{
+    std::string out = "";
+    std::stringstream buffer;
+    buffer << in1;
+    buffer << in2;
+    buffer << ", ";
+    buffer << in3;
+    out = buffer.str();
+    return out;
+}

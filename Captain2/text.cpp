@@ -23,6 +23,7 @@ Text::Text(int x, int y, std::string input, std::string fontPath, int fontSize)
 	glGenTextures(1, &id);
 	assert(id);
 	opacity = 1.0f;
+    content = input;
 	
 	glBindTexture(GL_TEXTURE_2D, id);
 	
