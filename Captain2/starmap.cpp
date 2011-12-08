@@ -17,26 +17,26 @@ void Starmap::checkBorders(Vector3 loc)
     // Save the coordinates, we need them for rendering anyway
     playerCoords = loc;
 
-    top_left.first = playerCoords.x - 1000;
-    top_left.second = playerCoords.y + 1000;
-    top_middle.first = playerCoords.x;
-    top_middle.second = playerCoords.y + 1000;
-    top_right.first = playerCoords.x + 1000;
-    top_right.second = playerCoords.y + 1000;
+    top_left.first = (playerCoords.x - 1000)/1000;
+    top_left.second = (playerCoords.y + 1000)/1000;
+    top_middle.first = playerCoords.x/1000;
+    top_middle.second = (playerCoords.y + 1000)/1000;
+    top_right.first = (playerCoords.x + 1000)/1000;
+    top_right.second = (playerCoords.y + 1000)/1000;
 
-    middle_left.first = playerCoords.x - 1000;
-    middle_left.second = playerCoords.y;
-    center.first = playerCoords.x;
-    center.second = playerCoords.y;
-    middle_right.first = playerCoords.x + 1000;
-    middle_right.second = playerCoords.y;
+    middle_left.first = (playerCoords.x - 1000)/1000;
+    middle_left.second = playerCoords.y/1000;
+    center.first = playerCoords.x/1000;
+    center.second = playerCoords.y/1000;
+    middle_right.first = (playerCoords.x + 1000)/1000;
+    middle_right.second = playerCoords.y/1000;
 
-    bottom_left.first = playerCoords.x - 1000;
-    bottom_left.second = playerCoords.y - 1000;
-    bottom_middle.first = playerCoords.x;
-    bottom_middle.second = playerCoords.y - 1000;
-    bottom_right.first = playerCoords.x + 1000;
-    bottom_right.second = playerCoords.y - 1000;
+    bottom_left.first = (playerCoords.x - 1000)/1000;
+    bottom_left.second = (playerCoords.y - 1000)/1000;
+    bottom_middle.first = playerCoords.x/1000;
+    bottom_middle.second = (playerCoords.y - 1000)/1000;
+    bottom_right.first = (playerCoords.x + 1000)/1000;
+    bottom_right.second = (playerCoords.y - 1000)/1000;
     
     // Top row
     checkSector(top_left);
@@ -58,14 +58,15 @@ void Starmap::checkBorders(Vector3 loc)
 void Starmap::checkSector(std::pair<int, int> coordinatesToCheck)
 {
     // Search the universe for this pair
-    if (universe.find(coordinatesToCheck) == false)
+    universeIter = universe.find(coordinatesToCheck);
+    if (universeIter == universe.end())
     {
         fprintf(stderr, "Empty universe at: %d %d\n", coordinatesToCheck.first, coordinatesToCheck.second);
         Vector3 starCoords;
-        starCoords.x = coordinatesToCheck.first;
-        starCoords.y = coordinatesToCheck.second;
-        boost::shared_ptr<SpaceSector> sectorPtr(new SpaceSector(coordinatesToCheck.first, coordinatesToCheck.second));
-        std::string areaName = tbox.combineStringAndInts("Generated stars ", coordinatesToCheck.first, coordinatesToCheck.second);
+        starCoords.x = coordinatesToCheck.first*1000;
+        starCoords.y = coordinatesToCheck.second*1000;
+        boost::shared_ptr<SpaceSector> sectorPtr(new SpaceSector(coordinatesToCheck.first*1000, coordinatesToCheck.second*1000));
+        std::string areaName = tbox.combineStringAndInts("Generated stars ", coordinatesToCheck.first*1000, coordinatesToCheck.second*1000);
         boost::shared_ptr<Stars> starsPtr(new Stars(areaName, 1000, 0.3, starCoords));
         sectorPtr->assignStars(starsPtr);
         universe[coordinatesToCheck] = sectorPtr;

@@ -29,21 +29,18 @@ Ship::~Ship()
 
 void Ship::accelerate()
 {
-    fprintf(stderr, "Accelerating\n");
     velocity.x += -1*sin(shipRotation)*thrust;
     velocity.y += cos(shipRotation)*thrust;
 }
 
 void Ship::decelerate()
 {
-    fprintf(stderr, "Decelerating\n");
     velocity.x -= -1*sin(shipRotation)*thrust;
     velocity.y -= cos(shipRotation)*thrust;
 }
 
 void Ship::rotateLeft()
 {
-    fprintf(stderr, "Turning left\n");
     shipRotation += 0.01f;
     if (shipRotation > 6.28318)  // Radians
         shipRotation = 0.0f;
@@ -52,7 +49,6 @@ void Ship::rotateLeft()
 
 void Ship::rotateRight()
 {
-    fprintf(stderr, "Turning right\n");
     shipRotation -= 0.01;
     if (shipRotation > 6.28318)
         shipRotation = 0.0f;

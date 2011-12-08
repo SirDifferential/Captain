@@ -11,6 +11,7 @@ class Starmap
 private:
     int id;
     std::map<std::pair<int, int>, boost::shared_ptr<SpaceSector> > universe;
+    std::map<std::pair<int, int>, boost::shared_ptr<SpaceSector> >::iterator universeIter;
     Vector3 playerCoords;   // Keeps track where the player is
 
     // coordinates of surrounding sectors
