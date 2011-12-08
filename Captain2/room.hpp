@@ -6,7 +6,7 @@
 #include "options.hpp"
 #include "sprite.hpp"
 #include "ship.hpp"
-#include "stars.hpp"
+#include "starmap.hpp"
 #include <map>
 
 typedef std::map<std::string, boost::shared_ptr<Sprite> > spriteContainer;
@@ -31,7 +31,10 @@ private:
     double timePerPicture; // For cinematics
     double pictureChangeTime; // For cinematics
     std::string music;
-    std::vector<boost::shared_ptr<Stars> > starsVector;
+    boost::shared_ptr<Starmap> theUniverse;
+
+    Vector3 playerCoords;   // Keeps track where the player is
+
 public:
     Room(std::string s, std::string mus, int n, int t);
     Room(std::string s, std::string mus, int n, boost::shared_ptr<Menu> m);
@@ -43,10 +46,10 @@ public:
     void removeSprite(std::string name);
     void addShip(boost::shared_ptr<Ship> s);
     void removeShip(std::string name);
-    void addStars(boost::shared_ptr<Stars> s);
     boost::shared_ptr<Menu> giveMenu() { return menuPtr; }
     boost::shared_ptr<Options> giveOptions() { return optionsPtr; }
     void iterateSprites();
+    void checkBorderSectors();
 
     boost::shared_ptr<Ship> getPlayerShip();
     std::string getName() { return name; }

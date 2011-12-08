@@ -81,8 +81,8 @@ void Stars::render()
 // Asks each star in the star system if it wants to update
 void Stars::update()
 {
-    for (unsigned int i = 0; i < stars.size(); i++)
-        stars[i].update();
+    //for (unsigned int i = 0; i < stars.size(); i++)
+    //    stars[i].update();
 }
 
 // Constructor for single Star object

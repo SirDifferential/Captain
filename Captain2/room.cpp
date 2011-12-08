@@ -46,13 +46,15 @@ void Room::operate()
                 if (manager.getAudioMgr()->getCurrentMusic().compare(music) != 0)
                     manager.getAudioMgr()->changeMainMusic(music);
             }
+            fprintf(stderr, "Creating the universe\n");
+            theUniverse = boost::shared_ptr<Starmap>(new Starmap());
             firstRun = false;
         }
-        if (starsVector.size() > 0)
-        {
-            for (unsigned int i = 0; i < starsVector.size(); i++)
-                starsVector.at(i)->render();
-        }
+
+        // See if we have to generate more content
+        theUniverse->checkBorders(playerShip->getLocation());
+        theUniverse->render();
+
         for (spriteIterator = spriteMap.begin(); spriteIterator != spriteMap.end(); spriteIterator++)
             (*spriteIterator).second->render();
         for (shipIterator = shipMap.begin(); shipIterator != shipMap.end(); shipIterator++)
@@ -166,11 +168,6 @@ void Room::removeShip(std::string name)
     {
         fprintf(stderr, "No ship found to delete! Ship: %s, Room: %d\n", name.c_str(), roomNumber);
     }
-}
-
-void Room::addStars(boost::shared_ptr<Stars> s)
-{
-    starsVector.push_back(s);
 }
 
 void Room::iterateSprites()

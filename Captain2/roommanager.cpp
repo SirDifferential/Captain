@@ -48,8 +48,7 @@ bool RoomManager::init()
     boost::shared_ptr<Room> room1Ptr(new Room("First level", "data/music/preacher.it", 100, 1));
     arenaRoom = room1Ptr;
     boost::shared_ptr<Ship> playerShip(new Ship("Player ship", "data/2D/playerShip001.png"));
-    Vector3 tempCoords(0,0,0);
-    //boost::shared_ptr<Stars> level1Stars(new Stars("Level 1 stars", 10000, 0.8, temp));
+    /*Vector3 tempCoords(0,0,0);
     std::vector<boost::shared_ptr<Stars> > level1Stars;
     for (int i = -2; i < 2; i++)
     {
@@ -62,6 +61,7 @@ bool RoomManager::init()
             room1Ptr->addStars(tempPtr);
         }
     }
+    */
     room1Ptr->addShip(playerShip);
 
     boost::shared_ptr<Room> helpRoom(new Room("Help", "no music", 900, 4));
