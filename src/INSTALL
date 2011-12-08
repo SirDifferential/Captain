@@ -1,5 +1,0 @@
-Requires:
-glew SDL SDL_image SDL_ttf SDL_mixer lib-Something-Else
-
-Compile:
-type make in /src
