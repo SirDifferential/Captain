@@ -56,10 +56,7 @@ void Starmap::checkBorders(Vector3 loc)
 {
     // Save the coordinates, we need them for rendering anyway
     playerCoords = loc;
-
-    //if (playerCoords.x < 1000)
-        //top_left.first = (playerCoords.x - 2000)/1000;
-    //else
+    
     top_left.first = floor((float(playerCoords.x - 1000))/1000);
     top_left.second = floor((float(playerCoords.y + 1000))/1000);
     top_middle.first = floor(float(playerCoords.x)/1000);

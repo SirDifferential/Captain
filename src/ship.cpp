@@ -17,7 +17,9 @@ Ship::Ship(std::string n, std::string spritePath)
     velocity.y = 0;
     velocity.z = 0;
 
-    thrust = 0.002;
+    velocity_max = 2.5f;
+    directional_thruster_power = 0.01f;
+    thrust = 0.005f;
     shipRotation = 0.0f;
     useAutomaticZooming = true;
     cameraHeight = 200.0f;
@@ -62,8 +64,54 @@ void Ship::rotateRight()
     spritePtr->rotation = shipRotation*(180/3.14159);
 }
 
+// Strafing is done by calculating a vector perpendicular to
+// the velocity vector and multiplying by the thruster power.
+// The maths is:
+//
+//              |
+//    .(v^ |-)   |         . (v^)
+//      .       |       .
+//        .     |     .
+//          .   |   .
+//            . | .
+//  ____________|_____________
+//              | .
+//              |   .
+//              |     .  
+//              |        . (- v^ |-)
+// |- means perpendicular
+//  v^ |- = (-v^.y, v^.x)
+void Ship::strafeLeft()
+{
+    Vector3 normal_vector;
+    normal_vector.x = -1*directional_thruster_power * cos(shipRotation);
+    normal_vector.y = -1*directional_thruster_power * sin(shipRotation);
+    velocity += normal_vector;
+}
+
+void Ship::strafeRight()
+{
+    Vector3 normal_vector;
+    normal_vector.x = directional_thruster_power * cos(shipRotation);
+    normal_vector.y = directional_thruster_power * sin(shipRotation);
+    velocity += normal_vector;
+}
+
 void Ship::update()
 {
+    // Cap velocity
+    if (velocity.x > velocity_max.x)
+        velocity.x = velocity_max.x;
+    if (velocity.x < -1 && (abs(velocity.x) > velocity_max.x))
+        velocity.x = velocity_max.x * -1;
+
+    if (velocity.y > velocity_max.y)
+        velocity.y = velocity_max.y;
+    if (velocity.y < -1 && (abs(velocity.y) > velocity_max.y))
+        velocity.y = velocity_max.y * -1;
+
+    fprintf(stderr, "Velocity: %f %f\n", velocity.x, velocity.y);
+
     location = location + velocity;
     spritePtr->x = location.x;
     spritePtr->y = location.y;
@@ -73,7 +121,7 @@ void Ship::render()
 {
     if (useAutomaticZooming)
     {
-        cameraHeight = (abs(velocity.x) + abs(velocity.y) * 1000);
+        cameraHeight = (abs(velocity.length()*0.5) * 1000);
         if (cameraHeight < 200)
             cameraHeight = 200;
         if (cameraHeight > 1000)
@@ -103,10 +151,10 @@ void Ship::resetAllVectors()
 
 void Ship::cameraZoomIn()
 {
-    cameraHeight += 1.0f;
+    cameraHeight += 3.0f;
 }
 
 void Ship::cameraZoomOut()
 {
-    cameraHeight -= 1.0f;
+    cameraHeight -= 3.0f;
 }

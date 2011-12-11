@@ -13,6 +13,8 @@ private:
 
     Vector3 location;
     Vector3 velocity;
+    Vector3 velocity_max;
+    float directional_thruster_power;   // Strafing
     float shipRotation;     // Radians
 
     float thrust;
@@ -30,6 +32,8 @@ public:
     void stop();
     void rotateLeft();
     void rotateRight();
+    void strafeLeft();
+    void strafeRight();
     void resetAllVectors();
     void cameraZoomIn();
     void cameraZoomOut();

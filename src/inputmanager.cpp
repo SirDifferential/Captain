@@ -118,6 +118,16 @@ void Inputmanager::checkInput()
             currentRoom->getPlayerShip()->decelerate();
         }
 
+        if(keystate[SDLK_a])
+        {
+            currentRoom->getPlayerShip()->strafeLeft();
+        }
+
+        if(keystate[SDLK_d])
+        {
+            currentRoom->getPlayerShip()->strafeRight();
+        }
+
         if(keystate[SDLK_z])
         {
             currentRoom->getPlayerShip()->cameraZoomIn();
