@@ -1,6 +1,7 @@
 #include "starmap.hpp"
 #include "toolbox.hpp"
 #include "stars.hpp"
+#include <assert.h>
 
 //////////////////////////////////////////////////////////////////////////
 //                                                                      //
@@ -56,26 +57,29 @@ void Starmap::checkBorders(Vector3 loc)
     // Save the coordinates, we need them for rendering anyway
     playerCoords = loc;
 
-    top_left.first = (playerCoords.x - 1000)/1000;
-    top_left.second = (playerCoords.y + 1000)/1000;
-    top_middle.first = playerCoords.x/1000;
-    top_middle.second = (playerCoords.y + 1000)/1000;
-    top_right.first = (playerCoords.x + 1000)/1000;
-    top_right.second = (playerCoords.y + 1000)/1000;
+    //if (playerCoords.x < 1000)
+        //top_left.first = (playerCoords.x - 2000)/1000;
+    //else
+    top_left.first = floor((float(playerCoords.x - 1000))/1000);
+    top_left.second = floor((float(playerCoords.y + 1000))/1000);
+    top_middle.first = floor(float(playerCoords.x)/1000);
+    top_middle.second = floor((float(playerCoords.y + 1000))/1000);
+    top_right.first = floor((float(playerCoords.x + 1000))/1000);
+    top_right.second = floor((float(playerCoords.y + 1000))/1000);
 
-    middle_left.first = (playerCoords.x - 1000)/1000;
-    middle_left.second = playerCoords.y/1000;
-    center.first = playerCoords.x/1000;
-    center.second = playerCoords.y/1000;
-    middle_right.first = (playerCoords.x + 1000)/1000;
-    middle_right.second = playerCoords.y/1000;
+    middle_left.first = floor((float(playerCoords.x - 1000))/1000);
+    middle_left.second = floor(float(playerCoords.y)/1000);
+    center.first = floor(float(playerCoords.x)/1000);
+    center.second = floor(float(playerCoords.y)/1000);
+    middle_right.first = floor((float(playerCoords.x + 1000))/1000);
+    middle_right.second = floor(float(playerCoords.y)/1000);
 
-    bottom_left.first = (playerCoords.x - 1000)/1000;
-    bottom_left.second = (playerCoords.y - 1000)/1000;
-    bottom_middle.first = playerCoords.x/1000;
-    bottom_middle.second = (playerCoords.y - 1000)/1000;
-    bottom_right.first = (playerCoords.x + 1000)/1000;
-    bottom_right.second = (playerCoords.y - 1000)/1000;
+    bottom_left.first = floor((float(playerCoords.x - 1000))/1000);
+    bottom_left.second = floor((float(playerCoords.y - 1000))/1000);
+    bottom_middle.first = floor(float(playerCoords.x)/1000);
+    bottom_middle.second = floor((float(playerCoords.y - 1000))/1000);
+    bottom_right.first = floor((float(playerCoords.x + 1000))/1000);
+    bottom_right.second = floor((float(playerCoords.y - 1000))/1000);
     
     // Top row
     checkSector(top_left);
