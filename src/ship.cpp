@@ -110,8 +110,6 @@ void Ship::update()
     if (velocity.y < -1 && (abs(velocity.y) > velocity_max.y))
         velocity.y = velocity_max.y * -1;
 
-    fprintf(stderr, "Velocity: %f %f\n", velocity.x, velocity.y);
-
     location = location + velocity;
     spritePtr->x = location.x;
     spritePtr->y = location.y;

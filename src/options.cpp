@@ -134,7 +134,6 @@ void Options::render()
         if ((*iter)->getContent().compare("On") == 0 && (arenaRoom->getPlayerShip()->getUseAutoZoom() == true))
         {
             (*iter)->render();
-            fprintf(stderr, "Rendering\n");
         } else if ((*iter)->getContent().compare("Off") == 0 && (arenaRoom->getPlayerShip()->getUseAutoZoom() == false))
         {
             (*iter)->render();
