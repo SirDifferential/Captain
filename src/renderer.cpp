@@ -45,7 +45,7 @@ void Renderer::clearScreen()
     
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(65, manager.getOpengl()->getScreenX()/manager.getOpengl()->getScreenY(), 0.1, 1001);
+    gluPerspective(65, manager.getOpengl()->getScreenX()/manager.getOpengl()->getScreenY(), 0.1, 1100);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     

@@ -136,6 +136,10 @@ void Inputmanager::checkInput()
         {
             currentRoom->getPlayerShip()->cameraZoomOut();
         }
+        if(keystate[SDLK_k])
+        {
+            currentRoom->getPlayerShip()->fireWeapon1();
+        }
 
         SDL_Event e;
         while (SDL_PollEvent(&e))

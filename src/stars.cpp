@@ -12,7 +12,7 @@ Stars::Stars(std::string s, int quantity, float colorVariance, Vector3 coords)
     {
         iter->location.x = (double(rand())/RAND_MAX)*1000;
         iter->location.y = (double(rand())/RAND_MAX)*1000;
-        iter->location.z = -1;
+        iter->location.z = -1*(double(rand())/RAND_MAX)*10;
 
         iter->color.x = 1.0-(double(rand())/RAND_MAX) * colorVariance;
         iter->color.y = 1.0-(double(rand())/RAND_MAX) * colorVariance;

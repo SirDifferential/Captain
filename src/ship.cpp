@@ -2,6 +2,8 @@
 #include "sprite.hpp"
 #include "vector3.hpp"
 #include "renderer.hpp"
+#include "manager.hpp"
+#include "energyBolt.hpp"
 
 Ship::Ship(std::string n, std::string spritePath)
 {
@@ -23,6 +25,9 @@ Ship::Ship(std::string n, std::string spritePath)
     shipRotation = 0.0f;
     useAutomaticZooming = true;
     cameraHeight = 200.0f;
+
+    weapon1Cooldown = 1.0f;
+    weapon1FireTime = 0.0f;
 }
 
 Ship::~Ship()
@@ -113,6 +118,19 @@ void Ship::update()
     location = location + velocity;
     spritePtr->x = location.x;
     spritePtr->y = location.y;
+
+    // Check if any projectiles should be deleted
+    std::set<boost::shared_ptr<EnergyBolt> >::iterator iter = weapon1Shots.begin();
+    while (iter != weapon1Shots.end())
+    {
+        if ((*iter)->checkLife() == false)
+
+        {
+            iter = weapon1Shots.erase(iter);
+        } else {
+            ++iter;
+        }
+    }
 }
 
 void Ship::render()
@@ -134,6 +152,10 @@ void Ship::render()
         renderer.moveCamera(location.x, location.y, cameraHeight);
     }
     spritePtr->render();
+    for (std::set<boost::shared_ptr<EnergyBolt> >::iterator iter = weapon1Shots.begin(); iter != weapon1Shots.end(); iter++)
+    {
+        (*iter)->render();
+    }
 }
 
 void Ship::resetAllVectors()
@@ -155,4 +177,18 @@ void Ship::cameraZoomIn()
 void Ship::cameraZoomOut()
 {
     cameraHeight -= 3.0f;
+}
+
+void Ship::fireWeapon1()
+{
+    if (weapon1FireTime > manager.getTime() - weapon1Cooldown)
+    {
+        fprintf(stderr, "Cooling down\n");
+    } else
+    {
+        fprintf(stderr, "Firing\n");
+        weapon1FireTime = manager.getTime();
+        boost::shared_ptr<EnergyBolt> firedShot(new EnergyBolt(location, velocity, shipRotation));
+        weapon1Shots.insert(firedShot);
+    }
 }

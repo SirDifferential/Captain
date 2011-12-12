@@ -1,9 +1,13 @@
 #ifndef _SHIP_HPP_
 #define _SHIP_HPP_
 
-#include <boost/shared_ptr.hpp>
 #include "vector3.hpp"
 #include "sprite.hpp"
+#include <vector>
+#include <set>
+#include <boost/shared_ptr.hpp>
+
+class EnergyBolt;
 
 class Ship
 {
@@ -21,6 +25,11 @@ private:
     bool useAutomaticZooming;   // If camera zooms based on velocity
     boost::shared_ptr<Sprite> spritePtr;
     float cameraHeight; // How high from the ship the camera is
+
+    float weapon1FireTime;
+    float weapon1Cooldown;
+
+    std::set<boost::shared_ptr<EnergyBolt> > weapon1Shots;
 public:
     Ship(std::string n, std::string spritePath);
     ~Ship();
@@ -37,6 +46,7 @@ public:
     void resetAllVectors();
     void cameraZoomIn();
     void cameraZoomOut();
+    void fireWeapon1();
 
     void setLocation(Vector3 in) { location = in; }
     Vector3 getLocation() { return location; }
