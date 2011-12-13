@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-std=c++0x -g -o0 2>&1
+CFLAGS=-g -o0 2>&1
 LDFLAGS=-std=c++0x -lGL -lGLU -lGLEW -lSDL -lSDL_mixer -lSDL_image -lSDL_ttf
 SOURCES=$(wildcard ./*.cpp)
 OBJECTS=$(SOURCES:.cpp=.o)
