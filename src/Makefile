@@ -1,6 +1,6 @@
 CC=g++
-CFLAGS=-g -o0 2>&1
-LDFLAGS=-lGL -lGLU -lGLEW -lSDL -lSDL_mixer -lSDL_image -lSDL_ttf
+CFLAGS=-std=c++0x -g -o0 2>&1
+LDFLAGS=-std=c++0x -lGL -lGLU -lGLEW -lSDL -lSDL_mixer -lSDL_image -lSDL_ttf
 SOURCES=$(wildcard ./*.cpp)
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=Kapteeni

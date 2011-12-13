@@ -124,7 +124,6 @@ void Ship::update()
     while (iter != weapon1Shots.end())
     {
         if ((*iter)->checkLife() == false)
-
         {
             iter = weapon1Shots.erase(iter);
         } else {

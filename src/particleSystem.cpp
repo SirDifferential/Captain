@@ -1,5 +1,6 @@
 #include "particleSystem.hpp"
 #include <GL/glew.h>
+#include <stdio.h>
 
 ParticleSystem::ParticleSystem(int n, float h, float w, Vector3 loc, float colorVariance, float color1, float color2, float color3)
 {

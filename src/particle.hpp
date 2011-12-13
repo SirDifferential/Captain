@@ -1,7 +1,7 @@
 #ifndef _PARTICLE_HPP_
 #define _PARTICLE_HPP_
 
-#include "Vector3.hpp"
+#include "vector3.hpp"
 
 class ParticleSystem;
 

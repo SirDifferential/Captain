@@ -1,7 +1,7 @@
 #ifndef _ENERGYBOLT_HPP_
 #define _ENERGYBOLT_HPP_
 
-#include "Vector3.hpp"
+#include "vector3.hpp"
 #include "particleSystem.hpp"
 #include <boost/shared_ptr.hpp>
 

@@ -2,7 +2,7 @@
 #define _PARTICLESYSTEM_HPP_
 
 #include "particle.hpp"
-#include "Vector3.hpp"
+#include "vector3.hpp"
 #include <vector>
 
 class ParticleSystem
