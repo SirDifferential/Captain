@@ -21,6 +21,19 @@ Inputmanager::~Inputmanager()
     fprintf(stderr, "Inputmanager being fired...\n");
 }
 
+// Resets all keys as pressable at the beginning of the loop
+void Inputmanager::resetKeys()
+{
+    triggeredLeft = false;
+    triggeredRight = false;
+    triggeredUp = false;
+    triggeredDown = false;
+    triggeredA = false;
+    triggeredD = false;
+    triggeredZ = false;
+    triggeredX = false;
+}
+
 void Inputmanager::checkInput()
 {
     boost::shared_ptr<Room> currentRoom = manager.getRoomMgr()->giveCurrentRoom();
@@ -100,10 +113,22 @@ void Inputmanager::checkInput()
         }
     } else if (currentRoom->getType() == 3 || currentRoom->getType() == 1)  // Arena
     {
+    /*triggeredLeft = false;
+    triggeredRight = false;
+    triggeredUp = false;
+    triggeredDown = false;
+    triggeredA = false;
+    triggeredD = false;
+    triggeredZ = false;
+    triggeredX = false;*/
         Uint8* keystate = SDL_GetKeyState(NULL);
         if(keystate[SDLK_LEFT])
         {
-            currentRoom->getPlayerShip()->rotateLeft();
+            if (!triggeredLeft)
+            {
+                currentRoom->getPlayerShip()->rotateLeft();
+                triggeredLeft = true;
+            }
         }
         if(keystate[SDLK_RIGHT])
         {
