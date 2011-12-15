@@ -57,6 +57,7 @@ int Manager::run()
             nextFPS += 1000;
         }
 
+	inputmgr.resetKeys();
         inputmgr.checkInput();
         renderer.render();
 

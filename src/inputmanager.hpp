@@ -18,6 +18,7 @@ private:
     bool triggeredD;
     bool triggeredZ;
     bool triggeredX;
+    bool triggeredK;
 public:
     Inputmanager();
     ~Inputmanager();

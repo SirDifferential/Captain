@@ -32,6 +32,7 @@ void Inputmanager::resetKeys()
     triggeredD = false;
     triggeredZ = false;
     triggeredX = false;
+    triggeredK = false;
 }
 
 void Inputmanager::checkInput()
@@ -113,16 +114,8 @@ void Inputmanager::checkInput()
         }
     } else if (currentRoom->getType() == 3 || currentRoom->getType() == 1)  // Arena
     {
-    /*triggeredLeft = false;
-    triggeredRight = false;
-    triggeredUp = false;
-    triggeredDown = false;
-    triggeredA = false;
-    triggeredD = false;
-    triggeredZ = false;
-    triggeredX = false;*/
         Uint8* keystate = SDL_GetKeyState(NULL);
-        if(keystate[SDLK_LEFT])
+        if (keystate[SDLK_LEFT])
         {
             if (!triggeredLeft)
             {
@@ -130,40 +123,77 @@ void Inputmanager::checkInput()
                 triggeredLeft = true;
             }
         }
-        if(keystate[SDLK_RIGHT])
+
+        if (keystate[SDLK_RIGHT])
         {
-            currentRoom->getPlayerShip()->rotateRight();
-        }
-        if(keystate[SDLK_UP])
-        {
-            currentRoom->getPlayerShip()->accelerate();
-        }
-        if(keystate[SDLK_DOWN])
-        {
-            currentRoom->getPlayerShip()->decelerate();
+            if (!triggeredRight)
+            {
+                currentRoom->getPlayerShip()->rotateRight();
+                triggeredRight = true;
+            }
         }
 
-        if(keystate[SDLK_a])
+        if (keystate[SDLK_UP])
         {
-            currentRoom->getPlayerShip()->strafeLeft();
+            if (!triggeredUp)
+            {
+                currentRoom->getPlayerShip()->accelerate();
+                triggeredUp = true;
+            }
         }
 
-        if(keystate[SDLK_d])
+        if (keystate[SDLK_DOWN])
         {
-            currentRoom->getPlayerShip()->strafeRight();
+            if (!triggeredDown)
+            {
+                currentRoom->getPlayerShip()->decelerate();
+                triggeredDown = true;
+            }
+        }
+
+        if (keystate[SDLK_a])
+        {
+            if (!triggeredA)
+            {
+                currentRoom->getPlayerShip()->strafeLeft();
+                triggeredA = true;
+            }
+        }
+
+        if (keystate[SDLK_d])
+        {
+            if (!triggeredD)
+            {
+                currentRoom->getPlayerShip()->strafeRight();
+                triggeredD = true;
+            }
         }
 
         if(keystate[SDLK_z])
         {
-            currentRoom->getPlayerShip()->cameraZoomIn();
+            if (!triggeredZ)
+            {
+                currentRoom->getPlayerShip()->cameraZoomIn();
+                triggeredZ = true;
+            }
         }
-        if(keystate[SDLK_x])
+
+        if (keystate[SDLK_x])
         {
-            currentRoom->getPlayerShip()->cameraZoomOut();
+            if (!triggeredX)
+            {
+                currentRoom->getPlayerShip()->cameraZoomOut();
+                triggeredX = true;
+            }
         }
-        if(keystate[SDLK_k])
+
+        if (keystate[SDLK_k])
         {
-            currentRoom->getPlayerShip()->fireWeapon1();
+            if (!triggeredK)
+            {
+                currentRoom->getPlayerShip()->fireWeapon1();
+                triggeredK = true;
+            }
         }
 
         SDL_Event e;
