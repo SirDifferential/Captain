@@ -50,6 +50,7 @@ public:
 
     void setLocation(Vector3 in) { location = in; }
     Vector3 getLocation() { return location; }
+    Vector3 getVelocity() { return velocity; }
     std::string getName() { return name; }
     void setUseAutoZoom(bool in) { useAutomaticZooming = in; }
     bool getUseAutoZoom() { return useAutomaticZooming; }

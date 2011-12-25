@@ -2,6 +2,8 @@
 #include "manager.hpp"
 #include "renderer.hpp"
 
+#include "enemy.hpp"
+
 Room::Room(std::string s, std::string mus, int n, int t)
 {
     fprintf(stderr, "Room creating with name %s and number %d and type %d\n", s.c_str(), n, t);
@@ -57,6 +59,8 @@ void Room::operate()
 
         for (spriteIterator = spriteMap.begin(); spriteIterator != spriteMap.end(); spriteIterator++)
             (*spriteIterator).second->render();
+        for (enemyIterator = enemyMap.begin(); enemyIterator != enemyMap.end(); enemyIterator++)
+            (*enemyIterator).second->operate();
         for (shipIterator = shipMap.begin(); shipIterator != shipMap.end(); shipIterator++)
         {
             (*shipIterator).second->update();
@@ -167,6 +171,23 @@ void Room::removeShip(std::string name)
     } else
     {
         fprintf(stderr, "No ship found to delete! Ship: %s, Room: %d\n", name.c_str(), roomNumber);
+    }
+}
+
+void Room::addEnemy(boost::shared_ptr<Enemy> e)
+{
+    enemyMap[e->getName()] = e;
+}
+
+void Room::removeEnemy(std::string e)
+{
+    enemyIterator = enemyMap.find(name.c_str());
+    if (enemyIterator != enemyMap.end())
+    {
+        enemyMap.erase(enemyIterator);
+    } else
+    {
+        fprintf(stderr, "No enemy found to delete! Enemy: %s, Room: %d\n", e.c_str(), roomNumber);
     }
 }
 

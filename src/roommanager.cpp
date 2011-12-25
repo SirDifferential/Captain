@@ -1,6 +1,7 @@
 #include "roommanager.hpp"
 #include "toolbox.hpp"
 #include "options.hpp"
+#include "enemy.hpp"
 
 typedef std::pair<std::string, boost::shared_ptr<Room> > roomPair;
 
@@ -48,21 +49,10 @@ bool RoomManager::init()
     boost::shared_ptr<Room> room1Ptr(new Room("First level", "data/music/preacher.it", 100, 1));
     arenaRoom = room1Ptr;
     boost::shared_ptr<Ship> playerShip(new Ship("Player ship", "data/2D/playerShip001.png"));
-    /*Vector3 tempCoords(0,0,0);
-    std::vector<boost::shared_ptr<Stars> > level1Stars;
-    for (int i = -2; i < 2; i++)
-    {
-        for (int j = -2; j < 2; j++)
-        {
-            std::string levelName = tbox.combineStringAndInts("level 1 stars ", i, j);
-            tempCoords.x = i*1000;
-            tempCoords.y = j*1000;
-            boost::shared_ptr<Stars> tempPtr(new Stars(levelName, 1000, 0.3, tempCoords));
-            room1Ptr->addStars(tempPtr);
-        }
-    }
-    */
     room1Ptr->addShip(playerShip);
+    Vector3 coords(0, 0, 0);
+    boost::shared_ptr<Enemy> enemy1(new Enemy("enemy1", "data/2D/enemy001.png", coords));
+    room1Ptr->addEnemy(enemy1);
 
     boost::shared_ptr<Room> helpRoom(new Room("Help", "no music", 900, 4));
     path1 = "data/2D/help.png";

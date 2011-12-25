@@ -7,10 +7,14 @@
 #include "sprite.hpp"
 #include "ship.hpp"
 #include "starmap.hpp"
+
+class Enemy;
+
 #include <map>
 
 typedef std::map<std::string, boost::shared_ptr<Sprite> > spriteContainer;
 typedef std::map<std::string, boost::shared_ptr<Ship> > shipContainer;
+typedef std::map<std::string, boost::shared_ptr<Enemy> > enemyContainer;
 
 class Room
 {
@@ -26,6 +30,9 @@ private:
     spriteContainer::iterator spriteIterator;
     shipContainer shipMap;
     shipContainer::iterator shipIterator;
+    enemyContainer enemyMap;
+    enemyContainer::iterator enemyIterator;
+
     double roomStartTime;
     bool firstRun;
     double timePerPicture; // For cinematics
@@ -46,6 +53,8 @@ public:
     void removeSprite(std::string name);
     void addShip(boost::shared_ptr<Ship> s);
     void removeShip(std::string name);
+    void addEnemy(boost::shared_ptr<Enemy> e);
+    void removeEnemy(std::string e);
     boost::shared_ptr<Menu> giveMenu() { return menuPtr; }
     boost::shared_ptr<Options> giveOptions() { return optionsPtr; }
     void iterateSprites();
