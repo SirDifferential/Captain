@@ -1,7 +1,7 @@
 #include "enemy.hpp"
 #include "sprite.hpp"
 #include "manager.hpp"
-#include "roomManager.hpp"
+#include "roommanager.hpp"
 #include "room.hpp"
 #include "ship.hpp"
 
