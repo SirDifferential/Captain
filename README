@@ -4,4 +4,4 @@ Requires boost, SDL, SDL_image, SDL_ttf, SDL_mixer, opengl, glew
 
 For automatic, hourly builds see: http://plantmonster.homeip.net/koodailut/kapteeni/automatic_builds/
 
-
+There's a small build script in the root directory of the repository called build.sh
