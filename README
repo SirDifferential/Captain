@@ -1,0 +1,7 @@
+This is a small game project, mostly intended to be my personal learning experience in programming a bit larger software entity.
+
+Requires boost, SDL, SDL_image, SDL_ttf, SDL_mixer, opengl, glew
+
+For automatic, hourly builds see: http://plantmonster.homeip.net/koodailut/kapteeni/automatic_builds/
+
+
