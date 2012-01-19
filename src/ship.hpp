@@ -24,6 +24,7 @@ private:
     float thrust;
     bool useAutomaticZooming;   // If camera zooms based on velocity
     boost::shared_ptr<Sprite> spritePtr;
+    float scale;
     float cameraHeight; // How high from the ship the camera is
 
     float weapon1FireTime;
@@ -48,6 +49,7 @@ public:
     void cameraZoomOut();
     void fireWeapon1();
 
+    void setScale(float f);
     void setLocation(Vector3 in) { location = in; }
     Vector3 getLocation() { return location; }
     Vector3 getVelocity() { return velocity; }

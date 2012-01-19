@@ -48,7 +48,8 @@ bool RoomManager::init()
    
     boost::shared_ptr<Room> room1Ptr(new Room("First level", "data/music/preacher.it", 100, 1));
     arenaRoom = room1Ptr;
-    boost::shared_ptr<Ship> playerShip(new Ship("Player ship", "data/2D/playerShip001.png"));
+    boost::shared_ptr<Ship> playerShip(new Ship("Player ship", "data/2D/shipyard_001.png"));
+    playerShip->setScale(0.05f);
     room1Ptr->addShip(playerShip);
     Vector3 coords(0, 0, 0);
     boost::shared_ptr<Enemy> enemy1(new Enemy("enemy1", "data/2D/enemy001.png", coords));

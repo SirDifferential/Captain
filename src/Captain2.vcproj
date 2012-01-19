@@ -176,6 +176,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\enemy.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\energyBolt.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\inputmanager.hpp"
 				>
 			</File>
@@ -193,6 +201,14 @@
 			</File>
 			<File
 				RelativePath=".\options.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\particle.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\particleSystem.hpp"
 				>
 			</File>
 			<File
@@ -256,6 +272,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\enemy.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\energyBolt.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\inputmanager.cpp"
 				>
 			</File>
@@ -277,6 +301,14 @@
 			</File>
 			<File
 				RelativePath=".\options.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\particle.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\particleSystem.cpp"
 				>
 			</File>
 			<File

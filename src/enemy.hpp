@@ -14,6 +14,11 @@ private:
     Vector3 location;
     Vector3 velocity;
     boost::shared_ptr<Sprite> enemySprite;
+
+    float velocity_max;
+    float directional_thruster_power;
+    float thrust;
+    float shipRotation;
 public:
     Enemy(std::string name, std::string spritePath, Vector3 loc);
     ~Enemy();
@@ -22,6 +27,15 @@ public:
     void think();
     void update();
     void render();
+
+    void accelerate();
+    void decelerate();
+    void stop();
+    void rotateLeft();
+    void rotateRight();
+    void strafeLeft();
+    void strafeRight();
+    void resetAllVectors();
 
     std::string getName() { return name; }
 };

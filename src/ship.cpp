@@ -56,7 +56,7 @@ void Ship::stop()
 void Ship::rotateLeft()
 {
     shipRotation += 0.01f;
-    if (shipRotation > 6.28318)  // Radians
+    if (shipRotation > 6.28318)  // Radians, 2*pi
         shipRotation = 0.0f;
     spritePtr->rotation = shipRotation*(180/3.14159);    // Sprite rotation in degrees
 }
@@ -74,7 +74,7 @@ void Ship::rotateRight()
 // The maths is:
 //
 //              |
-//    .(v^ |-)   |         . (v^)
+//    .(v^ |-)  |         . (v^)
 //      .       |       .
 //        .     |     .
 //          .   |   .
@@ -190,4 +190,10 @@ void Ship::fireWeapon1()
         boost::shared_ptr<EnergyBolt> firedShot(new EnergyBolt(location, velocity, shipRotation));
         weapon1Shots.insert(firedShot);
     }
+}
+
+void Ship::setScale(float f)
+{
+    scale = f;
+    spritePtr->scale = f;
 }
