@@ -36,13 +36,13 @@ Ship::~Ship()
 
 void Ship::accelerate()
 {
-    velocity.x += -1*sin(shipRotation)*thrust;
+    velocity.x += sin(shipRotation)*thrust;
     velocity.y += cos(shipRotation)*thrust;
 }
 
 void Ship::decelerate()
 {
-    velocity.x -= -1*sin(shipRotation)*thrust;
+    velocity.x -= sin(shipRotation)*thrust;
     velocity.y -= cos(shipRotation)*thrust;
 }
 
@@ -55,18 +55,18 @@ void Ship::stop()
 
 void Ship::rotateLeft()
 {
-    shipRotation += 0.01f;
-    if (shipRotation > 6.28318)  // Radians, 2*pi
-        shipRotation = 0.0f;
-    spritePtr->rotation = shipRotation*(180/3.14159);    // Sprite rotation in degrees
+    shipRotation -= 0.01f;
+    if (shipRotation < 0.0f)  // Radians, 2*pi
+        shipRotation = 6.28318f;
+    spritePtr->rotation = shipRotation*(180/3.14159)*-1;    // Sprite rotation in degrees
 }
 
 void Ship::rotateRight()
 {
-    shipRotation -= 0.01;
-    if (shipRotation > 6.28318)
+    shipRotation += 0.01;
+    if (shipRotation > 6.28318f)
         shipRotation = 0.0f;
-    spritePtr->rotation = shipRotation*(180/3.14159);
+    spritePtr->rotation = shipRotation*(180/3.14159)*-1;
 }
 
 // Strafing is done by calculating a vector perpendicular to
@@ -90,7 +90,7 @@ void Ship::strafeLeft()
 {
     Vector3 normal_vector;
     normal_vector.x = -1*directional_thruster_power * cos(shipRotation);
-    normal_vector.y = -1*directional_thruster_power * sin(shipRotation);
+    normal_vector.y = directional_thruster_power * sin(shipRotation);
     velocity += normal_vector;
 }
 
@@ -98,7 +98,7 @@ void Ship::strafeRight()
 {
     Vector3 normal_vector;
     normal_vector.x = directional_thruster_power * cos(shipRotation);
-    normal_vector.y = directional_thruster_power * sin(shipRotation);
+    normal_vector.y = -1*directional_thruster_power * sin(shipRotation);
     velocity += normal_vector;
 }
 

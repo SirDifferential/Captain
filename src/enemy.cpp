@@ -38,77 +38,79 @@ void Enemy::think()
 {
     // TODO: Move the following stuff into something like ramEnemyShip(Vector3 enemyLoc, Vector3 enemyVel);
     // Placeholder: attempt to ram player. Can be modified for "travel to coords (x,y)"
-    Vector3 playerCoords = manager.getRoomMgr()->giveCurrentRoom()->getPlayerShip()->getLocation();
-    Vector3 playerVelocity = manager.getRoomMgr()->giveCurrentRoom()->getPlayerShip()->getVelocity();
+    boost::shared_ptr<Ship> playerShip = manager.getRoomMgr()->giveCurrentRoom()->getPlayerShip();
+    Vector3 playerCoords = playerShip->getLocation();
+    Vector3 playerVelocity = playerShip->getVelocity();
     Vector3 distanceToPlayer;
+    float distance_to_player = abs(sqrt( (playerCoords.x*playerCoords.x) + (playerCoords.y*playerCoords.y) ));
     distanceToPlayer.x = playerCoords.x - location.x;
     distanceToPlayer.y = playerCoords.y - location.y;
-
-    // Placeholder: Accelerate towards angle alpha
-    float targetAngle = atan(distanceToPlayer.x / distanceToPlayer.y);
-
-    // Figure out the unit circle sign. Damn I hate calculating these. Is there a better way?
-    if (distanceToPlayer.x >= 0 && distanceToPlayer.y >= 0)
+    
+    // What is the angle between this ship and the player ship?
+    float angle = 0.0f;
+    angle = atan(distanceToPlayer.x / distanceToPlayer.y);
+    if (distanceToPlayer.x <= 0 && distanceToPlayer.y >= 0)
     {
-        // 0 - 90 degrees, 0 - pi/2
-        // atan returns the correct angle directly
-    }
-    else if (distanceToPlayer.x >= 0 && distanceToPlayer.y < 0)
+        angle = 6.28318f - (-1*angle);
+    } else if (distanceToPlayer.x > 0 && distanceToPlayer.y > 0)
     {
-        // 90 - 180 degrees, pi/2 - pi
-        // atan returns -pi/2 - 0 when going clockwise
-        // fixedAngle is 1.57079 if we are barely on the bottom-right part of the unit circle
-        // and 3.14159 if we are at the bottom center
-        float fixedAngle = 3.14159 + targetAngle;
-        // This could be done in one line, buuuut...
-        targetAngle = fixedAngle;
-    }
-    else if (distanceToPlayer.x < 0 && distanceToPlayer.y < 0)
+        angle = angle;
+    } else if (distanceToPlayer.x < 0 && distanceToPlayer.y < 0)
     {
-        // 180 - 270 degrees, pi/2 - 3/2 * pi
-        // atan returns 0 - pi/2 when going clockwise
-        // fixedAngle is 3.14159 if we are the bottom
-        // and 4.71239 if we are at middle left
-        float fixedAngle = 3.14159 + targetAngle;
-        targetAngle = fixedAngle;
-    }
-    else if (distanceToPlayer.x < 0 && distanceToPlayer.y > 0)
+        angle = 3.14159 + angle;
+    } else if (distanceToPlayer.x > 0 && distanceToPlayer.y < 0)
     {
-        // 270 - 360 degrees, 3/2 * pi - 2*pi
-        // atan returns -pi/2 - 0 when going clockwise
-        // fixedAngle is 6.28319 if we are at the top
-        // and 4.71239 if we are at middle left
-        float fixedAngle = 6.28319 + targetAngle;
-        targetAngle = fixedAngle;
-    }
-    else
+        angle = 3.14159 - (-1*angle);
+    } else
     {
-        fprintf(stderr, "Mathematics broke, y u break universe?\n");
-        fprintf(stderr, "distance X: %f, distance Y: %f\n", distanceToPlayer.x, distanceToPlayer.y);
+        fprintf(stderr, "Odd location at enemy think()\n");
     }
 
-    fprintf(stderr, "distance X: %f distance Y: %f\n", distanceToPlayer.x, distanceToPlayer.y);
-    fprintf(stderr, "target angle: %f\n", targetAngle);
-    fprintf(stderr, "degrees: %f\n", targetAngle*(180/3.14159));
+    // Figure out which is the fastest way to face the enemy
 
-    // See whether it is faster to face the enemy via rotating to left or rotating to right
-    float rotationDelta = targetAngle - shipRotation;
+    // How much the ship has to turn to face zero? These are both positive as they are used
+    // For figuring out what is the shortest path. Of course, turning left causes the rotation to be negative
+    float distance_to_zero_via_right = 6.28318f - shipRotation;
+    float distance_to_zero_via_left = shipRotation;
 
-    // If rotationDelta is larger than 3.14159, it is faster to turn the other way
-    if (rotationDelta > 3.14159f)
-        rotationDelta = (6.28319f - targetAngle + shipRotation)*-1;
+    float enemy_distance_to_zero_via_right = 6.28318f - angle;
+    float enemy_distance_to_zero_via_left = angle;
+    float rotational_distance = 0.0f;
 
-    fprintf(stderr, "Rotation delta: %f\n", rotationDelta);
-    fprintf(stderr, "Ship rotation: %f\n", shipRotation);
-
-    if (rotationDelta > 0.01f)
+    if (shipRotation+0.1 > angle)
     {
-        rotateLeft();
-    }
-    else if (rotationDelta < -0.01f)
+        float distance_by_turning_left = shipRotation - angle;
+        float distance_by_turning_right_via_zero = distance_to_zero_via_right + enemy_distance_to_zero_via_left;
+
+        if (distance_by_turning_left < distance_by_turning_right_via_zero)
+        {
+            rotational_distance = distance_by_turning_left;
+            rotateLeft();
+        }
+        else
+        {
+            rotational_distance = distance_by_turning_right_via_zero;
+            rotateRight();
+        }
+    } else if (shipRotation-0.1 < angle)
     {
-        rotateRight();
+        float distance_by_turning_right = angle - shipRotation;
+        float distance_by_turning_left_via_zero = distance_to_zero_via_left + enemy_distance_to_zero_via_right;
+        
+        if (distance_by_turning_right < distance_by_turning_left_via_zero)
+        {
+            rotational_distance = distance_by_turning_right;
+            rotateRight();
+        }
+        else
+        {
+            rotational_distance = distance_by_turning_left_via_zero;
+            rotateLeft();
+        }
     }
+
+    if (distance_to_player > 3.0)
+        accelerate();
 }
 
 void Enemy::update()
@@ -125,13 +127,13 @@ void Enemy::render()
 
 void Enemy::accelerate()
 {
-    velocity.x += -1*sin(shipRotation)*thrust;
+    velocity.x += sin(shipRotation)*thrust;
     velocity.y += cos(shipRotation)*thrust;
 }
 
 void Enemy::decelerate()
 {
-    velocity.x -= -1*sin(shipRotation)*thrust;
+    velocity.x -= sin(shipRotation)*thrust;
     velocity.y -= cos(shipRotation)*thrust;
 }
 
@@ -144,27 +146,30 @@ void Enemy::stop()
 
 void Enemy::rotateLeft()
 {
-    shipRotation += 0.01f;
-    if (shipRotation > 6.28318)  // Radians
-        shipRotation = 0.0f;
-    shipRotation = abs(shipRotation);
-    enemySprite->rotation = shipRotation*(180/3.14159);    // Sprite rotation in degrees
+    if (shipRotation < 0.0f)  // Radians
+        shipRotation = 6.28318f;
+    shipRotation -= 0.01f;
+    if (shipRotation < 0.0f)  // Radians
+        shipRotation = 6.28318f;
+    enemySprite->rotation = shipRotation*(180/3.14159)*-1;    // Sprite rotation in degrees
 }
 
 void Enemy::rotateRight()
 {
-    shipRotation -= 0.01;
-    if (shipRotation > 6.28318)
+    if (shipRotation > 6.28318f)
         shipRotation = 0.0f;
-    shipRotation = abs(shipRotation);
-    enemySprite->rotation = shipRotation*(180/3.14159);
+    shipRotation += 0.01f;
+    if (shipRotation > 6.28318f)
+        shipRotation = 0.0f;
+    
+    enemySprite->rotation = shipRotation*(180/3.14159)*-1;
 }
 
 void Enemy::strafeLeft()
 {
     Vector3 normal_vector;
     normal_vector.x = -1*directional_thruster_power * cos(shipRotation);
-    normal_vector.y = -1*directional_thruster_power * sin(shipRotation);
+    normal_vector.y = directional_thruster_power * sin(shipRotation);
     velocity += normal_vector;
 }
 
@@ -172,7 +177,7 @@ void Enemy::strafeRight()
 {
     Vector3 normal_vector;
     normal_vector.x = directional_thruster_power * cos(shipRotation);
-    normal_vector.y = directional_thruster_power * sin(shipRotation);
+    normal_vector.y = -1*directional_thruster_power * sin(shipRotation);
     velocity += normal_vector;
 }
 

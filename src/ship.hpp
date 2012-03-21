@@ -56,6 +56,7 @@ public:
     std::string getName() { return name; }
     void setUseAutoZoom(bool in) { useAutomaticZooming = in; }
     bool getUseAutoZoom() { return useAutomaticZooming; }
+    float getRotation() { return shipRotation; }
 };
 
 #endif
