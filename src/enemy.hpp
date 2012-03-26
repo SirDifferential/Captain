@@ -19,6 +19,7 @@ private:
     float directional_thruster_power;
     float thrust;
     float shipRotation;
+    float brakePower;
 public:
     Enemy(std::string name, std::string spritePath, Vector3 loc);
     ~Enemy();
@@ -30,6 +31,7 @@ public:
 
     void accelerate();
     void decelerate();
+    void come_to_halt();
     void stop();
     void rotateLeft();
     void rotateRight();

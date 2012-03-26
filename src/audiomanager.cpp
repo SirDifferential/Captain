@@ -1,7 +1,7 @@
 #include "audiomanager.hpp"
 #include "manager.hpp"
 
-//#define NOMUSIC
+#define NOMUSIC
 
 AudioManager::AudioManager()
 {
@@ -28,6 +28,7 @@ bool AudioManager::init()
 
 void AudioManager::startMusic()
 {
+#ifndef NOMUSIC
     fprintf(stderr, "Playing music\n");
     if(Mix_PlayMusic(music, -1) == -1)
     {
@@ -35,18 +36,23 @@ void AudioManager::startMusic()
         manager.getEnter();
         manager.stop();
     }
+#endif
 }
 
 void AudioManager::stopMusic()
 {
+#ifndef NOMUSIC
     fprintf(stderr, "Stopping music\n");
     Mix_HaltMusic();
+#endif
 }
 
 void AudioManager::playSoundEffect(std::string path)
 {
+#ifndef NOMUSIC
     sfx1 = Mix_LoadMUS(path.c_str());
     Mix_PlayMusic(sfx1, 1);
+#endif
 }
 
 void AudioManager::changeMainMusic(std::string path)
@@ -60,6 +66,7 @@ void AudioManager::changeMainMusic(std::string path)
 
 void AudioManager::loadAudio(Mix_Music* &audio, std::string path)
 {
+#ifndef NOMUSIC
     audio = NULL;
     audio = Mix_LoadMUS(path.c_str());
     if (audio == NULL)
@@ -68,4 +75,5 @@ void AudioManager::loadAudio(Mix_Music* &audio, std::string path)
         manager.getEnter();
         manager.stop();
     }
+#endif
 }

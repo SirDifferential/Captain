@@ -29,6 +29,7 @@ private:
 
     float weapon1FireTime;
     float weapon1Cooldown;
+    float brakePower;
 
     std::set<boost::shared_ptr<EnergyBolt> > weapon1Shots;
 public:
@@ -48,6 +49,7 @@ public:
     void cameraZoomIn();
     void cameraZoomOut();
     void fireWeapon1();
+    void come_to_halt();
 
     void setScale(float f);
     void setLocation(Vector3 in) { location = in; }

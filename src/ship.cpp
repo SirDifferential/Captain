@@ -28,6 +28,8 @@ Ship::Ship(std::string n, std::string spritePath)
 
     weapon1Cooldown = 1.0f;
     weapon1FireTime = 0.0f;
+
+    brakePower = 0.08f;
 }
 
 Ship::~Ship()
@@ -51,6 +53,25 @@ void Ship::stop()
     velocity.x = 0;
     velocity.y = 0;
     velocity.z = 0;
+}
+
+void Ship::come_to_halt()
+{
+    if (velocity.x > 0)
+    {
+        velocity.x -= brakePower;
+    } else if (velocity.x < 0)
+    {
+        velocity.x += brakePower;
+    }
+
+    if (velocity.y > 0)
+    {
+        velocity.y -= brakePower;
+    } else if (velocity.y < 0)
+    {
+        velocity.y += brakePower;
+    }
 }
 
 void Ship::rotateLeft()

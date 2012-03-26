@@ -17,10 +17,11 @@ Enemy::Enemy(std::string n, std::string s, Vector3 loc)
     velocity.y = 0;
     velocity.z = 0;
 
-    velocity_max = 2.5f;
+    velocity_max = 2.0f;
     directional_thruster_power = 0.01f;
-    thrust = 0.005f;
+    thrust = 0.01f;
     shipRotation = 0.0f;
+    brakePower = 0.03f;
 }
 
 Enemy::~Enemy()
@@ -41,8 +42,10 @@ void Enemy::think()
     boost::shared_ptr<Ship> playerShip = manager.getRoomMgr()->giveCurrentRoom()->getPlayerShip();
     Vector3 playerCoords = playerShip->getLocation();
     Vector3 playerVelocity = playerShip->getVelocity();
+    float playerDeltaX = playerCoords.x - location.x;
+    float playerDeltaY = playerCoords.y - location.y;
     Vector3 distanceToPlayer;
-    float distance_to_player = abs(sqrt( (playerCoords.x*playerCoords.x) + (playerCoords.y*playerCoords.y) ));
+    float distance_to_player = abs(sqrt( (playerDeltaX*playerDeltaX) + (playerDeltaY*playerDeltaY) ));
     distanceToPlayer.x = playerCoords.x - location.x;
     distanceToPlayer.y = playerCoords.y - location.y;
     
@@ -52,13 +55,13 @@ void Enemy::think()
     if (distanceToPlayer.x <= 0 && distanceToPlayer.y >= 0)
     {
         angle = 6.28318f - (-1*angle);
-    } else if (distanceToPlayer.x > 0 && distanceToPlayer.y > 0)
+    } else if (distanceToPlayer.x >= 0 && distanceToPlayer.y >= 0)
     {
         angle = angle;
-    } else if (distanceToPlayer.x < 0 && distanceToPlayer.y < 0)
+    } else if (distanceToPlayer.x <= 0 && distanceToPlayer.y <= 0)
     {
         angle = 3.14159 + angle;
-    } else if (distanceToPlayer.x > 0 && distanceToPlayer.y < 0)
+    } else if (distanceToPlayer.x >= 0 && distanceToPlayer.y <= 0)
     {
         angle = 3.14159 - (-1*angle);
     } else
@@ -109,8 +112,10 @@ void Enemy::think()
         }
     }
 
-    if (distance_to_player > 3.0)
+    if (distance_to_player > 100.0)
         accelerate();
+    else
+        come_to_halt();
 }
 
 void Enemy::update()
@@ -144,11 +149,34 @@ void Enemy::stop()
     velocity.z = 0;
 }
 
+void Enemy::come_to_halt()
+{
+    if (velocity.x > 0.02)
+    {
+        velocity.x -= brakePower;
+        fprintf(stderr, "Brake at x\n");
+    } else if (velocity.x < -0.02)
+    {
+        fprintf(stderr, "Accel at x\n");
+        velocity.x += brakePower;
+    }
+
+    if (velocity.y > 0.02)
+    {
+        fprintf(stderr, "Brake at y\n");
+        velocity.y -= brakePower;
+    } else if (velocity.y < -0.02)
+    {
+        fprintf(stderr, "Accel at y\n");
+        velocity.y += brakePower;
+    }
+}
+
 void Enemy::rotateLeft()
 {
     if (shipRotation < 0.0f)  // Radians
         shipRotation = 6.28318f;
-    shipRotation -= 0.01f;
+    shipRotation -= 0.05f;
     if (shipRotation < 0.0f)  // Radians
         shipRotation = 6.28318f;
     enemySprite->rotation = shipRotation*(180/3.14159)*-1;    // Sprite rotation in degrees
@@ -158,7 +186,7 @@ void Enemy::rotateRight()
 {
     if (shipRotation > 6.28318f)
         shipRotation = 0.0f;
-    shipRotation += 0.01f;
+    shipRotation += 0.05f;
     if (shipRotation > 6.28318f)
         shipRotation = 0.0f;
     
