@@ -13,19 +13,19 @@ Manager::Manager()
     debug = true;
     running = true;
     gameTime = 0.0f;
-    boost::shared_ptr<Opengl> tempPtr1(new Opengl());
-    openglPtr = tempPtr1;
+    openglPtr = boost::shared_ptr<Opengl>(new Opengl());
     if (!openglPtr->start())
         stop();
-    boost::shared_ptr<RoomManager> tempPtr2(new RoomManager());
-    roomManagerPtr = tempPtr2;
+    roomManagerPtr = boost::shared_ptr<RoomManager>(new RoomManager());
     if (!roomManagerPtr->init())
         stop();
-    boost::shared_ptr<AudioManager> tempPtr3(new AudioManager());
-    audioManagerPtr = tempPtr3;
+    audioManagerPtr = boost::shared_ptr<AudioManager>(new AudioManager());
     if (!audioManagerPtr->init())
         stop();
     audioManagerPtr->startMusic();
+    physicsPtr = boost::shared_ptr<Physics>(new Physics());
+    if (!physicsPtr->init())
+        stop();
 }
 
 Manager::~Manager()

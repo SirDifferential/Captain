@@ -1,7 +1,7 @@
 #include "room.hpp"
 #include "manager.hpp"
 #include "renderer.hpp"
-
+#include "physics.hpp"
 #include "enemy.hpp"
 
 Room::Room(std::string s, std::string mus, int n, int t)
@@ -66,6 +66,11 @@ void Room::operate()
             (*shipIterator).second->update();
             (*shipIterator).second->render();
         }
+
+        // Collision checks. It's a bit of, ehm, mess to read, but all it does is gets the boost::shared_ptr<Ship>, which then gets boost::shared_ptr<Sprite>. Sorry.
+        for (enemyIterator = enemyMap.begin(); enemyIterator != enemyMap.end(); enemyIterator++)
+            manager.getPhysics()->checkCollision((*playerShip).getSprite().get(), (*enemyIterator).second.get()->getSprite().get());
+
 	} else if (roomType == 2) // A menu
 	{
         renderer.moveCamera(0, 0, renderer.getNativeHeight());

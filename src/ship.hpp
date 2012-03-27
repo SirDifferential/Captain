@@ -59,6 +59,7 @@ public:
     void setUseAutoZoom(bool in) { useAutomaticZooming = in; }
     bool getUseAutoZoom() { return useAutomaticZooming; }
     float getRotation() { return shipRotation; }
+    boost::shared_ptr<Sprite> getSprite() { return spritePtr; }
 };
 
 #endif

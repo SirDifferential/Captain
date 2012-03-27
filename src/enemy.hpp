@@ -40,6 +40,7 @@ public:
     void resetAllVectors();
 
     std::string getName() { return name; }
+    boost::shared_ptr<Sprite> getSprite() { return enemySprite; }
 };
 
 #endif
