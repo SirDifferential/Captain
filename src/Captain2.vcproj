@@ -212,6 +212,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\physics.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\renderer.hpp"
 				>
 			</File>
@@ -221,6 +225,10 @@
 			</File>
 			<File
 				RelativePath=".\roommanager.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SDL_Collide.h"
 				>
 			</File>
 			<File
@@ -309,6 +317,10 @@
 			</File>
 			<File
 				RelativePath=".\particleSystem.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\physics.cpp"
 				>
 			</File>
 			<File

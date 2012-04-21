@@ -6,8 +6,8 @@ EnergyBolt::EnergyBolt(Vector3 loc, Vector3 vel, float rotation)
     fprintf(stderr, "EnergyBolt constructing\n");
     location = loc;
 
-    velocity.x = -1*sin(rotation)*4.0f + vel.x;
-    velocity.y = cos(rotation)*4.0f + vel.y;
+    velocity.x = sin(rotation)*4.0f, + vel.x;
+    velocity.y = cos(rotation)*4.0f, + vel.y;
 
     lifeTime = 3.0f;
     birthTime = manager.getTime();
